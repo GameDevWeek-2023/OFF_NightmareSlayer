@@ -80,6 +80,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grappling"",
+                    ""type"": ""Button"",
+                    ""id"": ""455a4e4e-7ae6-453a-930d-40e0ff7ae8c8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -302,6 +311,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79ba0e28-6116-40d9-9b65-268b0cadd6be"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grappling"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b61bedf-7dee-4054-8f71-8745f44b15d9"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grappling"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -316,6 +347,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Movement_Interact = m_Movement.FindAction("Interact", throwIfNotFound: true);
         m_Movement_DreamShift = m_Movement.FindAction("Dream Shift", throwIfNotFound: true);
         m_Movement_Glide = m_Movement.FindAction("Glide", throwIfNotFound: true);
+        m_Movement_Grappling = m_Movement.FindAction("Grappling", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,6 +415,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Interact;
     private readonly InputAction m_Movement_DreamShift;
     private readonly InputAction m_Movement_Glide;
+    private readonly InputAction m_Movement_Grappling;
     public struct MovementActions
     {
         private @PlayerInput m_Wrapper;
@@ -393,6 +426,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Movement_Interact;
         public InputAction @DreamShift => m_Wrapper.m_Movement_DreamShift;
         public InputAction @Glide => m_Wrapper.m_Movement_Glide;
+        public InputAction @Grappling => m_Wrapper.m_Movement_Grappling;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -420,6 +454,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Glide.started += instance.OnGlide;
             @Glide.performed += instance.OnGlide;
             @Glide.canceled += instance.OnGlide;
+            @Grappling.started += instance.OnGrappling;
+            @Grappling.performed += instance.OnGrappling;
+            @Grappling.canceled += instance.OnGrappling;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -442,6 +479,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Glide.started -= instance.OnGlide;
             @Glide.performed -= instance.OnGlide;
             @Glide.canceled -= instance.OnGlide;
+            @Grappling.started -= instance.OnGrappling;
+            @Grappling.performed -= instance.OnGrappling;
+            @Grappling.canceled -= instance.OnGrappling;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -467,5 +507,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnDreamShift(InputAction.CallbackContext context);
         void OnGlide(InputAction.CallbackContext context);
+        void OnGrappling(InputAction.CallbackContext context);
     }
 }
