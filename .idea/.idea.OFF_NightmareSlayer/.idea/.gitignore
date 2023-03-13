@@ -1,11 +1,21 @@
+<<<<<<< Updated upstream
 ﻿# Default ignored files
+=======
+# Default ignored files
+>>>>>>> Stashed changes
 /shelf/
 /workspace.xml
 # Rider ignored files
 /modules.xml
+<<<<<<< Updated upstream
 /.idea.OFF_NightmareSlayer.iml
 /contentModel.xml
 /projectSettingsUpdater.xml
+=======
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.OFF_NightmareSlayer.iml
+>>>>>>> Stashed changes
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
