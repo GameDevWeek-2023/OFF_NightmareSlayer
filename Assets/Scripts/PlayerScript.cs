@@ -41,7 +41,8 @@ public class PlayerScript : MonoBehaviour
     private int attackDamage;
     
     //Hitpoints
-    private int lives;
+    private int lifes;
+    private int maxLifes;
     
     //DreamShift
     private bool canDreamShift;
@@ -88,7 +89,7 @@ public class PlayerScript : MonoBehaviour
 
         playerInput.Movement.Enable();
 
-        lives = 5;
+        lifes = maxLifes;
     }
 
     private void Update()
@@ -99,6 +100,7 @@ public class PlayerScript : MonoBehaviour
         if (leftSideRay || rightSideRay)
         {
             isGrounded = true;
+            if(!usingGrappling) movedAfterGrappling = true;
             usedDoubleJump = false;
             if(isGliding) CancelGliding();
         }
@@ -520,12 +522,12 @@ public class PlayerScript : MonoBehaviour
     
     //UI-Methods
 
-    private void setUILives()
+    private void SetUILives()
     {
-        uiScript.checkHearts(lives);
+        uiScript.checkHearts(lifes);
     }
 
-    private void setUIEssenzBar()
+    private void SetUIEssenzBar()
     {
         if (dreamEssence > essenceCapacity) dreamEssence = essenceCapacity;
         float zs = dreamEssence / essenceCapacity;
