@@ -17,7 +17,7 @@ public class PlayerScript : MonoBehaviour
 
     //Movement
     private new Rigidbody2D rigidbody;
-    private new Collider2D collider;
+    private new CapsuleCollider2D collider;
     private bool isGrounded;
     private bool isGliding;
     private float walkingVelocity;
@@ -49,18 +49,24 @@ public class PlayerScript : MonoBehaviour
     private bool hasDoubleJump = true;
     private bool usedDoubleJump;
     private bool hasGrappling = true;
+    private bool usingGrappling;
     private List<Grappable> grappableTargets;
+    private Grappable currentTarget;
+    public LayerMask obstaclesTowardsTarget;
+    private bool movedAfterGrappling = true;
     private Animator animator;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
+        collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
 
         dialogueText.text = "";
         dialogueObject.SetActive(false);
         playerStats.SetActive(true);
+
+        grappableTargets = new List<Grappable>();
         
         playerInput = new PlayerInput();
 
@@ -127,6 +133,16 @@ public class PlayerScript : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position + Vector3.left * .2f, transform.position + Vector3.left * .2f + Vector3.down * .85f);
         Gizmos.DrawLine(transform.position + Vector3.right * .2f, transform.position + Vector3.right * .2f + Vector3.down * .85f);
+        
+        Gizmos.color = Color.magenta;
+        //Gizmos.DrawLine(transform.position + Vector3.up * .42f + Vector3.left * .34f, transform.position + Vector3.up * .42f + Vector3.right * .34f);
+        //Gizmos.DrawLine(transform.position + Vector3.down * .78f + Vector3.left * .34f, transform.position + Vector3.down * .78f + Vector3.right * .34f);
+        //Gizmos.DrawSphere(transform.position + new Vector3(collider.offset.x,collider.offset.y),.5f);
+        if (grappableTargets == null) return;
+        foreach (var target in grappableTargets)
+        {
+            Gizmos.DrawLine(transform.position,target.transform.position);
+        }
     }
 
     private void FixedUpdate()
@@ -134,6 +150,7 @@ public class PlayerScript : MonoBehaviour
         RaycastHit2D leftSideRay = Physics2D.Raycast(transform.position + Vector3.left * .2f, Vector2.down, .85f, nonGroundLayerMask);
         RaycastHit2D rightSideRay = Physics2D.Raycast(transform.position + Vector3.right * .2f, Vector2.down, .85f, nonGroundLayerMask);
 
+        if (usingGrappling) return;
         if (isGliding && !isGrounded)
         {
             if (walkingVelocity == 0)
@@ -157,9 +174,10 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
+            if (!movedAfterGrappling) return;
             if (walkingVelocity == 0 && !leftSideRay && !rightSideRay)
             {
-                rigidbody.velocity = new Vector2(walkingVelocity * movementSpeed, rigidbody.velocity.y);
+                rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
             }
             else
             {
@@ -178,11 +196,43 @@ public class PlayerScript : MonoBehaviour
         {
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
         }
+
+        
+        //Target finden für Grappling
+        if(!hasGrappling) return;
+        
+        Vector2 ownPos = transform.position;
+        float distanceToTarget = float.MaxValue;
+        if(currentTarget != null) currentTarget.Untarget();
+        currentTarget = null;
+        if (usingGrappling) return;
+        foreach (var target in grappableTargets)
+        {
+            Vector2 targetPos = target.transform.position;
+            if(targetPos.y < ownPos.y) continue;
+            if (transform.localScale.x > 0 ? (targetPos.x < ownPos.x) : (targetPos.x > ownPos.x)) continue;
+
+            float currentDistance = Vector2.Distance(ownPos,targetPos);
+            RaycastHit2D hit = Physics2D.Raycast(ownPos, targetPos-ownPos, currentDistance, obstaclesTowardsTarget);
+            if(hit)
+            {
+                continue;
+            }
+                
+            if (currentDistance < distanceToTarget)
+            {
+                distanceToTarget = currentDistance;
+                currentTarget = target;
+            }
+        }
+        if(currentTarget != null) currentTarget.Target();
     }
 
     private void Move(Vector2 value)
     {
         if(!canMove) return;
+
+        movedAfterGrappling = true;
 
         if (value.x < 0) //Walk left
         {
@@ -215,6 +265,8 @@ public class PlayerScript : MonoBehaviour
     private void Jump()
     {
         if(!canMove) return;
+
+        movedAfterGrappling = true;
 
         if (isGrounded)
         {
@@ -345,6 +397,41 @@ public class PlayerScript : MonoBehaviour
     {
         if(!hasGrappling) return;
         if(!canMove) return;
+        if (usingGrappling) return;
+        if (currentTarget == null) return;
+
+        StartCoroutine(UseGrappling());
+    }
+
+    private IEnumerator UseGrappling()
+    {
+        Grappable target = currentTarget;
+        
+        usingGrappling = true;
+        canMove = false;
+        movedAfterGrappling = false;
+
+        rigidbody.gravityScale = 0;
+        rigidbody.velocity = Vector2.zero;
+        
+        yield return new WaitForSeconds(.2f);
+        Vector2 direction = target.transform.position - transform.position;
+        Vector2 newVelocity = direction.normalized * 16;
+        rigidbody.velocity = newVelocity;
+        yield return new WaitForSeconds(direction.magnitude/newVelocity.magnitude);
+        
+        rigidbody.gravityScale = 1;
+        usingGrappling = false;
+        canMove = true;
+        
+        if (playerInput.Movement.Move.IsPressed())
+        {
+            Move(playerInput.Movement.Move.ReadValue<Vector2>());
+        }
+        else
+        {
+            walkingVelocity = 0;
+        }
         
     }
 
