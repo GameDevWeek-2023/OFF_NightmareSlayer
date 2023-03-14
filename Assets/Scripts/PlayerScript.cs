@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour
     private float dialogueSpeed;
     private Coroutine dialogueCoroutine;
     private int dialogueState;
+    public UiScript uiScript;
 
     //Movement
     private new Rigidbody2D rigidbody;
@@ -38,6 +39,9 @@ public class PlayerScript : MonoBehaviour
     
     //Attack
     private int attackDamage;
+    
+    //Hitpoints
+    private int lives;
     
     //DreamShift
     private bool canDreamShift;
@@ -83,6 +87,8 @@ public class PlayerScript : MonoBehaviour
         playerInput.Movement.Pause.performed += ctx => Pause();
 
         playerInput.Movement.Enable();
+
+        lives = 5;
     }
 
     private void Update()
@@ -510,5 +516,19 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSeconds(dialogueSpeed);
         }
         dialogueState = 2;
+    }
+    
+    //UI-Methods
+
+    private void setUILives()
+    {
+        uiScript.checkHearts(lives);
+    }
+
+    private void setUIEssenzBar()
+    {
+        if (dreamEssence > essenceCapacity) dreamEssence = essenceCapacity;
+        float zs = dreamEssence / essenceCapacity;
+        uiScript.setEssenz(zs);
     }
 }

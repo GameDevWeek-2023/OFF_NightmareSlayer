@@ -1792,6 +1792,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6047419494745229966, guid: 01a48880ad97e4f47b596e758f41eabb, type: 3}
   m_PrefabInstance: {fileID: 969027395}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &969027398 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7873382696577397034, guid: 01a48880ad97e4f47b596e758f41eabb, type: 3}
+  m_PrefabInstance: {fileID: 969027395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca9576d88ddb544ab157a576fc86a06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1075265203
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,6 +2084,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
+      propertyPath: uiScript
+      value: 
+      objectReference: {fileID: 969027398}
     - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
       propertyPath: pausePanel
       value: 

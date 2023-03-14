@@ -16,26 +16,17 @@ public class UiScript : MonoBehaviour
     public Image heart4;
     public Image heart5;
 
-    public TMP_Text dialog;
-
     public int essenz; //zwischen 0 und 100
-    public int lives = 3;
-
-    public void changedialog(String inhalt)
+    public int lives = 5;
+    
+    public void setEssenz(float count)
     {
-        dialog.text = " " + inhalt;
+        essenzBar.fillAmount = count;
     }
 
-    public void setEssenz(int plus)
+    public void checkHearts(int check)
     {
-        essenz += plus;
-        if (essenz > 100) essenz = 100;
-        essenzBar.fillAmount = essenz / 100f;
-    }
-
-    public void checkHearts()
-    {
-        switch (lives)
+        switch (check)
         {
             case 0: 
                 heart1.enabled = false;
