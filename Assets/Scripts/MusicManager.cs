@@ -30,7 +30,6 @@ public class MusicManager : MonoBehaviour
         {
             currentFade -= Time.deltaTime;
             float fade = fadeDuration * currentFade;
-            Debug.Log(fade);
             (source1Active ? source1 : source2).volume = musicVolume * fade;
             (!source1Active ? source1 : source2).volume = musicVolume * (1 - fade);
         }
