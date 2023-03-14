@@ -65,7 +65,7 @@ public class EnemyMovement : MonoBehaviour
                 else
                     normal = hit.normal;
                 Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .3f, normal,Color.green);
-                Debug.DrawRay(transform.position, hit.normal,Color.yellow);
+                Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .3f, hit.normal,Color.yellow);
                 Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .6f, back.normal, Color.yellow);
                 transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, Vector2.SignedAngle(Vector2.up,normal));
             }
