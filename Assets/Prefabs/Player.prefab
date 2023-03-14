@@ -163,6 +163,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 0}
+  playerStats: {fileID: 0}
+  dialogueObject: {fileID: 0}
+  dialogueText: {fileID: 0}
   movementSpeed: 8
   jumpSpeed: 14
   glidingSpeed: 4
@@ -176,6 +179,9 @@ MonoBehaviour:
   physicsMaterialAir: {fileID: 6200000, guid: 92febd0f981714170b5e7750addeadbd, type: 2}
   physicsMaterialGround: {fileID: 6200000, guid: 4a6bbddc9c0e44222941fb6aa0dd9aac, type: 2}
   physicsMaterialWalk: {fileID: 6200000, guid: e0b54829f682244cfb713b7fdbf6f7db, type: 2}
+  obstaclesTowardsTarget:
+    serializedVersion: 2
+    m_Bits: 183
 --- !u!95 &1951016375659649493
 Animator:
   serializedVersion: 5
