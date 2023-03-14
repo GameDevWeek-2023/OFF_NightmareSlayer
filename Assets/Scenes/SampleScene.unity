@@ -1371,6 +1371,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01a48880ad97e4f47b596e758f41eabb, type: 3}
+--- !u!114 &969027396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5551963370565136924, guid: 01a48880ad97e4f47b596e758f41eabb, type: 3}
+  m_PrefabInstance: {fileID: 969027395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1075265203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1801,6 +1812,7 @@ RectTransform:
   - {fileID: 1646394592}
   - {fileID: 55673161}
   - {fileID: 345780568}
+  - {fileID: 5325450838992778932}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2302,7 +2314,7 @@ PrefabInstance:
     - target: {fileID: 237694324839572725, guid: 1022ace0e7d36e14f93908601bc103c5, type: 3}
       propertyPath: dialogueText
       value: 
-      objectReference: {fileID: 1065655147}
+      objectReference: {fileID: 969027396}
     - target: {fileID: 1102459659404823935, guid: 1022ace0e7d36e14f93908601bc103c5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2396,3 +2408,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1022ace0e7d36e14f93908601bc103c5, type: 3}
+--- !u!224 &5325450838992778932 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1102459659404823935, guid: 1022ace0e7d36e14f93908601bc103c5, type: 3}
+  m_PrefabInstance: {fileID: 5325450838992778931}
+  m_PrefabAsset: {fileID: 0}
