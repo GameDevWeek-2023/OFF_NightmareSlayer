@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8742268872278551011
 SpriteRenderer:
@@ -162,14 +162,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c8201299acfb47f2812fb79ec3e962b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pausePanel: {fileID: 0}
   movementSpeed: 8
   jumpSpeed: 14
+  glidingSpeed: 4
+  glideFallSpeed: 1
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 55
   nonGroundLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   physicsMaterialAir: {fileID: 6200000, guid: 92febd0f981714170b5e7750addeadbd, type: 2}
   physicsMaterialGround: {fileID: 6200000, guid: 4a6bbddc9c0e44222941fb6aa0dd9aac, type: 2}
   physicsMaterialWalk: {fileID: 6200000, guid: e0b54829f682244cfb713b7fdbf6f7db, type: 2}
