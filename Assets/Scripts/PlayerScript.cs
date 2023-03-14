@@ -11,10 +11,13 @@ public class PlayerScript : MonoBehaviour
     //Movement
     private new Rigidbody2D rigidbody;
     private new Collider2D collider;
-    private bool isGrounded = true;
+    private bool isGrounded;
+    private bool isGliding;
     private float walkingVelocity;
     public float movementSpeed;
     public float jumpSpeed;
+    public float glidingSpeed;
+    public float glideFallSpeed;
     public LayerMask groundLayerMask;
     public LayerMask nonGroundLayerMask;
     public PhysicsMaterial2D physicsMaterialAir;
@@ -30,10 +33,10 @@ public class PlayerScript : MonoBehaviour
     private float dreamEssence;
     private float essenceCapacity;
     //Abilities
-    private bool hasGlide;
-    private bool hasDoubleJump;
+    private bool hasGlide = true;
+    private bool hasDoubleJump = true;
     private bool usedDoubleJump;
-    private bool hasGrappling;
+    private bool hasGrappling = true;
     private Animator animator;
     
     private void Awake()
@@ -67,6 +70,7 @@ public class PlayerScript : MonoBehaviour
         {
             isGrounded = true;
             usedDoubleJump = false;
+            if(isGliding) CancelGliding();
         }
         else
         {
@@ -112,15 +116,29 @@ public class PlayerScript : MonoBehaviour
         RaycastHit2D leftSideRay = Physics2D.Raycast(transform.position + Vector3.left * .2f, Vector2.down, .85f, nonGroundLayerMask);
         RaycastHit2D rightSideRay = Physics2D.Raycast(transform.position + Vector3.right * .2f, Vector2.down, .85f, nonGroundLayerMask);
 
-        if (walkingVelocity == 0 && !leftSideRay && !rightSideRay)
+        if (isGliding && !isGrounded)
         {
-            rigidbody.velocity = new Vector2(walkingVelocity * movementSpeed, rigidbody.velocity.y);
+            if (walkingVelocity != 0)
+            {
+                rigidbody.velocity = new Vector2(walkingVelocity * glidingSpeed, -glideFallSpeed);
+            }
+            else
+            {
+                rigidbody.velocity = new Vector2(transform.localScale.x * glidingSpeed, -glideFallSpeed);
+            }
         }
         else
         {
-            if (!(walkingVelocity > 0? rightSideRay : leftSideRay))
+            if (walkingVelocity == 0 && !leftSideRay && !rightSideRay)
             {
                 rigidbody.velocity = new Vector2(walkingVelocity * movementSpeed, rigidbody.velocity.y);
+            }
+            else
+            {
+                if (!(walkingVelocity > 0 ? rightSideRay : leftSideRay))
+                {
+                    rigidbody.velocity = new Vector2(walkingVelocity * movementSpeed, rigidbody.velocity.y);
+                }
             }
         }
     }
@@ -176,8 +194,9 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if (!usedDoubleJump)
+            if (hasDoubleJump && !usedDoubleJump)
             {
+                if(isGliding) CancelGliding();
                 rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
                 usedDoubleJump = true;
             }
@@ -225,6 +244,7 @@ public class PlayerScript : MonoBehaviour
                 Debug.Log("Attacke Rechts");
             }
         }
+        if(isGliding) CancelGliding();
     }
 
     private void Interact()
@@ -243,7 +263,30 @@ public class PlayerScript : MonoBehaviour
     {
         if(!hasGlide) return;
         if(!canMove) return;
-        
+
+        if (isGliding && !pressed)
+        {
+            CancelGliding();
+        }
+        else if (!isGliding && pressed && !isGrounded)
+        {
+            StartGliding();
+        }
+    }
+
+    private void StartGliding()
+    {
+        isGliding = true;
+        rigidbody.velocity = Vector2.zero;
+        rigidbody.gravityScale = 0f;
+        //TODO Gliding Animation
+    }
+
+    private void CancelGliding()
+    {
+        isGliding = false;
+        rigidbody.gravityScale = 1f;
+        //TODO Stop Gliding Animation
     }
 
     private void Grappling()
