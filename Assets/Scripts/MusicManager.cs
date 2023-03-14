@@ -4,16 +4,47 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
+    public static MusicManager instance;
     public TrackPair[] tracks;
-    // Start is called before the first frame update
-    void Start()
+    public float fadeDuration;
+    public float musicVolume;
+    public AudioSource source1;
+    public AudioSource source2;
+    private float currentFade;
+    private bool source1Active=false;
+    private int currentTrack;
+    private void Awake()
     {
-        
+        instance = this;
+        source1.volume = musicVolume;
+        source2.volume = 0;
+        source1.clip = tracks[currentTrack].normal;
+        source2.clip = tracks[currentTrack].nightmareMode;
+        source1.Play();
+        source2.Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (currentFade > 0)
+        {
+            currentFade -= Time.deltaTime;
+            float fade = fadeDuration * currentFade;
+            Debug.Log(fade);
+            (source1Active ? source1 : source2).volume = musicVolume * fade;
+            (!source1Active ? source1 : source2).volume = musicVolume * (1 - fade);
+        }
     }
+
+    public void StartFade()
+    {
+        currentFade = fadeDuration;
+        source1Active = !source1Active;
+    }
+
+    public void StartFade(float fadeDuration)
+    {
+        currentFade = fadeDuration;
+    }
+
 }
