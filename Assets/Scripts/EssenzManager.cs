@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiScript : MonoBehaviour
+public class EssenzManager : MonoBehaviour
 {
     public Image essenzBar;
 
-    public void setEssenz(float count)
+    public void SetEssenz(float count)
     {
         essenzBar.fillAmount = count;
     }

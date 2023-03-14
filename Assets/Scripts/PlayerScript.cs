@@ -14,8 +14,8 @@ public class PlayerScript : MonoBehaviour
     private float dialogueSpeed;
     private Coroutine dialogueCoroutine;
     private int dialogueState;
-    public UiScript uiScript;
     public HeartManager heartManager;
+    public EssenzManager essenzManager;
 
     //Movement
     private new Rigidbody2D rigidbody;
@@ -535,6 +535,6 @@ public class PlayerScript : MonoBehaviour
     {
         if (dreamEssence > essenceCapacity) dreamEssence = essenceCapacity;
         float zs = dreamEssence / essenceCapacity;
-        uiScript.setEssenz(zs);
+        essenzManager.SetEssenz(zs);
     }
 }

@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1830554801
-  m_SortingLayer: 1
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 548543cb9cca8c5468dd04f82241565c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -166,6 +166,8 @@ MonoBehaviour:
   playerStats: {fileID: 0}
   dialogueObject: {fileID: 0}
   dialogueText: {fileID: 0}
+  heartManager: {fileID: 0}
+  essenzManager: {fileID: 0}
   movementSpeed: 8
   jumpSpeed: 14
   glidingSpeed: 4
