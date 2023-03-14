@@ -53,6 +53,7 @@ public class PlayerScript : MonoBehaviour
         playerInput.Movement.Glide.performed += ctx => Glide(true);
         playerInput.Movement.Glide.canceled += ctx => Glide(false);
         playerInput.Movement.Grappling.performed += ctx => Grappling();
+        playerInput.Movement.Pause.performed += ctx => Pause();
 
         playerInput.Movement.Enable();
     }
@@ -252,8 +253,9 @@ public class PlayerScript : MonoBehaviour
         
     }
 
-    private void pause()
+    private void Pause()
     {
         pausePanel.SetActive(true);
+        Time.timeScale = 0;
     }
 }
