@@ -1,13 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
     //UI
     public GameObject pausePanel;
-    
+    public GameObject playerStats;
+    public TextMeshProUGUI dialogueText;
+    private float dialogueSpeed;
+    private Coroutine dialogueCoroutine;
+    private int dialogueState;
+
     //Movement
     private new Rigidbody2D rigidbody;
     private new Collider2D collider;
@@ -43,12 +49,16 @@ public class PlayerScript : MonoBehaviour
     private bool usedDoubleJump;
     private bool hasGrappling = true;
     private Animator animator;
-    
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
+
+        dialogueText.text = "";
+        playerStats.SetActive(true);
+        
         playerInput = new PlayerInput();
 
         playerInput.Movement.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
@@ -264,9 +274,29 @@ public class PlayerScript : MonoBehaviour
 
     private void Interact()
     {
+        if (dialogueCoroutine != null)
+        {
+            if(dialogueState == 1)
+            {
+                dialogueState = 2;
+                return;
+            }
+            if(dialogueState == 2)
+            {
+                canMove = true;
+                dialogueText.text = "";
+                dialogueCoroutine = null;
+                playerStats.SetActive(true);
+                return;
+            }
+        }
+        
+        if(!canMove) return;
+        
         if (currentInteractable != null)
         {
             currentInteractable.Interact();
+            walkingVelocity = 0;
         }
     }
 
@@ -343,5 +373,35 @@ public class PlayerScript : MonoBehaviour
             currentInteractable.HideText();
             currentInteractable = null;
         }
+    }
+
+    public void SetDialogueSpeed(float speed)
+    {
+        dialogueSpeed = speed;
+    }
+
+    public void StartDialogue(string sentence)
+    {
+        dialogueCoroutine = StartCoroutine(Writer(sentence));
+    }
+    
+    private IEnumerator Writer(string sentence)
+    {
+        dialogueText.text = "";
+        canMove = false;
+        dialogueState = 1;
+        playerStats.SetActive(false);
+        
+        foreach (char c in sentence) 
+        {
+            if (dialogueState == 2)
+            {
+                dialogueText.text = sentence;
+                break;
+            }
+            dialogueText.text += c;
+            yield return new WaitForSeconds(dialogueSpeed);
+        }
+        dialogueState = 2;
     }
 }

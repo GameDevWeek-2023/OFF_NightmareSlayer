@@ -9,13 +9,12 @@ public class DialogueScript : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;
     public string sentence;
-    private bool Tlocker = true;
 
     public float dialogueSpeed;
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.T) && Tlocker)
+        /*if (Input.GetKey(KeyCode.T) && Tlocker)
         {
             Tlocker = false;
             playSentences();
@@ -26,7 +25,7 @@ public class DialogueScript : MonoBehaviour
             Debug.Log("Skipped");
             skip();
             Tlocker = true;
-        }
+        }*/
     }
 
     public void playSentences()
@@ -43,12 +42,11 @@ public class DialogueScript : MonoBehaviour
     IEnumerator writer()
     {
         dialogueText.text = "";
-        dialogueText.text = "";
-        foreach (char Character in sentence) 
+        
+        foreach (char c in sentence) 
         {
-            dialogueText.text += Character; 
+            dialogueText.text += c; 
             yield return new WaitForSeconds(dialogueSpeed);
         }
-        Tlocker = true;
     }
 }
