@@ -1495,14 +1495,6 @@ PrefabInstance:
       propertyPath: pausePanel
       value: 
       objectReference: {fileID: 848420272}
-    - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
-      propertyPath: glidingSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
-      propertyPath: glideFallSpeed
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 6050384550476718392, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
       propertyPath: m_RootOrder
       value: 2
