@@ -1,18 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public UnityEvent interactionEvent;
+    private GameObject interactionText;
+
+    private void Awake()
     {
+        interactionText = transform.GetChild(0).gameObject;
         
+        HideText();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowText()
     {
-        
+        interactionText.SetActive(true);
+    }
+
+    public void HideText()
+    {
+        interactionText.SetActive(false);
+    }
+
+    public void Interact()
+    {
+        interactionEvent.Invoke();
     }
 }
