@@ -23,15 +23,20 @@ public class PlayerScript : MonoBehaviour
     public PhysicsMaterial2D physicsMaterialAir;
     public PhysicsMaterial2D physicsMaterialGround;
     public PhysicsMaterial2D physicsMaterialWalk;
+    
     //Input
     private PlayerInput playerInput;
     private bool canMove = true;
+    private Interactable currentInteractable;
+    
     //Attack
     private int attackDamage;
+    
     //DreamShift
     private bool canDreamShift;
     private float dreamEssence;
     private float essenceCapacity;
+    
     //Abilities
     private bool hasGlide = true;
     private bool hasDoubleJump = true;
@@ -259,7 +264,10 @@ public class PlayerScript : MonoBehaviour
 
     private void Interact()
     {
-        
+        if (currentInteractable != null)
+        {
+            currentInteractable.Interact();
+        }
     }
 
     private void DreamShift()
@@ -310,5 +318,30 @@ public class PlayerScript : MonoBehaviour
     {
         pausePanel.SetActive(true);
         Time.timeScale = 0;
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Interactable"))
+        {
+            currentInteractable = other.GetComponent<Interactable>();
+            if(isGrounded)
+            {
+                currentInteractable.ShowText();
+            }
+            else
+            {
+                currentInteractable.HideText();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Interactable") && other.GetComponent<Interactable>() == currentInteractable)
+        {
+            currentInteractable.HideText();
+            currentInteractable = null;
+        }
     }
 }
