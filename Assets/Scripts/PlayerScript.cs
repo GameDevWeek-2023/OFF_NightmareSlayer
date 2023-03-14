@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    //UI
+    public GameObject pausePanel;
+    
     //Movement
     private new Rigidbody2D rigidbody;
     private new Collider2D collider;
@@ -50,6 +53,7 @@ public class PlayerScript : MonoBehaviour
         playerInput.Movement.Glide.performed += ctx => Glide(true);
         playerInput.Movement.Glide.canceled += ctx => Glide(false);
         playerInput.Movement.Grappling.performed += ctx => Grappling();
+        playerInput.Movement.Pause.performed += ctx => Pause();
 
         playerInput.Movement.Enable();
     }
@@ -247,5 +251,11 @@ public class PlayerScript : MonoBehaviour
         if(!hasGrappling) return;
         if(!canMove) return;
         
+    }
+
+    private void Pause()
+    {
+        pausePanel.SetActive(true);
+        Time.timeScale = 0;
     }
 }

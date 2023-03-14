@@ -89,6 +89,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""3107fe08-e547-4c5b-ab28-a4cc5f0fdc33"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -333,6 +342,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Grappling"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea571673-4b64-4c8c-8aa0-e42147b69c0c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46d5c4d8-a2a9-49e0-959e-ac0dec163515"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -348,6 +379,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Movement_DreamShift = m_Movement.FindAction("Dream Shift", throwIfNotFound: true);
         m_Movement_Glide = m_Movement.FindAction("Glide", throwIfNotFound: true);
         m_Movement_Grappling = m_Movement.FindAction("Grappling", throwIfNotFound: true);
+        m_Movement_Pause = m_Movement.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -416,6 +448,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_DreamShift;
     private readonly InputAction m_Movement_Glide;
     private readonly InputAction m_Movement_Grappling;
+    private readonly InputAction m_Movement_Pause;
     public struct MovementActions
     {
         private @PlayerInput m_Wrapper;
@@ -427,6 +460,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @DreamShift => m_Wrapper.m_Movement_DreamShift;
         public InputAction @Glide => m_Wrapper.m_Movement_Glide;
         public InputAction @Grappling => m_Wrapper.m_Movement_Grappling;
+        public InputAction @Pause => m_Wrapper.m_Movement_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -457,6 +491,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Grappling.started += instance.OnGrappling;
             @Grappling.performed += instance.OnGrappling;
             @Grappling.canceled += instance.OnGrappling;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -482,6 +519,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Grappling.started -= instance.OnGrappling;
             @Grappling.performed -= instance.OnGrappling;
             @Grappling.canceled -= instance.OnGrappling;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -508,5 +548,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnDreamShift(InputAction.CallbackContext context);
         void OnGlide(InputAction.CallbackContext context);
         void OnGrappling(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
