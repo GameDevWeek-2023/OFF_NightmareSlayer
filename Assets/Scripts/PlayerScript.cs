@@ -308,14 +308,18 @@ public class PlayerScript : MonoBehaviour
     {
         if(!canMove) return;
 
+        
+
         Vector2 look = playerInput.Movement.Move.ReadValue<Vector2>();
         if (look.x < 0)
         {
             Debug.Log("Attacke Links");
+            animator.SetTrigger("hit");
         }
         else if (look.x > 0)
         {
             Debug.Log("Attacke Rechts");
+            animator.SetTrigger("hit");
         }
         else if (look.y > 0)
         {
@@ -330,10 +334,12 @@ public class PlayerScript : MonoBehaviour
             if (transform.localScale.x < 0)
             {
                 Debug.Log("Attacke Links");
+                animator.SetTrigger("hit");
             }
             else
             {
                 Debug.Log("Attacke Rechts");
+                animator.SetTrigger("hit");
             }
         }
         if(isGliding) CancelGliding();
