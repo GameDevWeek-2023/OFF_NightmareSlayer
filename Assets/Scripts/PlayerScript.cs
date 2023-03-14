@@ -6,11 +6,17 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     //Movement
-    private Rigidbody2D rigidbody;
+    private new Rigidbody2D rigidbody;
+    private new Collider2D collider;
     private bool isGrounded = true;
     private float walkingVelocity;
     public float movementSpeed;
     public float jumpSpeed;
+    public LayerMask groundLayerMask;
+    public LayerMask nonGroundLayerMask;
+    public PhysicsMaterial2D physicsMaterialAir;
+    public PhysicsMaterial2D physicsMaterialGround;
+    public PhysicsMaterial2D physicsMaterialWalk;
     //Input
     private PlayerInput playerInput;
     private bool canMove = true;
@@ -29,6 +35,7 @@ public class PlayerScript : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
         
         playerInput = new PlayerInput();
 
@@ -48,13 +55,74 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
-        //TODO prüfe ob grounded
-        //TODO falls grounded, setze doublejump zurück
+        RaycastHit2D leftSideRay = Physics2D.Raycast(transform.position + Vector3.left * .15f, Vector2.down, .85f, groundLayerMask);
+        RaycastHit2D rightSideRay = Physics2D.Raycast(transform.position + Vector3.right * .15f, Vector2.down, .85f, groundLayerMask);
+        
+        if (leftSideRay || rightSideRay)
+        {
+            isGrounded = true;
+            usedDoubleJump = false;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+
+
+        if (!isGrounded)
+        {
+            collider.sharedMaterial = physicsMaterialAir;
+        }
+        else
+        {
+            if (walkingVelocity != 0)
+            {
+                collider.sharedMaterial = physicsMaterialWalk;
+            }
+            else
+            {
+                collider.sharedMaterial = physicsMaterialGround;
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (isGrounded) Gizmos.color = Color.green;
+        else Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position + Vector3.left * .15f, transform.position + Vector3.left * .15f + Vector3.down * .85f);
+        Gizmos.DrawLine(transform.position + Vector3.right * .15f, transform.position + Vector3.right * .15f + Vector3.down * .85f);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position + Vector3.left * .2f, transform.position + Vector3.left * .2f + Vector3.down * .85f);
+        Gizmos.DrawLine(transform.position + Vector3.right * .2f, transform.position + Vector3.right * .2f + Vector3.down * .85f);
     }
 
     private void FixedUpdate()
     {
-        rigidbody.velocity = new Vector2(walkingVelocity * movementSpeed, rigidbody.velocity.y);
+        RaycastHit2D leftSideRay = Physics2D.Raycast(transform.position + Vector3.left * .2f, Vector2.down, .85f, nonGroundLayerMask);
+        RaycastHit2D rightSideRay = Physics2D.Raycast(transform.position + Vector3.right * .2f, Vector2.down, .85f, nonGroundLayerMask);
+
+        if (walkingVelocity == 0 && !leftSideRay && !rightSideRay)
+        {
+            rigidbody.velocity = new Vector2(walkingVelocity * movementSpeed, rigidbody.velocity.y);
+        }
+        else
+        {
+            if (!(walkingVelocity > 0? rightSideRay : leftSideRay))
+            {
+                rigidbody.velocity = new Vector2(walkingVelocity * movementSpeed, rigidbody.velocity.y);
+            }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        //soll transformation von horizontaler in vertikaler velocity an Schrägen verhindern
+        if (isGrounded && playerInput.Movement.Move.WasReleasedThisFrame() && !playerInput.Movement.Jump.WasPerformedThisFrame())
+        {
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+        }
     }
 
     private void Move(Vector2 value)
@@ -110,7 +178,6 @@ public class PlayerScript : MonoBehaviour
     private void CancelJump()
     {
         if(!canMove) return;
-        //if (isGrounded) return;
 
         float yVel = rigidbody.velocity.y;
         if (yVel > 0)
@@ -120,7 +187,35 @@ public class PlayerScript : MonoBehaviour
     private void Attack()
     {
         if(!canMove) return;
-        //TODO lese Blickrichtung für Attackrichtung
+
+        Vector2 look = playerInput.Movement.Move.ReadValue<Vector2>();
+        if (look.x < 0)
+        {
+            Debug.Log("Attacke Links");
+        }
+        else if (look.x > 0)
+        {
+            Debug.Log("Attacke Rechts");
+        }
+        else if (look.y > 0)
+        {
+            Debug.Log("Attacke Oben");
+        }
+        else if (look.y < 0)
+        {
+            Debug.Log("Attacke Unten");
+        }
+        else
+        {
+            if (transform.localScale.x < 0)
+            {
+                Debug.Log("Attacke Links");
+            }
+            else
+            {
+                Debug.Log("Attacke Rechts");
+            }
+        }
     }
 
     private void Interact()
