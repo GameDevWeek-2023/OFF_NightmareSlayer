@@ -268,6 +268,59 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6115344695667745306, guid: 6a6b346e0c2dff34ead679b9336e4531, type: 3}
   m_PrefabInstance: {fileID: 706906157}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &368307287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 368307288}
+  - component: {fileID: 368307289}
+  m_Layer: 5
+  m_Name: DialogueController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &368307288
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368307287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1378996401}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &368307289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368307287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0245b6ebd7074584c98ce35c87abb775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueText: {fileID: 1065655147}
+  sentence: "werner und raphael geben mir keine logischen s\xE4tze, nur irgendwas
+    von nicht funktionierenden Kreditkarten"
+  dialogueSpeed: 0.05
 --- !u!1 &402864777
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +964,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7848953734169621089, guid: 6a6b346e0c2dff34ead679b9336e4531, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 7917757219515966602, guid: 6a6b346e0c2dff34ead679b9336e4531, type: 3}
       propertyPath: m_Name
       value: SettingsPanel
@@ -1214,6 +1271,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2191545415795677446, guid: 01a48880ad97e4f47b596e758f41eabb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5551963370565136924, guid: 01a48880ad97e4f47b596e758f41eabb, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5579866362402279436, guid: 01a48880ad97e4f47b596e758f41eabb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1371,6 +1436,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01a48880ad97e4f47b596e758f41eabb, type: 3}
+--- !u!114 &1065655147 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5551963370565136924, guid: 01a48880ad97e4f47b596e758f41eabb, type: 3}
+  m_PrefabInstance: {fileID: 969027395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1108180050
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,6 +1646,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1646394592}
+  - {fileID: 368307288}
   - {fileID: 55673161}
   - {fileID: 345780568}
   m_Father: {fileID: 0}
