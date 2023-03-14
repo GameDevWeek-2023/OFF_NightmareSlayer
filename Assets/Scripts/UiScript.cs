@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
@@ -15,12 +16,14 @@ public class UiScript : MonoBehaviour
     public Image heart4;
     public Image heart5;
 
+    public TMP_Text dialog;
+
     public int essenz; //zwischen 0 und 100
     public int lives = 3;
 
-    private void Update()
+    public void changedialog(String inhalt)
     {
-        
+        dialog.text = " " + inhalt;
     }
 
     public void setEssenz(int plus)
