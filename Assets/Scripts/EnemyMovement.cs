@@ -27,12 +27,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up * -1, 1.5f, detectionLayerMask); 
-        RaycastHit2D back = Physics2D.Raycast(transform.position - (flipped ? -transform.right : transform.right) * .03f, -transform.up, 1.5f, detectionLayerMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position - (flipped ? -transform.right : transform.right) * .3f, transform.up * -1, 1.5f, detectionLayerMask); 
+        RaycastHit2D back = Physics2D.Raycast(transform.position - (flipped ? -transform.right : transform.right) * .6f, -transform.up, 1.5f, detectionLayerMask);
 
         if (back)
         {
-            rb2d.velocity = transform.right* (flipped ? -movementSpeed : movementSpeed);
             if (borderCheck)
             {
                 if (Physics2D.Raycast(transform.position, flipped ? Vector3.right * -1 : Vector3.right, wallDistance, detectionLayerMask))
@@ -65,11 +64,12 @@ public class EnemyMovement : MonoBehaviour
                 }
                 else
                     normal = hit.normal;
-                Debug.DrawRay(transform.position, normal,Color.green);
+                Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .3f, normal,Color.green);
                 Debug.DrawRay(transform.position, hit.normal,Color.yellow);
-                Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .1f, back.normal, Color.yellow);
-                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, Vector2.SignedAngle(Vector2.up,normal));   
+                Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .6f, back.normal, Color.yellow);
+                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, Vector2.SignedAngle(Vector2.up,normal));
             }
+            rb2d.velocity = transform.right * (flipped ? -movementSpeed : movementSpeed);
         }
     }
 
