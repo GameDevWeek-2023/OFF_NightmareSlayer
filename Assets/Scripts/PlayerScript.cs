@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    //UI
+    public GameObject pausePanel;
+    
     //Movement
     private new Rigidbody2D rigidbody;
     private new Collider2D collider;
@@ -247,5 +250,10 @@ public class PlayerScript : MonoBehaviour
         if(!hasGrappling) return;
         if(!canMove) return;
         
+    }
+
+    private void pause()
+    {
+        pausePanel.SetActive(true);
     }
 }
