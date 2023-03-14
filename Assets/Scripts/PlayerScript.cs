@@ -31,12 +31,13 @@ public class PlayerScript : MonoBehaviour
     private bool hasDoubleJump;
     private bool usedDoubleJump;
     private bool hasGrappling;
+    private Animator animator;
     
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
-        
+        animator = GetComponent<Animator>();
         playerInput = new PlayerInput();
 
         playerInput.Movement.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
@@ -72,16 +73,20 @@ public class PlayerScript : MonoBehaviour
         if (!isGrounded)
         {
             collider.sharedMaterial = physicsMaterialAir;
+            animator.SetBool("isJumping", true);
         }
         else
         {
+            animator.SetBool("isJumping", false);
             if (walkingVelocity != 0)
             {
                 collider.sharedMaterial = physicsMaterialWalk;
+                animator.SetBool("isRunning", true);
             }
             else
             {
                 collider.sharedMaterial = physicsMaterialGround;
+                animator.SetBool("isRunning", false);
             }
         }
     }
