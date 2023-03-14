@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     //UI
     public GameObject pausePanel;
     public GameObject playerStats;
+    public GameObject dialogueObject;
     public TextMeshProUGUI dialogueText;
     private float dialogueSpeed;
     private Coroutine dialogueCoroutine;
@@ -48,6 +49,7 @@ public class PlayerScript : MonoBehaviour
     private bool hasDoubleJump = true;
     private bool usedDoubleJump;
     private bool hasGrappling = true;
+    private List<Grappable> grappableTargets;
     private Animator animator;
 
     private void Awake()
@@ -57,6 +59,7 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();
 
         dialogueText.text = "";
+        dialogueObject.SetActive(false);
         playerStats.SetActive(true);
         
         playerInput = new PlayerInput();
@@ -284,6 +287,7 @@ public class PlayerScript : MonoBehaviour
             if(dialogueState == 2)
             {
                 canMove = true;
+                dialogueObject.SetActive(false);
                 dialogueText.text = "";
                 dialogueCoroutine = null;
                 playerStats.SetActive(true);
@@ -350,6 +354,15 @@ public class PlayerScript : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Grappable"))
+        {
+            Grappable target = other.GetComponent<Grappable>();
+            if(!grappableTargets.Contains(target)) grappableTargets.Add(target);
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Interactable"))
@@ -373,6 +386,12 @@ public class PlayerScript : MonoBehaviour
             currentInteractable.HideText();
             currentInteractable = null;
         }
+        
+        if (other.CompareTag("Grappable"))
+        {
+            Grappable target = other.GetComponent<Grappable>();
+            grappableTargets.Remove(target);
+        }
     }
 
     public void SetDialogueSpeed(float speed)
@@ -388,10 +407,11 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator Writer(string sentence)
     {
         dialogueText.text = "";
+        dialogueObject.SetActive(true);
         canMove = false;
         dialogueState = 1;
         playerStats.SetActive(false);
-        
+
         foreach (char c in sentence) 
         {
             if (dialogueState == 2)
