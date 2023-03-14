@@ -118,13 +118,23 @@ public class PlayerScript : MonoBehaviour
 
         if (isGliding && !isGrounded)
         {
-            if (walkingVelocity != 0)
+            if (walkingVelocity == 0)
             {
-                rigidbody.velocity = new Vector2(walkingVelocity * glidingSpeed, -glideFallSpeed);
+                if(!(transform.localScale.x > 0 ? rightSideRay : leftSideRay))
+                    rigidbody.velocity = new Vector2(transform.localScale.x * glidingSpeed, -glideFallSpeed);
+                else
+                {
+                    rigidbody.velocity = new Vector2(rigidbody.velocity.x, -glideFallSpeed);
+                }
             }
             else
             {
-                rigidbody.velocity = new Vector2(transform.localScale.x * glidingSpeed, -glideFallSpeed);
+                if(!(walkingVelocity > 0 ? rightSideRay : leftSideRay))
+                    rigidbody.velocity = new Vector2(walkingVelocity * glidingSpeed, -glideFallSpeed);
+                else
+                {
+                    rigidbody.velocity = new Vector2(rigidbody.velocity.x, -glideFallSpeed);
+                }
             }
         }
         else
