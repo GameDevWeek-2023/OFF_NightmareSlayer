@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     private Coroutine dialogueCoroutine;
     private int dialogueState;
     public UiScript uiScript;
+    public HeartManager heartManager;
 
     //Movement
     private new Rigidbody2D rigidbody;
@@ -41,13 +42,13 @@ public class PlayerScript : MonoBehaviour
     private int attackDamage;
     
     //Hitpoints
-    private int lifes;
-    private int maxLifes;
+    private int lifes = 4;
+    private int maxLifes = 6;
     
     //DreamShift
     private bool canDreamShift;
-    private float dreamEssence;
-    private float essenceCapacity;
+    private float dreamEssence = 2.4f;
+    private float essenceCapacity = 3;
     
     //Abilities
     private bool hasGlide = true;
@@ -69,6 +70,9 @@ public class PlayerScript : MonoBehaviour
 
         dialogueText.text = "";
         dialogueObject.SetActive(false);
+        
+        SetUILives();
+        SetUIEssenzBar();
         playerStats.SetActive(true);
 
         grappableTargets = new List<Grappable>();
@@ -524,7 +528,7 @@ public class PlayerScript : MonoBehaviour
 
     private void SetUILives()
     {
-        uiScript.checkHearts(lifes);
+        heartManager.SetHearts(lifes,maxLifes);
     }
 
     private void SetUIEssenzBar()
