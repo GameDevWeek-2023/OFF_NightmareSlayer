@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D)),RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
 {
     public bool isMoving = true;
@@ -17,20 +17,19 @@ public class EnemyMovement : MonoBehaviour
     private bool justEdged;
     private Vector2 lastNormal;
     private Rigidbody2D rb2d;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
         rb2d=GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position - (flipped ? -transform.right : transform.right) * .3f, transform.up * -1, 1.5f, detectionLayerMask); 
-        RaycastHit2D back = Physics2D.Raycast(transform.position - (flipped ? -transform.right : transform.right) * .6f, -transform.up, 1.5f, detectionLayerMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position , transform.up * -1, 1.5f, detectionLayerMask); 
+        RaycastHit2D back = Physics2D.Raycast(transform.position - (flipped ? -transform.right : transform.right) * .1f, -transform.up, 1.5f, detectionLayerMask);
 
-        if (back)
+        if (hit)
         {
             if (borderCheck)
             {
@@ -64,9 +63,9 @@ public class EnemyMovement : MonoBehaviour
                 }
                 else
                     normal = hit.normal;
-                Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .3f, normal,Color.green);
-                Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .3f, hit.normal,Color.yellow);
-                Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .6f, back.normal, Color.yellow);
+                Debug.DrawRay(transform.position, normal,Color.green);
+                Debug.DrawRay(transform.position, hit.normal,Color.yellow);
+                Debug.DrawRay(transform.position - (flipped ? -transform.right : transform.right) * .1f, back.normal, Color.yellow);
                 transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, Vector2.SignedAngle(Vector2.up,normal));
             }
             rb2d.velocity = transform.right * (flipped ? -movementSpeed : movementSpeed);
