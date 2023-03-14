@@ -10,7 +10,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void play()
     {
-        //SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void settings()
