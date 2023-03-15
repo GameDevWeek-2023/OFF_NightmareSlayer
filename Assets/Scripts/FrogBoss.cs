@@ -29,7 +29,7 @@ public class FrogBoss : Boss
     public void Update()
     {
         base.Update();
-        if (jumpCoolDown == -1)
+        /*if (jumpCoolDown == -1)
         {
             jumpCoolDown = jumpDelta;
         }
@@ -44,7 +44,7 @@ public class FrogBoss : Boss
         else
         {
             jumpCoolDown -= Time.deltaTime;
-        }
+        }*/
 
     }
 
