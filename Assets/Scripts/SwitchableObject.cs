@@ -21,7 +21,7 @@ public class SwitchableObject : MonoBehaviour
 
     public void SwitchObject()
     {
-        if (GameManager.instance.nightmareMode)
+        if (normal.activeSelf)
         {
             normal.SetActive(false);
             nightmareMode.SetActive(true);
