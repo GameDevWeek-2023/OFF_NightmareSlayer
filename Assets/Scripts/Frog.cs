@@ -7,6 +7,8 @@ public class Frog : MonoBehaviour
 {
     public bool flipped;
     public LayerMask ground;
+    public GameObject bullet;
+    public GameObject bulletSpawner;
     private Rigidbody2D rb2d;
     private SpriteRenderer spriteRenderer;
     public float jumpStrength = 10f;
@@ -18,6 +20,13 @@ public class Frog : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        InvokeRepeating("Shoot",2,2);
+    }
+
+    void Shoot()
+    {
+        Instantiate(bullet, bulletSpawner.transform.position, flipped?Quaternion.identity:Quaternion.Euler(0,180,0));
+        Debug.Log("Shoot");
     }
 
     // Update is called once per frame
@@ -52,7 +61,7 @@ public class Frog : MonoBehaviour
     {
 
         float sideVelocity = 0;
-        if (!flipped)
+        if (flipped)
         {
             sideVelocity = jumpStrengthSide;
         }

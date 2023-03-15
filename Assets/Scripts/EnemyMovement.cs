@@ -5,7 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
-{
+{ 
     public bool isMoving = true;
     public float movementSpeed = 1f;
     public float wallDistance=1f;

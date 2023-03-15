@@ -71,3 +71,11 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .vscode/settings.json
+
+ProjectSettings/CommonBurstAotSettings.json
+
+ProjectSettings/BurstAotSettings_WebGL.json
+
+ProjectSettings/BurstAotSettings_StandaloneWindows.json
+
+ProjectSettings/BurstAotSettings_Android.json
