@@ -440,6 +440,22 @@ public class PlayerScript : MonoBehaviour
 
         Vector2[] knockbackVectors = { Vector2.right, Vector2.left, Vector2.down, Vector2.up };
         rigidbody.velocity =  knockbackVectors[direction] * attackHitKnockback * (direction < 2 ? .7f:1f);
+
+        if (direction < 2) StartCoroutine(ResetKnockbackAfterTime(.3f));
+    }
+
+    private IEnumerator ResetKnockbackAfterTime(float time)
+    {
+        float timeOver = 0f;
+
+        while (timeOver < time)
+        {
+            timeOver += Time.deltaTime;
+            if(movedAfterHit) yield break;
+            yield return 0;
+        }
+        
+        Move(playerInput.Movement.Move.ReadValue<Vector2>());
     }
 
     private void Interact()
