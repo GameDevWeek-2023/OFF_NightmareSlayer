@@ -6,8 +6,8 @@ using UnityEngine;
 public class BossAttack : MonoBehaviour
 {
     public bool[] phases;
-    public void Attack(){}
-    public void AttackUpdate(){}
+    public virtual void Attack(){}
+    public virtual void AttackUpdate(){}
     protected void Finished()
     {
         GetComponent<Boss>().AttackFinished();

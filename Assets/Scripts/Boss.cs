@@ -22,13 +22,15 @@ public class Boss : MonoBehaviour
             foreach (BossAttack bossAttack in myBossAttacks)
             {
                 if (bossAttack.phases[i])
+                {
                     bossAttacks[i].Add(bossAttack);
+                }
             }
         }
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-    protected void StartAttackLoop()
+    public void StartAttackLoop()
     {
         Attack();
     }
