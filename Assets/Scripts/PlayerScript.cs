@@ -46,9 +46,10 @@ public class PlayerScript : MonoBehaviour
     private int maxLifes = 6;
     
     //DreamShift
-    private bool canDreamShift;
+    private bool canDreamShift = true;
     private float dreamEssence = 2.4f;
     private float essenceCapacity = 3;
+    private bool cancelShift;
     
     //Abilities
     private bool hasGlide = true;
@@ -86,6 +87,7 @@ public class PlayerScript : MonoBehaviour
         playerInput.Movement.Attack.performed += ctx => Attack();
         playerInput.Movement.Interact.performed += ctx => Interact();
         playerInput.Movement.DreamShift.performed += ctx => DreamShift();
+        playerInput.Movement.DreamShift.canceled += ctx => CancelDreamShift();
         playerInput.Movement.Glide.performed += ctx => Glide(true);
         playerInput.Movement.Glide.canceled += ctx => Glide(false);
         playerInput.Movement.Grappling.performed += ctx => Grappling();
@@ -378,7 +380,64 @@ public class PlayerScript : MonoBehaviour
     {
         if(!canDreamShift) return;
         if(!canMove) return;
+        //if(!isGrounded) return;
+
+        if (dreamEssence >= 1f)
+        {
+            dreamEssence -= 1f;
+            SetUIEssenzBar();
+            GameManager.instance.SwitchNightmare();
+        }
+
+        //StartCoroutine(DreamShifting());
+    }
+
+    /*private IEnumerator DreamShifting()
+    {
+        canMove = false;
+        walkingVelocity = 0f;
+        cancelShift = false;
+
+        const float consumingRate = 0.5f;
+        float consumed = 0f;
         
+        while (!cancelShift)
+        {
+            float amt = Time.deltaTime * consumingRate;
+            
+            dreamEssence -= amt;
+            consumed += amt;
+
+            if (dreamEssence <= 0f)
+            {
+                dreamEssence = 0f;
+                SetUIEssenzBar();
+                break;
+            }
+            if (consumed >= 1f)
+            {
+                dreamEssence += consumed - 1f;
+                SetUIEssenzBar();
+                GameManager.instance.SwitchNightmare();
+
+                canMove = true;
+                Move(playerInput.Movement.Move.ReadValue<Vector2>());
+                yield break;
+            }
+            SetUIEssenzBar();
+
+            yield return new WaitForEndOfFrame();
+        }
+        //TODO Camera zurücksetzen
+        //TODO Particle stoppen
+
+        canMove = true;
+        Move(playerInput.Movement.Move.ReadValue<Vector2>());
+    }*/
+
+    private void CancelDreamShift()
+    {
+        cancelShift = true;
     }
 
     private void Glide(bool pressed)

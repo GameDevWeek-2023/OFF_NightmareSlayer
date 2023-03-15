@@ -16,10 +16,18 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
     }
+    
+    public void SwitchNightmare()
+    {
+        nightmareMode = !nightmareMode;
+        SwitchableObject.SwitchAll();
+        onSwitch.Invoke();
+    }
 
     public void SetNightmare(bool nightmareMode)
     {
         this.nightmareMode=nightmareMode;
+        SwitchableObject.SwitchAll();
         onSwitch.Invoke();
     }
 
