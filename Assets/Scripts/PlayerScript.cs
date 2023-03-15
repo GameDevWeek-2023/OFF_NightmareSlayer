@@ -42,10 +42,13 @@ public class PlayerScript : MonoBehaviour
     
     //Attack
     private int attackDamage;
+    private bool canGetDamage = true;
     
     //Hitpoints
     private int lifes = 4;
     private int maxLifes = 6;
+
+    private SpriteRenderer spriteRenderer;
     
     //DreamShift
     private bool canDreamShift = true;
@@ -72,6 +75,7 @@ public class PlayerScript : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         dialogueText.text = "";
         dialogueObject.SetActive(false);
@@ -312,6 +316,8 @@ public class PlayerScript : MonoBehaviour
 
     public void GetDamage()
     {
+        if (!canGetDamage) return;
+        
         lifes--;
         SetUILives();
         
@@ -323,11 +329,25 @@ public class PlayerScript : MonoBehaviour
 
     private IEnumerator Invinsibility(float time)
     {
-        yield break;
+        canGetDamage = false;
+        float timeOver = 0f;
+
+        while (timeOver < time)
+        {
+            timeOver += Time.deltaTime;
+
+            spriteRenderer.enabled = Mathf.RoundToInt(timeOver * 4) % 2 == 0;
+            
+            yield return 0;
+        }
+
+        spriteRenderer.enabled = true;
+        canGetDamage = true;
     }
 
     public void GetDamage(Vector2 knockback)
     {
+        if (!canGetDamage) return;
         GetDamage();
         
         rigidbody.AddForce(knockback,ForceMode2D.Impulse);
@@ -342,32 +362,32 @@ public class PlayerScript : MonoBehaviour
         Vector2 look = playerInput.Movement.Move.ReadValue<Vector2>();
         if (look.x < 0)
         {
-            Debug.Log("Attacke Links");
+            //Debug.Log("Attacke Links");
             animator.SetTrigger("hit");
         }
         else if (look.x > 0)
         {
-            Debug.Log("Attacke Rechts");
+            //Debug.Log("Attacke Rechts");
             animator.SetTrigger("hit");
         }
         else if (look.y > 0)
         {
-            Debug.Log("Attacke Oben");
+            //Debug.Log("Attacke Oben");
         }
         else if (look.y < 0)
         {
-            Debug.Log("Attacke Unten");
+            //Debug.Log("Attacke Unten");
         }
         else
         {
             if (transform.localScale.x < 0)
             {
-                Debug.Log("Attacke Links");
+                //Debug.Log("Attacke Links");
                 animator.SetTrigger("hit");
             }
             else
             {
-                Debug.Log("Attacke Rechts");
+                //Debug.Log("Attacke Rechts");
                 animator.SetTrigger("hit");
             }
         }
