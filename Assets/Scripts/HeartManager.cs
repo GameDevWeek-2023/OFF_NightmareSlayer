@@ -9,9 +9,16 @@ public class HeartManager : MonoBehaviour
 
     public void SetHearts(int hearts, int max)
     {
-        for (int i = 0; i < transform.childCount; i++)
+        GameObject[] children = new GameObject[transform.childCount];
+            
+        for (var i = 0; i < children.Length; i++)
         {
-            Destroy(transform.GetChild(0));
+            children[i] = transform.GetChild(i).gameObject;
+        }
+        
+        foreach (var child in children)
+        {
+            Destroy(child);
         }
 
         for (int i = 0; i < hearts; i++)

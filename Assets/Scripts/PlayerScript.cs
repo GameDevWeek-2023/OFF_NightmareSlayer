@@ -333,10 +333,16 @@ public class PlayerScript : MonoBehaviour
         
         if(!godMode) lifes--;
         SetUILives();
-        
+
         //TODO hit effects
 
         rigidbody.velocity = Vector2.zero;
+
+        if (lifes <= 0)
+        {
+            
+        }
+        
         StartCoroutine(Invinsibility(1.5f));
     }
 
