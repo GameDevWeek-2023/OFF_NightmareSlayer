@@ -41,9 +41,13 @@ public class PlayerScript : MonoBehaviour
     private Interactable currentInteractable;
     
     //Attack
-    private int attackDamage;
+    private int attackDamage = 3;
+    private float attackRange = .7f;
     private bool canGetDamage = true;
-    
+    public LayerMask hittableLayers;
+    private float attackHitKnockback = 10f;
+    private bool movedAfterHit = true;
+
     //Hitpoints
     private int lifes = 4;
     private int maxLifes = 6;
@@ -156,10 +160,14 @@ public class PlayerScript : MonoBehaviour
         Gizmos.DrawLine(transform.position + Vector3.left * .2f, transform.position + Vector3.left * .2f + Vector3.down * .85f);
         Gizmos.DrawLine(transform.position + Vector3.right * .2f, transform.position + Vector3.right * .2f + Vector3.down * .85f);
         
+        Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(transform.position + Vector3.down * .3f,.7f);
+        
         Gizmos.color = Color.magenta;
         //Gizmos.DrawLine(transform.position + Vector3.up * .42f + Vector3.left * .34f, transform.position + Vector3.up * .42f + Vector3.right * .34f);
         //Gizmos.DrawLine(transform.position + Vector3.down * .78f + Vector3.left * .34f, transform.position + Vector3.down * .78f + Vector3.right * .34f);
         //Gizmos.DrawSphere(transform.position + new Vector3(collider.offset.x,collider.offset.y),.5f);
+
         if (grappableTargets == null) return;
         foreach (var target in grappableTargets)
         {
@@ -196,7 +204,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if (!movedAfterGrappling) return;
+            if (!movedAfterGrappling || !movedAfterHit) return;
             if (walkingVelocity == 0 && !leftSideRay && !rightSideRay)
             {
                 rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
@@ -255,6 +263,7 @@ public class PlayerScript : MonoBehaviour
         if(!canMove) return;
 
         movedAfterGrappling = true;
+        movedAfterHit = true;
 
         if (value.x < 0) //Walk left
         {
@@ -289,6 +298,7 @@ public class PlayerScript : MonoBehaviour
         if(!canMove) return;
 
         movedAfterGrappling = true;
+        movedAfterHit = true;
 
         if (isGrounded)
         {
@@ -350,48 +360,83 @@ public class PlayerScript : MonoBehaviour
         if (!canGetDamage) return;
         GetDamage();
         
-        rigidbody.AddForce(knockback,ForceMode2D.Impulse);
+        movedAfterHit = false;
+        rigidbody.velocity =  knockback * attackHitKnockback;
     }
 
     private void Attack()
     {
         if(!canMove) return;
 
-        
-
         Vector2 look = playerInput.Movement.Move.ReadValue<Vector2>();
         if (look.x < 0)
         {
             //Debug.Log("Attacke Links");
+            DoAttack(0,attackRange);
             animator.SetTrigger("hit");
         }
         else if (look.x > 0)
         {
             //Debug.Log("Attacke Rechts");
+            DoAttack(1,attackRange);
             animator.SetTrigger("hit");
         }
         else if (look.y > 0)
         {
             //Debug.Log("Attacke Oben");
+            DoAttack(2,attackRange);
         }
         else if (look.y < 0)
         {
             //Debug.Log("Attacke Unten");
+            DoAttack(3,attackRange);
         }
         else
         {
             if (transform.localScale.x < 0)
             {
                 //Debug.Log("Attacke Links");
+                DoAttack(0,attackRange);
                 animator.SetTrigger("hit");
             }
             else
             {
                 //Debug.Log("Attacke Rechts");
+                DoAttack(1,attackRange);
                 animator.SetTrigger("hit");
             }
         }
         if(isGliding) CancelGliding();
+    }
+
+    private void DoAttack(int direction, float radius)
+    {
+        movedAfterHit = false;
+        
+        //links rechts oben unten
+        //0     1      2    3
+        Vector3[] attackPoints = {
+            transform.position + Vector3.left * .4f + Vector3.down * .25f,
+            transform.position + Vector3.right * .4f + Vector3.down * .25f,
+            transform.position + Vector3.up * .2f,
+            transform.position + Vector3.down * .4f};
+        Vector3 attackPoint = attackPoints[direction];
+        Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint, radius, hittableLayers);
+        
+        if (enemiesHit.Length == 0) return; //No Hit
+        foreach (var enemy in enemiesHit)
+        {
+            HealthSystem enemyHealth = enemy.GetComponent<HealthSystem>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.Damage(attackDamage);
+            }
+        }
+        
+        //TODO do sfx stuff to indicate hit
+
+        Vector2[] knockbackVectors = { Vector2.right, Vector2.left, Vector2.down, Vector2.up };
+        rigidbody.velocity =  knockbackVectors[direction] * attackHitKnockback * (direction < 2 ? .7f:1f);
     }
 
     private void Interact()

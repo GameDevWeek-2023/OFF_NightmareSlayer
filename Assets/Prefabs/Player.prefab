@@ -181,6 +181,9 @@ MonoBehaviour:
   physicsMaterialAir: {fileID: 6200000, guid: 92febd0f981714170b5e7750addeadbd, type: 2}
   physicsMaterialGround: {fileID: 6200000, guid: 4a6bbddc9c0e44222941fb6aa0dd9aac, type: 2}
   physicsMaterialWalk: {fileID: 6200000, guid: e0b54829f682244cfb713b7fdbf6f7db, type: 2}
+  hittableLayers:
+    serializedVersion: 2
+    m_Bits: 64
   obstaclesTowardsTarget:
     serializedVersion: 2
     m_Bits: 183
