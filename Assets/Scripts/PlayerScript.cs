@@ -8,6 +8,9 @@ public class PlayerScript : MonoBehaviour
 {
     public static PlayerScript instance;
     
+    //DEBUG
+    public bool godMode = false;
+    
     //UI
     public GameObject pausePanel;
     public GameObject playerStats;
@@ -328,7 +331,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (!canGetDamage) return;
         
-        lifes--;
+        if(!godMode) lifes--;
         SetUILives();
         
         //TODO hit effects
@@ -474,7 +477,11 @@ public class PlayerScript : MonoBehaviour
         if(!canMove) return;
         //if(!isGrounded) return;
 
-        if (dreamEssence >= 1f)
+        if (godMode)
+        {
+            GameManager.instance.SwitchNightmare();
+        }
+        else if (dreamEssence >= 1f)
         {
             dreamEssence -= 1f;
             SetUIEssenzBar();
