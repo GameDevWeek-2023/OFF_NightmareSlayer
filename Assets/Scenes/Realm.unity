@@ -58654,6 +58654,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5824564260987254089, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: ground.m_Bits
+      value: 311
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824564260987254089, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: player.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824564260987254089, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: phases.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824564260987254089, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: phases.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7267729280804664552, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
       propertyPath: m_Mass
       value: 1000
