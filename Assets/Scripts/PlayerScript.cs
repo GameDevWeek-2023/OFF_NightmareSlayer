@@ -657,6 +657,7 @@ public class PlayerScript : MonoBehaviour
     {
         Grappable target = currentTarget;
         
+        CancelGliding();
         usingGrappling = true;
         canMove = false;
         movedAfterGrappling = false;
