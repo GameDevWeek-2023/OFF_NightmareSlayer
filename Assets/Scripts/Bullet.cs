@@ -18,4 +18,11 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    private float timeToDestroy = 3f;
+
+    private void Start()
+    {
+        Destroy(gameObject, timeToDestroy);
+    }
 }
