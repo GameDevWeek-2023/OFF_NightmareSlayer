@@ -18,7 +18,6 @@ public class FrogBoss : Boss
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("TRIGAAAAA"); if (Random.Range(0, 2) == 0)
         {
 
             rb2d.velocity = (PlayerScript.instance.transform.position - transform.position).normalized * 10;
