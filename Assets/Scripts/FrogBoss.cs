@@ -5,6 +5,7 @@ using UnityEngine;
 public class FrogBoss : Boss
 {
     public LayerMask ground;
+    public LayerMask player;
     public float jumpStrength = 10f;
     public float jumpStrengthSide = 10f;
     public float jumpDelta=3f;
@@ -13,6 +14,15 @@ public class FrogBoss : Boss
     void Start()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("TRIGAAAAA"); if (Random.Range(0, 2) == 0)
+        {
+
+            rb2d.velocity = (PlayerScript.instance.transform.position - transform.position).normalized * 10;
+        }
     }
 
     // Update is called once per frame
@@ -25,7 +35,7 @@ public class FrogBoss : Boss
         }
         else if (jumpCoolDown < 0)
         {
-            if (Physics2D.Raycast(transform.position, Vector3.down, 1.5f, ground))
+            if (Physics2D.Raycast(transform.position, Vector3.down, 2.5f, ground))
             {
                 Jump();
                 jumpCoolDown = -1;
@@ -35,6 +45,7 @@ public class FrogBoss : Boss
         {
             jumpCoolDown -= Time.deltaTime;
         }
+
     }
 
     private void Jump()
