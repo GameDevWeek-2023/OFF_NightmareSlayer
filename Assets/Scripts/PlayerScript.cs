@@ -365,6 +365,8 @@ public class PlayerScript : MonoBehaviour
         
         movedAfterHit = false;
         rigidbody.velocity =  knockback * attackHitKnockback;
+
+        StartCoroutine(ResetKnockbackAfterTime(knockback.magnitude * attackHitKnockback * 0.043f));
     }
 
     private void Attack()
