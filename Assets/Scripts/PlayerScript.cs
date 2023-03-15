@@ -21,6 +21,7 @@ public class PlayerScript : MonoBehaviour
     private int dialogueState;
     public HeartManager heartManager;
     public EssenzManager essenzManager;
+    public GameObject deathScreen;
 
     //Movement
     private new Rigidbody2D rigidbody;
@@ -52,8 +53,8 @@ public class PlayerScript : MonoBehaviour
     private bool movedAfterHit = true;
 
     //Hitpoints
-    private int lifes = 4;
-    private int maxLifes = 6;
+    private int lifes;
+    private int maxLifes = 4;
 
     private SpriteRenderer spriteRenderer;
     
@@ -78,20 +79,14 @@ public class PlayerScript : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        Time.timeScale = 1;
         
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        dialogueText.text = "";
-        dialogueObject.SetActive(false);
-        
-        SetUILives();
-        SetUIEssenzBar();
-        playerStats.SetActive(true);
-
-        grappableTargets = new List<Grappable>();
+        InitializeStats();
         
         playerInput = new PlayerInput();
 
@@ -109,8 +104,22 @@ public class PlayerScript : MonoBehaviour
         playerInput.Movement.Pause.performed += ctx => Pause();
 
         playerInput.Movement.Enable();
+    }
 
+    private void InitializeStats()
+    {
+        deathScreen.SetActive(false);
+        
+        dialogueText.text = "";
+        dialogueObject.SetActive(false);
+        
+        grappableTargets = new List<Grappable>();
+        
         lifes = maxLifes;
+        dreamEssence = essenceCapacity;
+        SetUILives();
+        SetUIEssenzBar();
+        playerStats.SetActive(true);
     }
 
     private void Update()
@@ -340,10 +349,22 @@ public class PlayerScript : MonoBehaviour
 
         if (lifes <= 0)
         {
-            
+            //TODO some death effects
+            StartCoroutine(Death(0f));
         }
-        
-        StartCoroutine(Invinsibility(1.5f));
+        else
+        {
+            StartCoroutine(Invinsibility(1.5f));
+        }
+    }
+
+    private IEnumerator Death(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Time.timeScale = 0;
+        canMove = false;
+        playerStats.SetActive(false);
+        deathScreen.SetActive(true);
     }
 
     private IEnumerator Invinsibility(float time)
@@ -362,6 +383,19 @@ public class PlayerScript : MonoBehaviour
 
         spriteRenderer.enabled = true;
         canGetDamage = true;
+    }
+
+    public void Respawn()
+    {
+        //TODO Respawn alles nötige
+        //TODO Teleportiere zum Dorf
+        rigidbody.velocity = Vector2.zero;
+        
+        GameManager.instance.SetNightmare(false);
+        
+        InitializeStats();
+        Time.timeScale = 1;
+        canMove = true;
     }
 
     public void GetDamage(Vector2 knockback)

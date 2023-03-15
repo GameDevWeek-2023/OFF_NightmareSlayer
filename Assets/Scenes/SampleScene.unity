@@ -1314,6 +1314,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 848420272}
     - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
+      propertyPath: deathScreen
+      value: 
+      objectReference: {fileID: 1771838106}
+    - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
       propertyPath: playerStats
       value: 
       objectReference: {fileID: 587746533}
@@ -1520,6 +1524,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1b71dd9b0f149158fe016c7eee822e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1771838106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5789848389610825868, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
+  m_PrefabInstance: {fileID: 2327315542955310073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1780006099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,6 +2386,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c0f89dc81bbb31f479a48a22cd7693c2, type: 3}
+    - target: {fileID: 4355446694207076839, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 313472609}
+    - target: {fileID: 4355446694207076839, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Respawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355446694207076839, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerScript, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4602788183103887018, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
       propertyPath: m_Name
       value: UI
