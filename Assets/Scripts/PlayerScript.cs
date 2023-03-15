@@ -113,6 +113,8 @@ public class PlayerScript : MonoBehaviour
         dialogueText.text = "";
         dialogueObject.SetActive(false);
         
+        if(currentTarget != null) currentTarget.Untarget();
+        
         grappableTargets = new List<Grappable>();
         
         lifes = maxLifes;
@@ -245,8 +247,11 @@ public class PlayerScript : MonoBehaviour
         
         Vector2 ownPos = transform.position;
         float distanceToTarget = float.MaxValue;
-        if(currentTarget != null) currentTarget.Untarget();
-        currentTarget = null;
+        //if(currentTarget != null) currentTarget.Untarget();
+        //currentTarget = null;
+
+        Grappable newTarget = null;
+        
         if (usingGrappling) return;
         foreach (var target in grappableTargets)
         {
@@ -264,10 +269,21 @@ public class PlayerScript : MonoBehaviour
             if (currentDistance < distanceToTarget)
             {
                 distanceToTarget = currentDistance;
-                currentTarget = target;
+                newTarget = target;
             }
         }
-        if(currentTarget != null) currentTarget.Target();
+
+        if (currentTarget != null && newTarget != currentTarget)
+        {
+            currentTarget.Untarget();
+        }
+
+        if (newTarget != null && newTarget != currentTarget)
+        {
+            newTarget.Target();
+        }
+
+        currentTarget = newTarget;
     }
 
     private void Move(Vector2 value)
