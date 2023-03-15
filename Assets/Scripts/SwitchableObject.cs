@@ -19,7 +19,7 @@ public class SwitchableObject : MonoBehaviour
         nightmareMode.SetActive(false);
     }
 
-    public void SwitchSprite()
+    public void SwitchObject()
     {
         if (GameManager.instance.nightmareMode)
         {
@@ -38,7 +38,7 @@ public class SwitchableObject : MonoBehaviour
         if (allSwitchables == null) return;
         foreach (var switchableObject in allSwitchables)
         {
-            switchableObject.SwitchSprite();
+            switchableObject.SwitchObject();
         }
     }
 }
