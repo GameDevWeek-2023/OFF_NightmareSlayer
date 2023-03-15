@@ -1191,7 +1191,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -300.00006, y: 40.00006}
+  m_AnchoredPosition: {x: -300, y: 40}
   m_SizeDelta: {x: 600, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &669492487
@@ -2868,6 +2868,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c0f89dc81bbb31f479a48a22cd7693c2, type: 3}
+    - target: {fileID: 4188927788874415785, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
+      propertyPath: m_text
+      value: Nightmare wins
+      objectReference: {fileID: 0}
     - target: {fileID: 4355446694207076839, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2879,6 +2883,14 @@ PrefabInstance:
     - target: {fileID: 4355446694207076839, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542633893789375021, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542633893789375021, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4602788183103887018, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
       propertyPath: m_Name
