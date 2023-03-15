@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public static PlayerScript instance;
+    
     //UI
     public GameObject pausePanel;
     public GameObject playerStats;
@@ -65,6 +67,8 @@ public class PlayerScript : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+        
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
@@ -304,6 +308,29 @@ public class PlayerScript : MonoBehaviour
         float yVel = rigidbody.velocity.y;
         if (yVel > 0)
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0.4f*yVel);
+    }
+
+    public void GetDamage()
+    {
+        lifes--;
+        SetUILives();
+        
+        //TODO hit effects
+
+        rigidbody.velocity = Vector2.zero;
+        StartCoroutine(Invinsibility(1.5f));
+    }
+
+    private IEnumerator Invinsibility(float time)
+    {
+        yield break;
+    }
+
+    public void GetDamage(Vector2 knockback)
+    {
+        GetDamage();
+        
+        rigidbody.AddForce(knockback,ForceMode2D.Impulse);
     }
 
     private void Attack()
