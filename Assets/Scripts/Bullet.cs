@@ -9,4 +9,13 @@ public class Bullet : MonoBehaviour
     {
         transform.position += transform.right*Time.deltaTime * speed;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            PlayerScript.instance.GetDamage((PlayerScript.instance.transform.position - transform.position).normalized * .5f);
+            Destroy(gameObject);
+        }
+    }
 }

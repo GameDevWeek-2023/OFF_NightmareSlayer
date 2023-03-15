@@ -8,6 +8,7 @@ public class ContactDamage : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("ContactDamage");
             PlayerScript.instance.GetDamage((PlayerScript.instance.transform.position-transform.position).normalized*.5f);
         }
     }
