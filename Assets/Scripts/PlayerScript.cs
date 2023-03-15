@@ -362,32 +362,32 @@ public class PlayerScript : MonoBehaviour
         Vector2 look = playerInput.Movement.Move.ReadValue<Vector2>();
         if (look.x < 0)
         {
-            Debug.Log("Attacke Links");
+            //Debug.Log("Attacke Links");
             animator.SetTrigger("hit");
         }
         else if (look.x > 0)
         {
-            Debug.Log("Attacke Rechts");
+            //Debug.Log("Attacke Rechts");
             animator.SetTrigger("hit");
         }
         else if (look.y > 0)
         {
-            Debug.Log("Attacke Oben");
+            //Debug.Log("Attacke Oben");
         }
         else if (look.y < 0)
         {
-            Debug.Log("Attacke Unten");
+            //Debug.Log("Attacke Unten");
         }
         else
         {
             if (transform.localScale.x < 0)
             {
-                Debug.Log("Attacke Links");
+                //Debug.Log("Attacke Links");
                 animator.SetTrigger("hit");
             }
             else
             {
-                Debug.Log("Attacke Rechts");
+                //Debug.Log("Attacke Rechts");
                 animator.SetTrigger("hit");
             }
         }
