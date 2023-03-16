@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Interactable
   - Grappable
+  - Fruit
+  - Essence
+  - EssenceTrigger
+  - BossroomWall
   layers:
   - Default
   - TransparentFX
@@ -16,9 +20,9 @@ TagManager:
   - Enemies
   - NonGround
   - Ignore
-  - 
-  - 
-  - 
+  - Tongue
+  - Essence
+  - EssenceCollider
   - 
   - 
   - 

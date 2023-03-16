@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public static PlayerScript instance;
+    
+    //DEBUG
+    public bool godMode = false;
+    
     //UI
     public GameObject pausePanel;
     public GameObject playerStats;
@@ -14,8 +19,11 @@ public class PlayerScript : MonoBehaviour
     private float dialogueSpeed;
     private Coroutine dialogueCoroutine;
     private int dialogueState;
+    private bool abilityGranted;
+    public AbilityScreen abilityScreen;
     public HeartManager heartManager;
     public EssenzManager essenzManager;
+    public GameObject deathScreen;
 
     //Movement
     private new Rigidbody2D rigidbody;
@@ -25,6 +33,7 @@ public class PlayerScript : MonoBehaviour
     private float walkingVelocity;
     public float movementSpeed;
     public float jumpSpeed;
+    public float ledgeForgivenessTime;
     public float glidingSpeed;
     public float glideFallSpeed;
     public LayerMask groundLayerMask;
@@ -32,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     public PhysicsMaterial2D physicsMaterialAir;
     public PhysicsMaterial2D physicsMaterialGround;
     public PhysicsMaterial2D physicsMaterialWalk;
+    private Coroutine jumpDelay;
     
     //Input
     private PlayerInput playerInput;
@@ -39,43 +49,51 @@ public class PlayerScript : MonoBehaviour
     private Interactable currentInteractable;
     
     //Attack
-    private int attackDamage;
-    
+    private int attackDamage = 3;
+    private float attackRange = .7f;
+    private bool canGetDamage = true;
+    public LayerMask hittableLayers;
+    private float attackHitKnockback = 10f;
+    private bool movedAfterHit = true;
+
     //Hitpoints
-    private int lifes = 4;
-    private int maxLifes = 6;
+    private int lifes;
+    private int maxLifes = 4;
+
+    private SpriteRenderer spriteRenderer;
     
     //DreamShift
-    private bool canDreamShift;
+    private bool canDreamShift = true;
     private float dreamEssence = 2.4f;
     private float essenceCapacity = 3;
+    private bool cancelShift;
     
     //Abilities
-    private bool hasGlide = true;
-    private bool hasDoubleJump = true;
+    private int hasGlide = 0;
+    private int hasDoubleJump = 0;
     private bool usedDoubleJump;
-    private bool hasGrappling = true;
+    private int hasGrappling = 0;
     private bool usingGrappling;
     private List<Grappable> grappableTargets;
     private Grappable currentTarget;
     public LayerMask obstaclesTowardsTarget;
     private bool movedAfterGrappling = true;
     private Animator animator;
+    
+    //Special Effects
+    public GameObject doubleJumpPS;
 
     private void Awake()
     {
+        instance = this;
+        Time.timeScale = 1;
+        
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-        dialogueText.text = "";
-        dialogueObject.SetActive(false);
-        
-        SetUILives();
-        SetUIEssenzBar();
-        playerStats.SetActive(true);
-
-        grappableTargets = new List<Grappable>();
+        InitializeStats();
         
         playerInput = new PlayerInput();
 
@@ -86,14 +104,33 @@ public class PlayerScript : MonoBehaviour
         playerInput.Movement.Attack.performed += ctx => Attack();
         playerInput.Movement.Interact.performed += ctx => Interact();
         playerInput.Movement.DreamShift.performed += ctx => DreamShift();
+        playerInput.Movement.DreamShift.canceled += ctx => CancelDreamShift();
         playerInput.Movement.Glide.performed += ctx => Glide(true);
         playerInput.Movement.Glide.canceled += ctx => Glide(false);
         playerInput.Movement.Grappling.performed += ctx => Grappling();
         playerInput.Movement.Pause.performed += ctx => Pause();
 
         playerInput.Movement.Enable();
+    }
 
+    private void InitializeStats()
+    {
+        deathScreen.SetActive(false);
+        
+        dialogueText.text = "";
+        dialogueObject.SetActive(false);
+        
+        abilityScreen.gameObject.SetActive(false);
+        
+        if(currentTarget != null) currentTarget.Untarget();
+        
+        grappableTargets = new List<Grappable>();
+        
         lifes = maxLifes;
+        dreamEssence = essenceCapacity;
+        SetUILives();
+        SetUIEssenzBar();
+        playerStats.SetActive(true);
     }
 
     private void Update()
@@ -103,6 +140,11 @@ public class PlayerScript : MonoBehaviour
         
         if (leftSideRay || rightSideRay)
         {
+            if(jumpDelay != null)
+            {
+                StopCoroutine(jumpDelay);
+                jumpDelay = null;
+            }
             isGrounded = true;
             if(!usingGrappling) movedAfterGrappling = true;
             usedDoubleJump = false;
@@ -110,7 +152,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            isGrounded = false;
+            if (jumpDelay == null) jumpDelay = StartCoroutine(JumpDelay());
         }
 
 
@@ -135,6 +177,12 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    private IEnumerator JumpDelay()
+    {
+        yield return new WaitForSeconds(ledgeForgivenessTime);
+        isGrounded = false;
+    }
+
     private void OnDrawGizmos()
     {
         if (isGrounded) Gizmos.color = Color.green;
@@ -146,10 +194,14 @@ public class PlayerScript : MonoBehaviour
         Gizmos.DrawLine(transform.position + Vector3.left * .2f, transform.position + Vector3.left * .2f + Vector3.down * .85f);
         Gizmos.DrawLine(transform.position + Vector3.right * .2f, transform.position + Vector3.right * .2f + Vector3.down * .85f);
         
+        Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(transform.position + Vector3.down * .3f,.7f);
+        
         Gizmos.color = Color.magenta;
         //Gizmos.DrawLine(transform.position + Vector3.up * .42f + Vector3.left * .34f, transform.position + Vector3.up * .42f + Vector3.right * .34f);
         //Gizmos.DrawLine(transform.position + Vector3.down * .78f + Vector3.left * .34f, transform.position + Vector3.down * .78f + Vector3.right * .34f);
         //Gizmos.DrawSphere(transform.position + new Vector3(collider.offset.x,collider.offset.y),.5f);
+
         if (grappableTargets == null) return;
         foreach (var target in grappableTargets)
         {
@@ -186,7 +238,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if (!movedAfterGrappling) return;
+            if (!movedAfterGrappling || !movedAfterHit) return;
             if (walkingVelocity == 0 && !leftSideRay && !rightSideRay)
             {
                 rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
@@ -211,12 +263,15 @@ public class PlayerScript : MonoBehaviour
 
         
         //Target finden für Grappling
-        if(!hasGrappling) return;
+        if(!CanUseAbility(AbilityType.Grappling)) return;
         
         Vector2 ownPos = transform.position;
         float distanceToTarget = float.MaxValue;
-        if(currentTarget != null) currentTarget.Untarget();
-        currentTarget = null;
+        //if(currentTarget != null) currentTarget.Untarget();
+        //currentTarget = null;
+
+        Grappable newTarget = null;
+        
         if (usingGrappling) return;
         foreach (var target in grappableTargets)
         {
@@ -234,10 +289,21 @@ public class PlayerScript : MonoBehaviour
             if (currentDistance < distanceToTarget)
             {
                 distanceToTarget = currentDistance;
-                currentTarget = target;
+                newTarget = target;
             }
         }
-        if(currentTarget != null) currentTarget.Target();
+
+        if (currentTarget != null && newTarget != currentTarget)
+        {
+            currentTarget.Untarget();
+        }
+
+        if (newTarget != null && newTarget != currentTarget)
+        {
+            newTarget.Target();
+        }
+
+        currentTarget = newTarget;
     }
 
     private void Move(Vector2 value)
@@ -245,16 +311,23 @@ public class PlayerScript : MonoBehaviour
         if(!canMove) return;
 
         movedAfterGrappling = true;
+        movedAfterHit = true;
 
         if (value.x < 0) //Walk left
         {
             walkingVelocity = -1f;
-            if (transform.localScale.x > 0) transform.localScale = new Vector3(-1,1,1);
+            if (transform.localScale.x > 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
         }
         else if (value.x > 0) //Walk right
         {
             walkingVelocity = 1f;
-            if (transform.localScale.x < 0) transform.localScale = new Vector3(1,1,1);
+            if (transform.localScale.x < 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
         }
         else
         {
@@ -279,6 +352,7 @@ public class PlayerScript : MonoBehaviour
         if(!canMove) return;
 
         movedAfterGrappling = true;
+        movedAfterHit = true;
 
         if (isGrounded)
         {
@@ -286,11 +360,12 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if (hasDoubleJump && !usedDoubleJump)
+            if (CanUseAbility(AbilityType.DoubleJump) && !usedDoubleJump)
             {
                 if(isGliding) CancelGliding();
                 rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
                 usedDoubleJump = true;
+                Instantiate(doubleJumpPS,transform.position, Quaternion.Euler(0,0,-115));
             }
         }
     }
@@ -304,49 +379,198 @@ public class PlayerScript : MonoBehaviour
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0.4f*yVel);
     }
 
+    public void Heal()
+    {
+        //TODO effect stuff when healing
+        lifes++;
+        if (lifes > maxLifes) lifes = maxLifes;
+        SetUILives();
+    }
+
+    public void GetDamage()
+    {
+        if (!canGetDamage) return;
+        
+        if(!godMode) lifes--;
+        SetUILives();
+
+        //TODO hit effects
+
+        rigidbody.velocity = Vector2.zero;
+
+        if (lifes <= 0)
+        {
+            //TODO some death effects
+            StartCoroutine(Death(0f));
+        }
+        else
+        {
+            StartCoroutine(Invinsibility(1.5f));
+        }
+    }
+
+    private IEnumerator Death(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Time.timeScale = 0;
+        canMove = false;
+        playerStats.SetActive(false);
+        deathScreen.SetActive(true);
+    }
+
+    private IEnumerator Invinsibility(float time)
+    {
+        canGetDamage = false;
+        float timeOver = 0f;
+
+        while (timeOver < time)
+        {
+            timeOver += Time.deltaTime;
+
+            spriteRenderer.enabled = Mathf.RoundToInt(timeOver * 4) % 2 == 0;
+            
+            yield return 0;
+        }
+
+        spriteRenderer.enabled = true;
+        canGetDamage = true;
+    }
+
+    public void Respawn()
+    {
+        //TODO Respawn alles nötige
+        //TODO Teleportiere zum Dorf
+        rigidbody.velocity = Vector2.zero;
+        
+        GameManager.instance.SetNightmare(false);
+        
+        InitializeStats();
+        Time.timeScale = 1;
+        canMove = true;
+        canDreamShift = true;
+    }
+
+    public void GetDamage(Vector2 knockback)
+    {
+        if (!canGetDamage) return;
+        GetDamage();
+        
+        movedAfterHit = false;
+        rigidbody.velocity =  knockback * attackHitKnockback;
+
+        StartCoroutine(ResetKnockbackAfterTime(knockback.magnitude * attackHitKnockback * 0.043f));
+    }
+
     private void Attack()
     {
         if(!canMove) return;
 
-        
-
         Vector2 look = playerInput.Movement.Move.ReadValue<Vector2>();
         if (look.x < 0)
         {
-            Debug.Log("Attacke Links");
+            //Debug.Log("Attacke Links");
+            DoAttack(0,attackRange);
             animator.SetTrigger("hit");
         }
         else if (look.x > 0)
         {
-            Debug.Log("Attacke Rechts");
+            //Debug.Log("Attacke Rechts");
+            DoAttack(1,attackRange);
             animator.SetTrigger("hit");
         }
         else if (look.y > 0)
         {
-            Debug.Log("Attacke Oben");
+            //Debug.Log("Attacke Oben");
+            DoAttack(2,attackRange);
         }
         else if (look.y < 0)
         {
-            Debug.Log("Attacke Unten");
+            //Debug.Log("Attacke Unten");
+            DoAttack(3,attackRange);
         }
         else
         {
             if (transform.localScale.x < 0)
             {
-                Debug.Log("Attacke Links");
+                //Debug.Log("Attacke Links");
+                DoAttack(0,attackRange);
                 animator.SetTrigger("hit");
             }
             else
             {
-                Debug.Log("Attacke Rechts");
+                //Debug.Log("Attacke Rechts");
+                DoAttack(1,attackRange);
                 animator.SetTrigger("hit");
             }
         }
         if(isGliding) CancelGliding();
     }
 
+    private void DoAttack(int direction, float radius)
+    {
+        //links rechts oben unten
+        //0     1      2    3
+        Vector3[] attackPoints = {
+            transform.position + Vector3.left * .4f + Vector3.down * .25f,
+            transform.position + Vector3.right * .4f + Vector3.down * .25f,
+            transform.position + Vector3.up * .2f,
+            transform.position + Vector3.down * .4f};
+        Vector3 attackPoint = attackPoints[direction];
+        Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint, radius, hittableLayers);
+        
+        if (enemiesHit.Length == 0) return; //No Hit
+        
+        movedAfterHit = false;
+        foreach (var enemy in enemiesHit)
+        {
+            if (enemy.CompareTag("Fruit"))
+            {
+                Fruit fruit = enemy.GetComponent<Fruit>();
+                fruit.ObtainFruit();
+                continue;
+            }
+            
+            HealthSystem enemyHealth = enemy.GetComponent<HealthSystem>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.Damage(attackDamage);
+            }
+        }
+        
+        //TODO do sfx stuff to indicate hit
+
+        Vector2[] knockbackVectors = { Vector2.right, Vector2.left, Vector2.down, Vector2.up };
+        rigidbody.velocity =  knockbackVectors[direction] * attackHitKnockback * (direction < 2 ? .7f:1f);
+
+        if (direction < 2) StartCoroutine(ResetKnockbackAfterTime(.3f));
+    }
+
+    private IEnumerator ResetKnockbackAfterTime(float time)
+    {
+        float timeOver = 0f;
+
+        while (timeOver < time)
+        {
+            timeOver += Time.deltaTime;
+            if(movedAfterHit) yield break;
+            yield return 0;
+        }
+        
+        Move(playerInput.Movement.Move.ReadValue<Vector2>());
+    }
+
     private void Interact()
     {
+        if (abilityGranted)
+        {
+            abilityGranted = false;
+            abilityScreen.gameObject.SetActive(false);
+            Time.timeScale = 1;
+            canMove = true;
+            playerStats.SetActive(true);
+            return;
+        }
+        
         if (dialogueCoroutine != null)
         {
             if(dialogueState == 1)
@@ -374,16 +598,122 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void ObtainEssence(float amount)
+    {
+        //TODO effect stuff on obtaining essence
+        dreamEssence += amount;
+        if (dreamEssence > essenceCapacity) dreamEssence = essenceCapacity;
+        SetUIEssenzBar();
+    }
+
+    public void SetCanDreamShift(bool canShift)
+    {
+        this.canDreamShift = canShift;
+    }
+    
     private void DreamShift()
     {
         if(!canDreamShift) return;
         if(!canMove) return;
+        //if(!isGrounded) return;
+
+        if (godMode)
+        {
+            GameManager.instance.SwitchNightmare();
+        }
+        else if (dreamEssence >= 1f)
+        {
+            dreamEssence -= 1f;
+            SetUIEssenzBar();
+
+            if (GameManager.instance.nightmareMode && hasGrappling == 1)
+            {
+                if (currentTarget != null)
+                {
+                    currentTarget.Untarget();
+                    currentTarget = null;
+                }
+            }
+            
+            GameManager.instance.SwitchNightmare();
+        }
+
+        //StartCoroutine(DreamShifting());
+    }
+
+    /*private IEnumerator DreamShifting()
+    {
+        canMove = false;
+        walkingVelocity = 0f;
+        cancelShift = false;
+
+        const float consumingRate = 0.5f;
+        float consumed = 0f;
         
+        while (!cancelShift)
+        {
+            float amt = Time.deltaTime * consumingRate;
+            
+            dreamEssence -= amt;
+            consumed += amt;
+
+            if (dreamEssence <= 0f)
+            {
+                dreamEssence = 0f;
+                SetUIEssenzBar();
+                break;
+            }
+            if (consumed >= 1f)
+            {
+                dreamEssence += consumed - 1f;
+                SetUIEssenzBar();
+                GameManager.instance.SwitchNightmare();
+
+                canMove = true;
+                Move(playerInput.Movement.Move.ReadValue<Vector2>());
+                yield break;
+            }
+            SetUIEssenzBar();
+
+            yield return new WaitForEndOfFrame();
+        }
+        //TODO Camera zurücksetzen
+        //TODO Particle stoppen
+
+        canMove = true;
+        Move(playerInput.Movement.Move.ReadValue<Vector2>());
+    }*/
+
+    private void CancelDreamShift()
+    {
+        cancelShift = true;
+    }
+
+    private bool CanUseAbility(AbilityType abilityType)
+    {
+        if (godMode) return true;
+        switch (abilityType)
+        {
+            case AbilityType.Grappling:
+                if (hasGrappling == 1 && GameManager.instance.nightmareMode) return true;
+                if (hasGrappling == 2) return true;
+                break;
+            case AbilityType.DoubleJump:
+                if (hasDoubleJump == 1 && GameManager.instance.nightmareMode) return true;
+                if (hasDoubleJump == 2) return true;
+                break;
+            case AbilityType.Gliding:
+                if (hasGlide == 1 && GameManager.instance.nightmareMode) return true;
+                if (hasGlide == 2) return true;
+                break;
+        }
+
+        return false;
     }
 
     private void Glide(bool pressed)
     {
-        if(!hasGlide) return;
+        if(!CanUseAbility(AbilityType.Gliding)) return;
         if(!canMove) return;
 
         if (isGliding && !pressed)
@@ -413,7 +743,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Grappling()
     {
-        if(!hasGrappling) return;
+        if(!CanUseAbility(AbilityType.Grappling)) return;
         if(!canMove) return;
         if (usingGrappling) return;
         if (currentTarget == null) return;
@@ -425,6 +755,7 @@ public class PlayerScript : MonoBehaviour
     {
         Grappable target = currentTarget;
         
+        CancelGliding();
         usingGrappling = true;
         canMove = false;
         movedAfterGrappling = false;
@@ -482,6 +813,17 @@ public class PlayerScript : MonoBehaviour
                 currentInteractable.HideText();
             }
         }
+        
+        if (other.CompareTag("EssenceTrigger"))
+        {
+            other.GetComponent<Essence>().Obtain();
+        }
+
+        if (other.CompareTag("Essence"))
+        {
+            ObtainEssence(other.GetComponent<Essence>().essenceAmount);
+            Destroy(other.transform.parent.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -528,6 +870,40 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSeconds(dialogueSpeed);
         }
         dialogueState = 2;
+    }
+
+    public void UnlockAbility(Sprite icon, string title, string description, AbilityType abilityType)
+    {
+        //TODO SFX Stuff and sounds
+
+        Time.timeScale = 0;
+        
+        abilityScreen.SetUpScreen(icon,title,description);
+        abilityScreen.gameObject.SetActive(true);
+        abilityGranted = true;
+        canMove = false;
+        playerStats.SetActive(false);
+        
+
+        switch (abilityType)
+        {
+            case AbilityType.Grappling:
+                hasGrappling++;
+                break;
+            case AbilityType.DoubleJump:
+                hasDoubleJump++;
+                break;
+            case AbilityType.Gliding:
+                hasGlide++;
+                break;
+        }
+    }
+
+    public enum AbilityType
+    {
+        Grappling,
+        DoubleJump,
+        Gliding
     }
     
     //UI-Methods
