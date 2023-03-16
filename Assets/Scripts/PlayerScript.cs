@@ -63,7 +63,7 @@ public class PlayerScript : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     
     //DreamShift
-    private bool canDreamShift = true;
+    public bool canDreamShift = true;
     private float dreamEssence = 2.4f;
     private float essenceCapacity = 3;
     private bool cancelShift;
