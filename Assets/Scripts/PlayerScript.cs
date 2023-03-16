@@ -667,6 +667,7 @@ public class PlayerScript : MonoBehaviour
 
     private bool CanUseAbility(AbilityType abilityType)
     {
+        if (godMode) return true;
         switch (abilityType)
         {
             case AbilityType.Grappling:
