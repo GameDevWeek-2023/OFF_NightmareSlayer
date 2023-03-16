@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Sprites/Environment/Village/Water-Wheel/Wheel_14.png.meta
 guid: 22d189366b47f46c39bb241933c2dec7
+=======
+guid: f7e693f50eacdd740a5d317d6f6d318a
+>>>>>>> Stashed changes:Assets/Animations/Water-Wheel/Wheel_18.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

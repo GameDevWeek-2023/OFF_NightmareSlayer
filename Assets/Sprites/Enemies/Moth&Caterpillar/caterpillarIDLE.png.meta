@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Sprites/Enemies/Moth&Caterpillar/caterpillarIDLE.png.meta
 guid: aba5d896d58f51d4bb5463852a5e32a4
+=======
+guid: 183badada3bee3b41afc37e99ee7b655
+>>>>>>> Stashed changes:Assets/Animations/Water-Wheel/Wheel_1.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

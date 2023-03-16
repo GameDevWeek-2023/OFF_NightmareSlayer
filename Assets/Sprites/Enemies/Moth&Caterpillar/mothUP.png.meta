@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Sprites/Enemies/Moth&Caterpillar/mothUP.png.meta
 guid: 5d50c696bd48e5340b3d27a7a246d530
+=======
+guid: 666d7bc5de701f54ea31931d2848d423
+>>>>>>> Stashed changes:Assets/Animations/Water-Wheel/Wheel_12.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

@@ -276,12 +276,12 @@ Transform:
   - {fileID: 679991558277638780}
   - {fileID: 7883957261489054374}
   - {fileID: 4314806182106770061}
-  - {fileID: 2482898449937422606}
+  - {fileID: 8836200894330841219}
   - {fileID: 8960728992216979731}
   - {fileID: 3374398413790214408}
   - {fileID: 8364268312994448767}
   m_Father: {fileID: 0}
-  m_RootOrder: 155
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8685763463761615002
 MonoBehaviour:
@@ -337,7 +337,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2482898449937422607}
+      - m_Target: {fileID: 5460731162636256362}
         m_TargetAssemblyTypeName: RepeatingSpawner, Assembly-CSharp
         m_MethodName: StartSpawning
         m_Mode: 1
@@ -1735,12 +1735,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
---- !u!4 &2482898449937422606 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6401157795222614414, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
-  m_PrefabInstance: {fileID: 2482898449937422605}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2482898449937422607 stripped
+--- !u!114 &5460731162636256362 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7619365936909540711, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
   m_PrefabInstance: {fileID: 2482898449937422605}
@@ -1751,6 +1746,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f636b732df58b47ab86b05027b775b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &8836200894330841219 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6401157795222614414, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
+  m_PrefabInstance: {fileID: 2482898449937422605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2634496463464589469
 PrefabInstance:
   m_ObjectHideFlags: 0

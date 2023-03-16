@@ -11,8 +11,9 @@ public class Boss : MonoBehaviour
     private int currentPhase=0;
     private BossAttack currentAttack;
     private List<BossAttack>[] bossAttacks;
-    protected Rigidbody2D rb2d;
-    protected Animator animator;
+    [HideInInspector]
+    public Rigidbody2D rb2d;
+    public Animator animator;
 
     private void Awake()
     {
