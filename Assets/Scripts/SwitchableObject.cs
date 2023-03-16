@@ -17,6 +17,7 @@ public class SwitchableObject : MonoBehaviour
     void Start()
     {
         nightmareMode.SetActive(false);
+        normal.SetActive(true);
     }
 
     public void SwitchObject(bool isNightmare)
@@ -36,10 +37,9 @@ public class SwitchableObject : MonoBehaviour
     public static void SwitchAll(bool isNightmare)
     {
         if (allSwitchables == null) return;
-        for (int i = allSwitchables.Count-1; i >= 0; i--)
+        foreach (var switchableObject in allSwitchables)
         {
-            SwitchableObject switchable = allSwitchables[i];
-            switchable.SwitchObject(isNightmare);
+            switchableObject.SwitchObject(isNightmare);
         }
     }
 }

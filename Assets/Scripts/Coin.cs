@@ -1,15 +1,13 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Essence : MonoBehaviour
+public class Coin : MonoBehaviour
 {
-    public float essenceAmount = .05f;
-    public float minSize = .1f;
-    public float maxSize = .18f;
-    public float minVelocity = 1f;
-    public float maxVelocity = 8f;
+    public float minSize = .18f;
+    public float maxSize = .24f;
+    public float minVelocity = 2f;
+    public float maxVelocity = 6f;
     public float obtainableTime = .5f;
     public float obtainSpeed = 5f;
     public float despawnTime = 10f;
@@ -59,7 +57,7 @@ public class Essence : MonoBehaviour
     private IEnumerator BecomeObtainable()
     {
         yield return 0;
-        gameObject.tag = "Essence";
+        gameObject.tag = "Coin";
     }
 
     private void Update()

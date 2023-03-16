@@ -40,9 +40,9 @@ public class ReplaceEnemy : MonoBehaviour
     public static void ReplaceAll(bool isNightmare)
     {
         if (allEnemies == null) return;
-        for (int i = allEnemies.Count-1; i >= 0; i--)
+        ReplaceEnemy[] enemies = allEnemies.ToArray();
+        foreach (ReplaceEnemy enemy in enemies)
         {
-            ReplaceEnemy enemy = allEnemies[i];
             enemy.Replace(isNightmare);
         }
     }

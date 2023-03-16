@@ -20,20 +20,19 @@ public class Fruit : MonoBehaviour
     {
         if (allFruits == null) allFruits = new List<Fruit>();
         if (!allFruits.Contains(this)) allFruits.Add(this);
+        
+        collider = GetComponent<Collider2D>();
     }
     void Start()
     {
-        collider = GetComponent<Collider2D>();
-        
         AddFruit();
     }
 
     public static void SwitchAllFruit(bool isNightmare)
     {
         if (allFruits == null) return;
-        for (int i = allFruits.Count-1; i >= 0; i--)
+        foreach (var fruit in allFruits)
         {
-            Fruit fruit = allFruits[i];
             fruit.SwitchFruit(isNightmare);
         }
     }

@@ -84,6 +84,9 @@ public class PlayerScript : MonoBehaviour
     private bool movedAfterGrappling = true;
     private Animator animator;
     
+    //Coins
+    private int coins;
+    
     //Sounds
     public List<AudioClip> attackSounds;
 
@@ -141,6 +144,7 @@ public class PlayerScript : MonoBehaviour
         dreamEssence = essenceCapacity;
         SetUILives();
         SetUIEssenzBar();
+        SetUICoins();
         playerStats.SetActive(true);
 
         canDash = true;
@@ -617,6 +621,13 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void ObtainCoins(int amount)
+    {
+        //TODO effect stuff on obtaining coins
+        coins += amount;
+        SetUICoins();
+    }
+
     public void ObtainEssence(float amount)
     {
         //TODO effect stuff on obtaining essence
@@ -879,6 +890,17 @@ public class PlayerScript : MonoBehaviour
             ObtainEssence(other.GetComponent<Essence>().essenceAmount);
             Destroy(other.transform.parent.gameObject);
         }
+        
+        if (other.CompareTag("CoinTrigger"))
+        {
+            other.GetComponent<Coin>().Obtain();
+        }
+
+        if (other.CompareTag("Coin"))
+        {
+            ObtainCoins(1);
+            Destroy(other.transform.parent.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -973,5 +995,10 @@ public class PlayerScript : MonoBehaviour
         if (dreamEssence > essenceCapacity) dreamEssence = essenceCapacity;
         float zs = dreamEssence / essenceCapacity;
         essenzManager.SetEssenz(zs);
+    }
+
+    private void SetUICoins()
+    {
+        
     }
 }
