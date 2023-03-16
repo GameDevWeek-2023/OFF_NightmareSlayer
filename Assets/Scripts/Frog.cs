@@ -14,18 +14,20 @@ public class Frog : MonoBehaviour
     public float jumpStrength = 10f;
     public float jumpStrengthSide = 10f;
     public float jumpDelta = 3f;
+    public bool shooting;
     private float jumpCoolDown = -1;
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        InvokeRepeating("Shoot",2,2);
+        if(shooting)
+            InvokeRepeating("Shoot",2,2);
     }
 
     void Shoot()
     {
-        Instantiate(bullet, bulletSpawner.transform.position, flipped?Quaternion.identity:Quaternion.Euler(0,180,0));
+        Instantiate(bullet, bulletSpawner.transform.position, flipped?Quaternion.Euler(0, 180, 0):Quaternion.identity);
         Debug.Log("Shoot");
     }
 
@@ -52,7 +54,7 @@ public class Frog : MonoBehaviour
         if (Physics2D.Raycast(transform.position, flipped ? Vector3.left : Vector3.right, 1f, ground))
         {
             flipped = !flipped;
-            spriteRenderer.flipX = flipped;
+            spriteRenderer.flipX = !flipped;
         }
 
     }
@@ -61,7 +63,7 @@ public class Frog : MonoBehaviour
     {
 
         float sideVelocity = 0;
-        if (flipped)
+        if (!flipped)
         {
             sideVelocity = jumpStrengthSide;
         }
