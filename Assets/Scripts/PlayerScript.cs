@@ -437,6 +437,7 @@ public class PlayerScript : MonoBehaviour
         InitializeStats();
         Time.timeScale = 1;
         canMove = true;
+        canDreamShift = true;
     }
 
     public void GetDamage(Vector2 knockback)
@@ -585,6 +586,14 @@ public class PlayerScript : MonoBehaviour
             currentInteractable.Interact();
             walkingVelocity = 0;
         }
+    }
+
+    public void ObtainEssence(float amount)
+    {
+        //TODO effect stuff on obtaining essence
+        dreamEssence += amount;
+        if (dreamEssence > essenceCapacity) dreamEssence = essenceCapacity;
+        SetUIEssenzBar();
     }
 
     public void SetCanDreamShift(bool canShift)
@@ -793,6 +802,17 @@ public class PlayerScript : MonoBehaviour
             {
                 currentInteractable.HideText();
             }
+        }
+        
+        if (other.CompareTag("EssenceTrigger"))
+        {
+            other.GetComponent<Essence>().Obtain();
+        }
+
+        if (other.CompareTag("Essence"))
+        {
+            ObtainEssence(other.GetComponent<Essence>().essenceAmount);
+            Destroy(other.transform.parent.gameObject);
         }
     }
 
