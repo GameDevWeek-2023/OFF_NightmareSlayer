@@ -1361,17 +1361,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2226686153993224761, guid: 8ac03bba8a58c430886a8a9751adcb2d, type: 3}
   m_PrefabInstance: {fileID: 190619325}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &558402966 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5996827274733441031, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
-  m_PrefabInstance: {fileID: 2327315542955310073}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &587746533 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3780831723206426247, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
@@ -2089,7 +2078,7 @@ PrefabInstance:
     - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
       propertyPath: coinsText
       value: 
-      objectReference: {fileID: 558402966}
+      objectReference: {fileID: 1795269643}
     - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
       propertyPath: pausePanel
       value: 
@@ -2518,6 +2507,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f91fea7dac791164294556a72902bc18, type: 3}
+--- !u!114 &1795269643 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2482450297513780975, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
+  m_PrefabInstance: {fileID: 2327315542955310073}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1819041517
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool nightmareMode = false;
+    
+    //Game Progress
+    public bool frogSlain = false;
+    
     //ONLY FOR DEBUG
     public bool switchNightmare = false;
     public UnityEvent onSwitch;
