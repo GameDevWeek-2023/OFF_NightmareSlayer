@@ -79,6 +79,9 @@ public class PlayerScript : MonoBehaviour
     public LayerMask obstaclesTowardsTarget;
     private bool movedAfterGrappling = true;
     private Animator animator;
+    
+    //Special Effects
+    public GameObject doubleJumpPS;
 
     private void Awake()
     {
@@ -313,12 +316,18 @@ public class PlayerScript : MonoBehaviour
         if (value.x < 0) //Walk left
         {
             walkingVelocity = -1f;
-            if (transform.localScale.x > 0) transform.localScale = new Vector3(-1,1,1);
+            if (transform.localScale.x > 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
         }
         else if (value.x > 0) //Walk right
         {
             walkingVelocity = 1f;
-            if (transform.localScale.x < 0) transform.localScale = new Vector3(1,1,1);
+            if (transform.localScale.x < 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
         }
         else
         {
@@ -356,6 +365,7 @@ public class PlayerScript : MonoBehaviour
                 if(isGliding) CancelGliding();
                 rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
                 usedDoubleJump = true;
+                Instantiate(doubleJumpPS,transform.position, Quaternion.Euler(0,0,-115));
             }
         }
     }
