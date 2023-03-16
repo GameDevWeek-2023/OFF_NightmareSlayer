@@ -12,6 +12,7 @@ public class Boss : MonoBehaviour
     private BossAttack currentAttack;
     private List<BossAttack>[] bossAttacks;
     protected Rigidbody2D rb2d;
+    protected Animator animator;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class Boss : MonoBehaviour
             }
         }
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     public void StartAttackLoop()
