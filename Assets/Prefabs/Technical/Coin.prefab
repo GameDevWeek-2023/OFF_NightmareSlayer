@@ -231,8 +231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 0.18
   maxSize: 0.24
-  minVelocity: 2
-  maxVelocity: 6
+  minVelocity: 1
+  maxVelocity: 4
   obtainableTime: 0.5
   obtainSpeed: 10
   despawnTime: 10

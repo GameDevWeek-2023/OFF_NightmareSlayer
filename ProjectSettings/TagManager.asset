@@ -10,6 +10,8 @@ TagManager:
   - Essence
   - EssenceTrigger
   - BossroomWall
+  - Coin
+  - CoinTrigger
   layers:
   - Default
   - TransparentFX
@@ -23,8 +25,8 @@ TagManager:
   - Tongue
   - Essence
   - EssenceCollider
-  - 
-  - 
+  - Coin
+  - CoinCollider
   - 
   - 
   - 
