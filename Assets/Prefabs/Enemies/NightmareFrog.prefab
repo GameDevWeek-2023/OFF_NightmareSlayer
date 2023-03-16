@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 4403633160422430621}
   - component: {fileID: 1086314677303418601}
   - component: {fileID: 7392293514655559500}
+  - component: {fileID: 2378338965818604174}
   m_Layer: 6
   m_Name: NightmareFrog
   m_TagString: Untagged
@@ -103,7 +104,7 @@ Transform:
   - {fileID: 8360089528080239970}
   - {fileID: 2002277891574972500}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6496272292293294472
 MonoBehaviour:
@@ -255,6 +256,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc37e0516cfc51459d9d0f83f6b1fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2378338965818604174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112537084954659857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fedff2055f4edc44bfcde4155b5ee38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  onGetDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6496272292293294472}
+        m_TargetAssemblyTypeName: Frog, Assembly-CSharp
+        m_MethodName: Die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8196078239200118387
 GameObject:
   m_ObjectHideFlags: 0

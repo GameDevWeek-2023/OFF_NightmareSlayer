@@ -76,12 +76,16 @@ public class Frog : MonoBehaviour
         }
 
         rb2d.velocity = new Vector2(sideVelocity * Random.Range(.5f, 1.5f), jumpStrength * Random.Range(.5f, 1.5f));
-        StartCoroutine(spriteWait());
+        StartCoroutine(SpriteWait());
     }
 
-    IEnumerator spriteWait()
+    IEnumerator SpriteWait()
     {
         yield return new WaitForSeconds(0.3f);
         spriteRenderer.sprite = idle;
+    }
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
