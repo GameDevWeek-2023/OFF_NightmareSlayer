@@ -12,7 +12,7 @@ public class ShockWave : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Untagged"))
+        if (collision.CompareTag("BossroomWall"))
         {
             Destroy(gameObject);
         }

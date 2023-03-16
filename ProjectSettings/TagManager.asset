@@ -9,6 +9,7 @@ TagManager:
   - Fruit
   - Essence
   - EssenceTrigger
+  - BossroomWall
   layers:
   - Default
   - TransparentFX
