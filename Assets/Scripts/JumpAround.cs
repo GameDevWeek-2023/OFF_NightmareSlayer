@@ -11,8 +11,10 @@ public class JumpAround : BossAttack
     public float jumpDelta = 3f;
     private float jumpCoolDown = -1;
     private Rigidbody2D rb2d;
-    private void Awake()
+    private bool lastFrameGrounded = false;
+    void Awake()
     {
+        base.Awake();
         rb2d=GetComponent<Rigidbody2D>();
     }
     public override void AttackUpdate()
@@ -20,6 +22,8 @@ public class JumpAround : BossAttack
         
         if (jumpCoolDown == -1)
         {
+            //if (!lastFrameGrounded)
+            //    boss.bossroomManager.CameraShake(.5f);
             jumpCoolDown = jumpDelta;
         }
         else if (jumpCoolDown < 0)
@@ -31,8 +35,12 @@ public class JumpAround : BossAttack
             else if (Physics2D.Raycast(transform.position, Vector3.down, 4f, ground))
             {
                 Jump();
+                
+                lastFrameGrounded = true;
+
                 jumpCoolDown = -1;
             }
+            else lastFrameGrounded=false;
         }
         else
         {

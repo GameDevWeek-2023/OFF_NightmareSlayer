@@ -7,6 +7,7 @@ public class Boss : MonoBehaviour
     public int phaseCount=1;
     public float minBreak=1f;
     public float maxBreak=3f;
+    public BossroomManager bossroomManager;
     private int currentPhase=0;
     private BossAttack currentAttack;
     private List<BossAttack>[] bossAttacks;

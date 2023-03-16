@@ -23,13 +23,15 @@ public class BossroomManager : MonoBehaviour
         onEntry.Invoke();
         virtualCamera.Priority = 15;
         locked = true;
+        PlayerScript.instance.SetCanDreamShift(false);
         Close();
     }
     void Exit()
     {
         if (!locked)
         {
-            fightActive = true;
+            fightActive = false;
+            PlayerScript.instance.SetCanDreamShift(true);
             virtualCamera.Priority = 5;
         }
     }
@@ -38,6 +40,17 @@ public class BossroomManager : MonoBehaviour
     {
         locked = false;
         Open();
+    }
+
+    public void CameraShake(float duration)
+    {
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5;
+        Invoke("StopShake", duration);
+    }
+
+    private void StopShake()
+    {
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
     }
 
     public void SwitchFightActive()
