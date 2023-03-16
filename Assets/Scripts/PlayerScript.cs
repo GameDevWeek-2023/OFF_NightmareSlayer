@@ -23,6 +23,7 @@ public class PlayerScript : MonoBehaviour
     public AbilityScreen abilityScreen;
     public HeartManager heartManager;
     public EssenzManager essenzManager;
+    public TextMeshProUGUI coinsText;
     public GameObject deathScreen;
 
     //Movement
@@ -999,6 +1000,6 @@ public class PlayerScript : MonoBehaviour
 
     private void SetUICoins()
     {
-        
+        coinsText.text = coins.ToString();
     }
 }
