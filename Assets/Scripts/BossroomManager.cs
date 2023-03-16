@@ -10,12 +10,20 @@ public class BossroomManager : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     public bool locked=false;
     public UnityEvent onEntry;
+    private Animator animator;
+    private bool hidden = true;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Entry()
     {
         fightActive = true;
         onEntry.Invoke();
         virtualCamera.Priority = 15;
         locked = true;
+        Close();
     }
     void Exit()
     {
@@ -26,9 +34,46 @@ public class BossroomManager : MonoBehaviour
         }
     }
 
+    public void Defeated()
+    {
+        locked = false;
+        Open();
+    }
+
     public void SwitchFightActive()
     {
         if (fightActive) Exit();
         else Entry();
+    }
+
+    public void SwitchNightmareMode()
+    {
+        if (hidden)
+            Show();
+        else
+            Hide();
+    }
+
+    public void Show()
+    {
+        animator.Play("Show");
+        hidden = false;
+    }
+
+    public void Hide()
+    {
+        animator.Play("Hide");
+        hidden = true;
+    }
+
+    public void Open()
+    {
+        animator.Play("Open");
+    }
+
+    public void Close()
+    {
+        animator.Play("Close");
+
     }
 }
