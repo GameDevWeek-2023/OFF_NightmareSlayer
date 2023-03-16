@@ -497,8 +497,6 @@ public class PlayerScript : MonoBehaviour
 
     private void DoAttack(int direction, float radius)
     {
-        movedAfterHit = false;
-        
         //links rechts oben unten
         //0     1      2    3
         Vector3[] attackPoints = {
@@ -510,6 +508,8 @@ public class PlayerScript : MonoBehaviour
         Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint, radius, hittableLayers);
         
         if (enemiesHit.Length == 0) return; //No Hit
+        
+        movedAfterHit = false;
         foreach (var enemy in enemiesHit)
         {
             if (enemy.CompareTag("Fruit"))
