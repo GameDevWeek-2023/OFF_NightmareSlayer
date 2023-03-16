@@ -31,14 +31,10 @@ public class ReplaceEnemy : MonoBehaviour
 
         HealthSystem newHealthSystem = newEnemy.GetComponent<HealthSystem>();
         if (newHealthSystem != null && ownHealthSystem != null) newHealthSystem.health = ownHealthSystem.health;
-        
-        
-        Destroy(gameObject);
-    }
 
-    private void OnDestroy()
-    {
+
         allEnemies.Remove(this);
+        Destroy(gameObject);
     }
 
     public static void ReplaceAll(bool isNightmare)

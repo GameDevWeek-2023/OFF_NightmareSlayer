@@ -57,12 +57,12 @@ public class Fruit : MonoBehaviour
         if (hasFruit)
         {
             fruit.SetActive(true);
-            collider.enabled = true;
+            if(collider != null) collider.enabled = true;
         }
         else
         {
             fruit.SetActive(false);
-            collider.enabled = false;
+            if(collider != null) collider.enabled = false;
         }
     }
     
@@ -81,11 +81,6 @@ public class Fruit : MonoBehaviour
         }
 
         RemoveFruit();
-    }
-
-    private void OnDestroy()
-    {
-        allFruits.Remove(this);
     }
     
     public void AddFruit()

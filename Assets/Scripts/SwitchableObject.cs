@@ -32,11 +32,6 @@ public class SwitchableObject : MonoBehaviour
             nightmareMode.SetActive(false);
         }
     }
-    
-    private void OnDestroy()
-    {
-        allSwitchables.Remove(this);
-    }
 
     public static void SwitchAll(bool isNightmare)
     {
