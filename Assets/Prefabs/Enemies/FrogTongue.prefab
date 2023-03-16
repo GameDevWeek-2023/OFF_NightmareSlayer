@@ -837,13 +837,13 @@ GameObject:
   - component: {fileID: 3655566350988003595}
   - component: {fileID: 5563662932108526532}
   - component: {fileID: 4011681405491972774}
-  m_Layer: 6
+  m_Layer: 14
   m_Name: FrogTongue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6148452532634969610
 Transform:
   m_ObjectHideFlags: 0

@@ -37,7 +37,7 @@ public class FrogTongueAttack : BossAttack
     private void StopMotion()
     {
         bone1Joint.useMotor = false;
-        Invoke("DisableSpriteSkin", 12);
+        Invoke("DisableSpriteSkin", 8);
     }
     private void DisableSpriteSkin()
     {
@@ -58,6 +58,6 @@ public class FrogTongueAttack : BossAttack
     {
         spriteSkin.gameObject.SetActive(false);
         boss.animator.Play("CloseMouth");
-        Finished();
+        Invoke("Finished", 1);
     }
 }

@@ -48,6 +48,7 @@ public class Boss : MonoBehaviour
     public void AttackFinished()
     {
         currentAttack = null;
+        animator.Play("Idle");
         Invoke("Attack",Random.Range(minBreak,maxBreak));
     }
     void Start()

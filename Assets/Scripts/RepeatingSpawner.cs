@@ -23,7 +23,10 @@ public class RepeatingSpawner : MonoBehaviour
 
     public IEnumerator Spawn()
     {
-        Instantiate(toSpawn, transform.position, Quaternion.identity, transform);
-        yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
+        while (true)
+        {
+            Instantiate(toSpawn, transform.position, Quaternion.identity, transform);
+            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
+        }
     }
 }

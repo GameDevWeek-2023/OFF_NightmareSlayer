@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 4414771581383054333}
   - component: {fileID: 7175865248396656796}
   - component: {fileID: 5824564260987254089}
-  - component: {fileID: 3187058562207845635}
-  m_Layer: 6
+  - component: {fileID: 1056419773932550507}
+  m_Layer: 14
   m_Name: Frogboss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b85b4e32fe1da4da69fc58f48370f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phases: 00
+  phases: 01
   shockWave: {fileID: 6463795431977537483, guid: 7681e0f96e6dcd141a0aff1389db6d31, type: 3}
 --- !u!114 &5824564260987254089
 MonoBehaviour:
@@ -237,7 +237,7 @@ MonoBehaviour:
   jumpStrength: 6
   jumpStrengthSide: 6
   jumpDelta: 3
---- !u!95 &3187058562207845635
+--- !u!95 &1056419773932550507
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
