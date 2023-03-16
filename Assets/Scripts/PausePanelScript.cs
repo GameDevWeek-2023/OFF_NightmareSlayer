@@ -1,11 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PausePanelScript : MonoBehaviour
 {
     public GameObject settingspanel;
+    public GameObject settingsButton, afterSettingsButton, firstChosenButton;
+
+
+    private void Awake()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstChosenButton);
+    }
 
     public void resume()
     {
@@ -19,9 +29,18 @@ public class PausePanelScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void settings()
+    public void openSettings()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(settingsButton);
         settingspanel.SetActive(true);
+    }
+
+    public void closeSettings()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(afterSettingsButton);
+        settingspanel.SetActive(false);
     }
 
     public void exit()
