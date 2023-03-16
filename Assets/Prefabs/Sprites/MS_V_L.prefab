@@ -215,8 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f55b8655e10da849b4ca0a8df45c63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 0}
-  nightmareMode: {fileID: 0}
+  normal: {fileID: 2420313369042297079}
+  nightmareMode: {fileID: 2286520994405247572}
 --- !u!60 &3865473224559425144
 PolygonCollider2D:
   m_ObjectHideFlags: 0
