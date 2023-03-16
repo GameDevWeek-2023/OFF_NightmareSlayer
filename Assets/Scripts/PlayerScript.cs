@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour
     private float walkingVelocity;
     public float movementSpeed;
     public float jumpSpeed;
+    public float ledgeForgivenessTime;
     public float glidingSpeed;
     public float glideFallSpeed;
     public LayerMask groundLayerMask;
@@ -40,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     public PhysicsMaterial2D physicsMaterialAir;
     public PhysicsMaterial2D physicsMaterialGround;
     public PhysicsMaterial2D physicsMaterialWalk;
+    private Coroutine jumpDelay;
     
     //Input
     private PlayerInput playerInput;
@@ -135,6 +137,11 @@ public class PlayerScript : MonoBehaviour
         
         if (leftSideRay || rightSideRay)
         {
+            if(jumpDelay != null)
+            {
+                StopCoroutine(jumpDelay);
+                jumpDelay = null;
+            }
             isGrounded = true;
             if(!usingGrappling) movedAfterGrappling = true;
             usedDoubleJump = false;
@@ -142,7 +149,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            isGrounded = false;
+            if (jumpDelay == null) jumpDelay = StartCoroutine(JumpDelay());
         }
 
 
@@ -165,6 +172,12 @@ public class PlayerScript : MonoBehaviour
                 animator.SetBool("isRunning", false);
             }
         }
+    }
+
+    private IEnumerator JumpDelay()
+    {
+        yield return new WaitForSeconds(ledgeForgivenessTime);
+        isGrounded = false;
     }
 
     private void OnDrawGizmos()
@@ -484,8 +497,6 @@ public class PlayerScript : MonoBehaviour
 
     private void DoAttack(int direction, float radius)
     {
-        movedAfterHit = false;
-        
         //links rechts oben unten
         //0     1      2    3
         Vector3[] attackPoints = {
@@ -497,6 +508,8 @@ public class PlayerScript : MonoBehaviour
         Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint, radius, hittableLayers);
         
         if (enemiesHit.Length == 0) return; //No Hit
+        
+        movedAfterHit = false;
         foreach (var enemy in enemiesHit)
         {
             if (enemy.CompareTag("Fruit"))
@@ -574,6 +587,11 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void SetCanDreamShift(bool canShift)
+    {
+        this.canDreamShift = canShift;
+    }
+    
     private void DreamShift()
     {
         if(!canDreamShift) return;
@@ -654,6 +672,7 @@ public class PlayerScript : MonoBehaviour
 
     private bool CanUseAbility(AbilityType abilityType)
     {
+        if (godMode) return true;
         switch (abilityType)
         {
             case AbilityType.Grappling:
