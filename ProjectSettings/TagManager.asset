@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - Grappable
+  - Fruit
   layers:
   - Default
   - TransparentFX

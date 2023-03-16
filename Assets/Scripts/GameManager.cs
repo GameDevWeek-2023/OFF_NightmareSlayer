@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     {
         nightmareMode = !nightmareMode;
         SwitchableObject.SwitchAll();
+        Fruit.SwitchAllFruit(nightmareMode);
         onSwitch.Invoke();
     }
 
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         this.nightmareMode=nightmareMode;
         SwitchableObject.SwitchAll();
+        Fruit.SwitchAllFruit(nightmareMode);
         onSwitch.Invoke();
     }
 

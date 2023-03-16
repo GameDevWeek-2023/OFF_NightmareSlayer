@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 428157073239010089}
   - component: {fileID: 4298606907814348802}
   m_Layer: 6
-  m_Name: Dream_Fruit
+  m_Name: HeartBerry_Fruit
   m_TagString: Fruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,7 +221,7 @@ SpriteRenderer:
   m_SortingLayerID: -1709322225
   m_SortingLayer: -3
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: e343c32846f6c45b99781a35fb0ae273, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3cadd5b772e7d9a4fbab5d5ac59c26f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289f9e43d601140dd8b92f07395fb2b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitType: 0
+  fruitType: 1
   fruit: {fileID: 751101075653875137}
 --- !u!58 &4298606907814348802
 CircleCollider2D:
@@ -278,9 +278,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.18, y: 0.6}
+  m_Offset: {x: -0.07, y: -0.22}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
 --- !u!1 &6330528628043022968
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,8 +307,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6330528628043022968}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.168, y: 0.68, z: 0}
-  m_LocalScale: {x: 2.1, y: 2.1, z: 2.1}
+  m_LocalPosition: {x: -0.02, y: 0.02, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3939996426096874142}
@@ -355,7 +355,7 @@ SpriteRenderer:
   m_SortingLayerID: -1709322225
   m_SortingLayer: -3
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: febcefeb7f479430eacc8812f982d602, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c89445402af439649bbc42155488b6de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -378,9 +378,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d442338157a43358bf67bfa9c31a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 2
+  frequency: 1
   lowestValue: 0.5
-  highestValue: 0.8
+  highestValue: 1
 --- !u!1001 &3634903642238478959
 PrefabInstance:
   m_ObjectHideFlags: 0

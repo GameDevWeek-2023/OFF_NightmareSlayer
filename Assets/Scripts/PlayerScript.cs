@@ -356,6 +356,14 @@ public class PlayerScript : MonoBehaviour
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0.4f*yVel);
     }
 
+    public void Heal()
+    {
+        //TODO effect stuff when healing
+        lifes++;
+        if (lifes > maxLifes) lifes = maxLifes;
+        SetUILives();
+    }
+
     public void GetDamage()
     {
         if (!canGetDamage) return;
@@ -491,6 +499,13 @@ public class PlayerScript : MonoBehaviour
         if (enemiesHit.Length == 0) return; //No Hit
         foreach (var enemy in enemiesHit)
         {
+            if (enemy.CompareTag("Fruit"))
+            {
+                Fruit fruit = enemy.GetComponent<Fruit>();
+                fruit.ObtainFruit();
+                continue;
+            }
+            
             HealthSystem enemyHealth = enemy.GetComponent<HealthSystem>();
             if (enemyHealth != null)
             {
