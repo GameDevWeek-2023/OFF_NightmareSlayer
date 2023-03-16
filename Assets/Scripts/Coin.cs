@@ -9,7 +9,7 @@ public class Coin : MonoBehaviour
     public float minVelocity = 2f;
     public float maxVelocity = 6f;
     public float obtainableTime = .5f;
-    public float obtainSpeed = 5f;
+    public float obtainSpeed = 10f;
     public float despawnTime = 10f;
 
     private Rigidbody2D parentRigidbody;

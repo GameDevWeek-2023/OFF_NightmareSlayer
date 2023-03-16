@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5199059199494824861}
   - component: {fileID: 5534284796746231329}
   - component: {fileID: 2686876057979324672}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,8 +159,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4834486465207496316}
   - component: {fileID: 2985045475834014319}
-  - component: {fileID: 2267824143145603966}
-  m_Layer: 10
+  - component: {fileID: 9019643270869878991}
+  m_Layer: 12
   m_Name: CoinTrigger
   m_TagString: CoinTrigger
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 12
---- !u!114 &2267824143145603966
+--- !u!114 &9019643270869878991
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,14 +226,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1663260205434320087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7d89c4d7509473cb2c35c961bf0a80, type: 3}
+  m_Script: {fileID: 11500000, guid: 7678be5ed17124d1da44ed4c3c39e9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  essenceAmount: 0.05
-  minSize: 0.12
-  maxSize: 0.18
-  minVelocity: 4
-  maxVelocity: 8
-  obtainableTime: 1
-  obtainSpeed: 12
-  despawnTime: 20
+  minSize: 0.18
+  maxSize: 0.24
+  minVelocity: 2
+  maxVelocity: 6
+  obtainableTime: 0.5
+  obtainSpeed: 10
+  despawnTime: 10

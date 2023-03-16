@@ -5,6 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - essence: {fileID: 1070739993320746526, guid: 476364a1cfaa34b119948cdde552a676, type: 3}
+  - coin: {fileID: 1070739993320746526, guid: 84039ae821b80473587ae620cace98b7, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

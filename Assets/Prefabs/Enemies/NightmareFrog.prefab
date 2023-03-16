@@ -391,6 +391,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -2167592692124374634}
         m_TargetAssemblyTypeName: CollectibleSpawner, Assembly-CSharp
+        m_MethodName: SpawnCoins
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 9
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -2167592692124374634}
+        m_TargetAssemblyTypeName: CollectibleSpawner, Assembly-CSharp
         m_MethodName: SpawnEssenceAndDie
         m_Mode: 3
         m_Arguments:
@@ -428,6 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   essence: {fileID: 1070739993320746526, guid: 476364a1cfaa34b119948cdde552a676, type: 3}
+  coin: {fileID: 1070739993320746526, guid: 84039ae821b80473587ae620cace98b7, type: 3}
 --- !u!1 &8196078239200118387
 GameObject:
   m_ObjectHideFlags: 0

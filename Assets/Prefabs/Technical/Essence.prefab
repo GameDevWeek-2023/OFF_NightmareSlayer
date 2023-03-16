@@ -236,4 +236,4 @@ MonoBehaviour:
   maxVelocity: 8
   obtainableTime: 1
   obtainSpeed: 12
-  despawnTime: 20
+  despawnTime: 10
