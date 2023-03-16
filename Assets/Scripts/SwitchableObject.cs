@@ -19,9 +19,9 @@ public class SwitchableObject : MonoBehaviour
         nightmareMode.SetActive(false);
     }
 
-    public void SwitchObject()
+    public void SwitchObject(bool isNightmare)
     {
-        if (normal.activeSelf)
+        if (isNightmare)
         {
             normal.SetActive(false);
             nightmareMode.SetActive(true);
@@ -32,13 +32,19 @@ public class SwitchableObject : MonoBehaviour
             nightmareMode.SetActive(false);
         }
     }
+    
+    private void OnDestroy()
+    {
+        allSwitchables.Remove(this);
+    }
 
-    public static void SwitchAll()
+    public static void SwitchAll(bool isNightmare)
     {
         if (allSwitchables == null) return;
-        foreach (var switchableObject in allSwitchables)
+        for (int i = allSwitchables.Count-1; i >= 0; i--)
         {
-            switchableObject.SwitchObject();
+            SwitchableObject switchable = allSwitchables[i];
+            switchable.SwitchObject(isNightmare);
         }
     }
 }

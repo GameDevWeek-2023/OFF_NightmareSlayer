@@ -76,11 +76,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4440151675599589274}
-  - component: {fileID: 4435422944235743430}
-  - component: {fileID: 6496272292293294472}
   - component: {fileID: 7529485676408649010}
   - component: {fileID: 4403633160422430621}
   - component: {fileID: 1086314677303418601}
+  - component: {fileID: 6496272292293294472}
+  - component: {fileID: 4435422944235743430}
+  - component: {fileID: -2308436003205641852}
+  - component: {fileID: -4303009123567484689}
   m_Layer: 6
   m_Name: Frog
   m_TagString: Untagged
@@ -105,61 +107,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4435422944235743430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2112537084954659857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fedff2055f4edc44bfcde4155b5ee38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1
-  onGetDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6496272292293294472}
-        m_TargetAssemblyTypeName: Frog, Assembly-CSharp
-        m_MethodName: Die
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &6496272292293294472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2112537084954659857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a89d1755f405c54892d9065750b06aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flipped: 1
-  ground:
-    serializedVersion: 2
-    m_Bits: 567
-  bullet: {fileID: 3517128698435818110, guid: bb2431669c732cc41a7dc52ea2074b45, type: 3}
-  bulletSpawner: {fileID: 8196078239200118387}
-  jumpStrength: 5
-  jumpStrengthSide: 5
-  jumpDelta: 3
-  shooting: 1
-  jump: {fileID: 21300000, guid: 3e660f145ebe0a44cb1eeace5068f453, type: 3}
-  idle: {fileID: 21300000, guid: 1ed88e002557d6b48936e618f6d4e0ca, type: 3}
 --- !u!212 &7529485676408649010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -274,6 +221,88 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6496272292293294472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112537084954659857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a89d1755f405c54892d9065750b06aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipped: 1
+  ground:
+    serializedVersion: 2
+    m_Bits: 567
+  bullet: {fileID: 3517128698435818110, guid: bb2431669c732cc41a7dc52ea2074b45, type: 3}
+  bulletSpawner: {fileID: 8196078239200118387}
+  jumpStrength: 5
+  jumpStrengthSide: 5
+  jumpDelta: 3
+  shooting: 1
+  jump: {fileID: 21300000, guid: 3e660f145ebe0a44cb1eeace5068f453, type: 3}
+  idle: {fileID: 21300000, guid: 1ed88e002557d6b48936e618f6d4e0ca, type: 3}
+--- !u!114 &4435422944235743430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112537084954659857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fedff2055f4edc44bfcde4155b5ee38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  onGetDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -4303009123567484689}
+        m_TargetAssemblyTypeName: CollectibleSpawner, Assembly-CSharp
+        m_MethodName: SpawnEssenceAndDie
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-2308436003205641852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112537084954659857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e7f5e0725f94cfa9265c5236d580de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalVersion: {fileID: 2112537084954659857}
+  nightmareVersion: {fileID: 2112537084954659857, guid: 56ae82abcd56b4649a72c3173121df9d, type: 3}
+--- !u!114 &-4303009123567484689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112537084954659857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa5c3e9050704668bc87143e698fb42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  essence: {fileID: 1070739993320746526, guid: 476364a1cfaa34b119948cdde552a676, type: 3}
 --- !u!1 &8196078239200118387
 GameObject:
   m_ObjectHideFlags: 0

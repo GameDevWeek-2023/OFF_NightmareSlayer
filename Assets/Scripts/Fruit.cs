@@ -31,9 +31,10 @@ public class Fruit : MonoBehaviour
     public static void SwitchAllFruit(bool isNightmare)
     {
         if (allFruits == null) return;
-        foreach (var current in allFruits)
+        for (int i = allFruits.Count-1; i >= 0; i--)
         {
-            current.SwitchFruit(isNightmare);
+            Fruit fruit = allFruits[i];
+            fruit.SwitchFruit(isNightmare);
         }
     }
     
@@ -82,6 +83,11 @@ public class Fruit : MonoBehaviour
         RemoveFruit();
     }
 
+    private void OnDestroy()
+    {
+        allFruits.Remove(this);
+    }
+    
     public void AddFruit()
     {
         hasFruit = true;

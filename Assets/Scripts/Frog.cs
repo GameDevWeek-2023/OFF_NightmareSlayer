@@ -31,7 +31,7 @@ public class Frog : MonoBehaviour
     void Shoot()
     {
         Instantiate(bullet, bulletSpawner.transform.position, flipped?Quaternion.Euler(0, 180, 0):Quaternion.identity);
-        Debug.Log("Shoot");
+        //Debug.Log("Shoot");
     }
 
     // Update is called once per frame
