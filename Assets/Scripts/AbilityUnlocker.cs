@@ -7,8 +7,9 @@ public class AbilityUnlocker : MonoBehaviour
     public string description;
     public PlayerScript.AbilityType abilityType;
 
-    public void Unlock()
+    public void Unlock(bool destroyAfter)
     {
         PlayerScript.instance.UnlockAbility(icon,title,description,abilityType);
+        if(destroyAfter) Destroy(gameObject);
     }
 }
