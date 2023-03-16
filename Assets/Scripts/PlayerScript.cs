@@ -175,7 +175,7 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-        if (!isGrounded)
+        if (!isGrounded || movementLocked)
         {
             collider.sharedMaterial = physicsMaterialAir;
             animator.SetBool("isJumping", true);
