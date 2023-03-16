@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8742268872278551011
 SpriteRenderer:
@@ -162,14 +162,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c8201299acfb47f2812fb79ec3e962b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  godMode: 0
   pausePanel: {fileID: 0}
   playerStats: {fileID: 0}
   dialogueObject: {fileID: 0}
   dialogueText: {fileID: 0}
+  abilityScreen: {fileID: 0}
   heartManager: {fileID: 0}
   essenzManager: {fileID: 0}
+  deathScreen: {fileID: 0}
   movementSpeed: 8
   jumpSpeed: 14
+  ledgeForgivenessTime: 0.1
   glidingSpeed: 4
   glideFallSpeed: 1
   groundLayerMask:

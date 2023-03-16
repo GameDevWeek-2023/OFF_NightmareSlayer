@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour
     private float walkingVelocity;
     public float movementSpeed;
     public float jumpSpeed;
+    public float ledgeForgivenessTime;
     public float glidingSpeed;
     public float glideFallSpeed;
     public LayerMask groundLayerMask;
@@ -40,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     public PhysicsMaterial2D physicsMaterialAir;
     public PhysicsMaterial2D physicsMaterialGround;
     public PhysicsMaterial2D physicsMaterialWalk;
+    private Coroutine jumpDelay;
     
     //Input
     private PlayerInput playerInput;
@@ -135,6 +137,11 @@ public class PlayerScript : MonoBehaviour
         
         if (leftSideRay || rightSideRay)
         {
+            if(jumpDelay != null)
+            {
+                StopCoroutine(jumpDelay);
+                jumpDelay = null;
+            }
             isGrounded = true;
             if(!usingGrappling) movedAfterGrappling = true;
             usedDoubleJump = false;
@@ -142,7 +149,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            isGrounded = false;
+            if (jumpDelay == null) jumpDelay = StartCoroutine(JumpDelay());
         }
 
 
@@ -165,6 +172,12 @@ public class PlayerScript : MonoBehaviour
                 animator.SetBool("isRunning", false);
             }
         }
+    }
+
+    private IEnumerator JumpDelay()
+    {
+        yield return new WaitForSeconds(ledgeForgivenessTime);
+        isGrounded = false;
     }
 
     private void OnDrawGizmos()
