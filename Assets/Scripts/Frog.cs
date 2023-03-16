@@ -16,6 +16,9 @@ public class Frog : MonoBehaviour
     public float jumpDelta = 3f;
     public bool shooting;
     private float jumpCoolDown = -1;
+
+    public Sprite jump;
+    public Sprite idle;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +64,7 @@ public class Frog : MonoBehaviour
 
     private void Jump()
     {
-
+        spriteRenderer.sprite = jump;
         float sideVelocity = 0;
         if (!flipped)
         {
@@ -73,5 +76,12 @@ public class Frog : MonoBehaviour
         }
 
         rb2d.velocity = new Vector2(sideVelocity * Random.Range(.5f, 1.5f), jumpStrength * Random.Range(.5f, 1.5f));
+        StartCoroutine(spriteWait());
+    }
+
+    IEnumerator spriteWait()
+    {
+        yield return new WaitForSeconds(0.3f);
+        spriteRenderer.sprite = idle;
     }
 }

@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
         }
     }
     
-    private float timeToDestroy = 10f;
+    private float timeToDestroy = 5f;
 
     private void Start()
     {

@@ -102,7 +102,7 @@ Transform:
   - {fileID: 8360089528080239970}
   - {fileID: 2002277891574972500}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6496272292293294472
 MonoBehaviour:
@@ -126,6 +126,8 @@ MonoBehaviour:
   jumpStrengthSide: 5
   jumpDelta: 3
   shooting: 1
+  jump: {fileID: 21300000, guid: 3e660f145ebe0a44cb1eeace5068f453, type: 3}
+  idle: {fileID: 21300000, guid: 1ed88e002557d6b48936e618f6d4e0ca, type: 3}
 --- !u!212 &7529485676408649010
 SpriteRenderer:
   m_ObjectHideFlags: 0
