@@ -174,6 +174,9 @@ MonoBehaviour:
   movementSpeed: 8
   jumpSpeed: 14
   ledgeForgivenessTime: 0.1
+  dashTime: 0.2
+  dashSpeed: 15
+  dashCooldown: 0.3
   glidingSpeed: 4
   glideFallSpeed: 1
   groundLayerMask:
@@ -191,6 +194,7 @@ MonoBehaviour:
   obstaclesTowardsTarget:
     serializedVersion: 2
     m_Bits: 183
+  attackSounds: []
   doubleJumpPS: {fileID: 3764968174383621156, guid: 34e0b594b95f7cc4ebe6b14ce722e4d9, type: 3}
 --- !u!95 &1951016375659649493
 Animator:

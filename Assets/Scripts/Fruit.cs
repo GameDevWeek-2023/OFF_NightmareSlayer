@@ -71,9 +71,7 @@ public class Fruit : MonoBehaviour
         {
             case FruitType.Dream:
                 //TODO do effect stuff on dream fruit
-                
-                //TODO Splash into essence
-                
+                GetComponent<CollectibleSpawner>().SpawnEssence(15);
                 break;
             case FruitType.Heartberry:
                 //TODO do effect stuff on heartberry

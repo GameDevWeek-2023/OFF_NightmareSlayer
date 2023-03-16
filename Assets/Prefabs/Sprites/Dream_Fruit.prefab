@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 8774406052665903382}
   - component: {fileID: 428157073239010089}
   - component: {fileID: 4298606907814348802}
+  - component: {fileID: 2713194093158382318}
   m_Layer: 6
   m_Name: Dream_Fruit
   m_TagString: Fruit
@@ -281,6 +282,19 @@ CircleCollider2D:
   m_Offset: {x: 0.18, y: 0.29}
   serializedVersion: 2
   m_Radius: 1.2
+--- !u!114 &2713194093158382318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5749977754161501205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa5c3e9050704668bc87143e698fb42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  essence: {fileID: 1070739993320746526, guid: 476364a1cfaa34b119948cdde552a676, type: 3}
 --- !u!1 &6330528628043022968
 GameObject:
   m_ObjectHideFlags: 0

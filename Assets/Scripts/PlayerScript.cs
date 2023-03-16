@@ -34,6 +34,10 @@ public class PlayerScript : MonoBehaviour
     public float movementSpeed;
     public float jumpSpeed;
     public float ledgeForgivenessTime;
+    private bool canDash;
+    public float dashTime;
+    public float dashSpeed;
+    public float dashCooldown;
     public float glidingSpeed;
     public float glideFallSpeed;
     public LayerMask groundLayerMask;
@@ -73,13 +77,16 @@ public class PlayerScript : MonoBehaviour
     private int hasDoubleJump = 0;
     private bool usedDoubleJump;
     private int hasGrappling = 0;
-    private bool usingGrappling;
+    private bool movementLocked;
     private List<Grappable> grappableTargets;
     private Grappable currentTarget;
     public LayerMask obstaclesTowardsTarget;
     private bool movedAfterGrappling = true;
     private Animator animator;
     
+    //Sounds
+    public List<AudioClip> attackSounds;
+
     //Special Effects
     public GameObject doubleJumpPS;
 
@@ -122,7 +129,11 @@ public class PlayerScript : MonoBehaviour
         
         abilityScreen.gameObject.SetActive(false);
         
-        if(currentTarget != null) currentTarget.Untarget();
+        if(currentTarget != null)
+        {
+            currentTarget.Untarget();
+            currentTarget = null;
+        }
         
         grappableTargets = new List<Grappable>();
         
@@ -131,6 +142,9 @@ public class PlayerScript : MonoBehaviour
         SetUILives();
         SetUIEssenzBar();
         playerStats.SetActive(true);
+
+        canDash = true;
+        canMove = true;
     }
 
     private void Update()
@@ -146,7 +160,7 @@ public class PlayerScript : MonoBehaviour
                 jumpDelay = null;
             }
             isGrounded = true;
-            if(!usingGrappling) movedAfterGrappling = true;
+            if(!movementLocked) movedAfterGrappling = true;
             usedDoubleJump = false;
             if(isGliding) CancelGliding();
         }
@@ -214,7 +228,7 @@ public class PlayerScript : MonoBehaviour
         RaycastHit2D leftSideRay = Physics2D.Raycast(transform.position + Vector3.left * .2f, Vector2.down, .85f, nonGroundLayerMask);
         RaycastHit2D rightSideRay = Physics2D.Raycast(transform.position + Vector3.right * .2f, Vector2.down, .85f, nonGroundLayerMask);
 
-        if (usingGrappling) return;
+        if (movementLocked) return;
         if (isGliding && !isGrounded)
         {
             if (walkingVelocity == 0)
@@ -272,7 +286,7 @@ public class PlayerScript : MonoBehaviour
 
         Grappable newTarget = null;
         
-        if (usingGrappling) return;
+        if (movementLocked) return;
         foreach (var target in grappableTargets)
         {
             Vector2 targetPos = target.transform.position;
@@ -345,6 +359,11 @@ public class PlayerScript : MonoBehaviour
 
             }
         }
+    }
+
+    private void CheckForMove()
+    {
+        Move(playerInput.Movement.Move.ReadValue<Vector2>());
     }
 
     private void Jump()
@@ -556,7 +575,7 @@ public class PlayerScript : MonoBehaviour
             yield return 0;
         }
         
-        Move(playerInput.Movement.Move.ReadValue<Vector2>());
+        CheckForMove();
     }
 
     private void Interact()
@@ -713,6 +732,11 @@ public class PlayerScript : MonoBehaviour
 
     private void Glide(bool pressed)
     {
+        if (isGrounded && pressed && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+        
         if(!CanUseAbility(AbilityType.Gliding)) return;
         if(!canMove) return;
 
@@ -741,11 +765,42 @@ public class PlayerScript : MonoBehaviour
         //TODO Stop Gliding Animation
     }
 
+    private IEnumerator Dash()
+    {
+        canMove = false;
+        canDash = false;
+        canGetDamage = false;
+        rigidbody.gravityScale = 0;
+        
+        movementLocked = true;
+        float time = 0f;
+
+        while (time < dashTime)
+        {
+            time += Time.deltaTime;
+            rigidbody.velocity = Vector2.right * (transform.localScale.x * dashSpeed);
+            yield return 0;
+        }
+        
+        movementLocked = false;
+        
+        canMove = true;
+        canGetDamage = true;
+        rigidbody.gravityScale = 1;
+        rigidbody.velocity = Vector2.zero;
+        
+        CheckForMove();
+
+        yield return new WaitForSeconds(dashCooldown);
+
+        canDash = true;
+    }
+
     private void Grappling()
     {
         if(!CanUseAbility(AbilityType.Grappling)) return;
         if(!canMove) return;
-        if (usingGrappling) return;
+        if (movementLocked) return;
         if (currentTarget == null) return;
 
         StartCoroutine(UseGrappling());
@@ -756,7 +811,7 @@ public class PlayerScript : MonoBehaviour
         Grappable target = currentTarget;
         
         CancelGliding();
-        usingGrappling = true;
+        movementLocked = true;
         canMove = false;
         movedAfterGrappling = false;
 
@@ -770,12 +825,12 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSeconds(direction.magnitude/newVelocity.magnitude);
         
         rigidbody.gravityScale = 1;
-        usingGrappling = false;
+        movementLocked = false;
         canMove = true;
         
         if (playerInput.Movement.Move.IsPressed())
         {
-            Move(playerInput.Movement.Move.ReadValue<Vector2>());
+            CheckForMove();
         }
         else
         {
