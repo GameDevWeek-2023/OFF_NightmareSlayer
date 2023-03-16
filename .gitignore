@@ -79,3 +79,5 @@ ProjectSettings/BurstAotSettings_WebGL.json
 ProjectSettings/BurstAotSettings_StandaloneWindows.json
 
 ProjectSettings/BurstAotSettings_Android.json
+
+ProjectSettings/BurstAotSettings_StandaloneOSX.json

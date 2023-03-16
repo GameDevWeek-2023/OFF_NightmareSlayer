@@ -19,6 +19,8 @@ public class PlayerScript : MonoBehaviour
     private float dialogueSpeed;
     private Coroutine dialogueCoroutine;
     private int dialogueState;
+    private bool abilityGranted;
+    public AbilityScreen abilityScreen;
     public HeartManager heartManager;
     public EssenzManager essenzManager;
     public GameObject deathScreen;
@@ -65,10 +67,10 @@ public class PlayerScript : MonoBehaviour
     private bool cancelShift;
     
     //Abilities
-    private bool hasGlide = true;
-    private bool hasDoubleJump = true;
+    private int hasGlide = 0;
+    private int hasDoubleJump = 0;
     private bool usedDoubleJump;
-    private bool hasGrappling = true;
+    private int hasGrappling = 0;
     private bool usingGrappling;
     private List<Grappable> grappableTargets;
     private Grappable currentTarget;
@@ -112,6 +114,8 @@ public class PlayerScript : MonoBehaviour
         
         dialogueText.text = "";
         dialogueObject.SetActive(false);
+        
+        abilityScreen.gameObject.SetActive(false);
         
         if(currentTarget != null) currentTarget.Untarget();
         
@@ -243,7 +247,7 @@ public class PlayerScript : MonoBehaviour
 
         
         //Target finden für Grappling
-        if(!hasGrappling) return;
+        if(!CanUseAbility(AbilityType.Grappling)) return;
         
         Vector2 ownPos = transform.position;
         float distanceToTarget = float.MaxValue;
@@ -334,7 +338,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if (hasDoubleJump && !usedDoubleJump)
+            if (CanUseAbility(AbilityType.DoubleJump) && !usedDoubleJump)
             {
                 if(isGliding) CancelGliding();
                 rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
@@ -518,6 +522,16 @@ public class PlayerScript : MonoBehaviour
 
     private void Interact()
     {
+        if (abilityGranted)
+        {
+            abilityGranted = false;
+            abilityScreen.gameObject.SetActive(false);
+            Time.timeScale = 1;
+            canMove = true;
+            playerStats.SetActive(true);
+            return;
+        }
+        
         if (dialogueCoroutine != null)
         {
             if(dialogueState == 1)
@@ -559,6 +573,16 @@ public class PlayerScript : MonoBehaviour
         {
             dreamEssence -= 1f;
             SetUIEssenzBar();
+
+            if (GameManager.instance.nightmareMode && hasGrappling == 1)
+            {
+                if (currentTarget != null)
+                {
+                    currentTarget.Untarget();
+                    currentTarget = null;
+                }
+            }
+            
             GameManager.instance.SwitchNightmare();
         }
 
@@ -613,9 +637,30 @@ public class PlayerScript : MonoBehaviour
         cancelShift = true;
     }
 
+    private bool CanUseAbility(AbilityType abilityType)
+    {
+        switch (abilityType)
+        {
+            case AbilityType.Grappling:
+                if (hasGrappling == 1 && GameManager.instance.nightmareMode) return true;
+                if (hasGrappling == 2) return true;
+                break;
+            case AbilityType.DoubleJump:
+                if (hasDoubleJump == 1 && GameManager.instance.nightmareMode) return true;
+                if (hasDoubleJump == 2) return true;
+                break;
+            case AbilityType.Gliding:
+                if (hasGlide == 1 && GameManager.instance.nightmareMode) return true;
+                if (hasGlide == 2) return true;
+                break;
+        }
+
+        return false;
+    }
+
     private void Glide(bool pressed)
     {
-        if(!hasGlide) return;
+        if(!CanUseAbility(AbilityType.Gliding)) return;
         if(!canMove) return;
 
         if (isGliding && !pressed)
@@ -645,7 +690,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Grappling()
     {
-        if(!hasGrappling) return;
+        if(!CanUseAbility(AbilityType.Grappling)) return;
         if(!canMove) return;
         if (usingGrappling) return;
         if (currentTarget == null) return;
@@ -761,6 +806,40 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSeconds(dialogueSpeed);
         }
         dialogueState = 2;
+    }
+
+    public void UnlockAbility(Sprite icon, string title, string description, AbilityType abilityType)
+    {
+        //TODO SFX Stuff and sounds
+
+        Time.timeScale = 0;
+        
+        abilityScreen.SetUpScreen(icon,title,description);
+        abilityScreen.gameObject.SetActive(true);
+        abilityGranted = true;
+        canMove = false;
+        playerStats.SetActive(false);
+        
+
+        switch (abilityType)
+        {
+            case AbilityType.Grappling:
+                hasGrappling++;
+                break;
+            case AbilityType.DoubleJump:
+                hasDoubleJump++;
+                break;
+            case AbilityType.Gliding:
+                hasGlide++;
+                break;
+        }
+    }
+
+    public enum AbilityType
+    {
+        Grappling,
+        DoubleJump,
+        Gliding
     }
     
     //UI-Methods
