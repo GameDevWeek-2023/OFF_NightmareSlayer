@@ -13,6 +13,8 @@ public class Boss : MonoBehaviour
     public int currentPhase=0;
     private BossAttack currentAttack;
     private List<BossAttack>[] bossAttacks;
+    public bool alive = true;
+
     [HideInInspector]
     public Rigidbody2D rb2d;
     [HideInInspector]
@@ -55,7 +57,8 @@ public class Boss : MonoBehaviour
     public void AttackFinished()
     {
         currentAttack = null;
-        Invoke("Attack",Random.Range(minBreak,maxBreak));
+        if(alive)
+            Invoke("Attack",Random.Range(minBreak,maxBreak));
     }
     public void OnDamage()
     {
@@ -72,5 +75,10 @@ public class Boss : MonoBehaviour
         {
             currentAttack.AttackUpdate();
         }
+    }
+
+    public void Kill()
+    {
+        alive = false;
     }
 }

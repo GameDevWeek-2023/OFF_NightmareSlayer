@@ -8,6 +8,7 @@ public class HealthSystem : Hittable
     public int health;
     [HideInInspector] public int startHealth;
     public bool blinkOnDamage = true;
+    public bool kill = false;
     public UnityEvent onDeath;
     
     private Rigidbody2D rb;
@@ -18,6 +19,15 @@ public class HealthSystem : Hittable
         spriteRenderer = GetComponent<SpriteRenderer>();
         
         startHealth=health;
+    }
+
+    private void Update()
+    {
+        if (kill)
+        {
+            Damage(health);
+            kill = false;
+        }
     }
 
     public override void Damage(int amount)

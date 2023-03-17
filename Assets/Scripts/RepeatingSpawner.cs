@@ -8,6 +8,7 @@ public class RepeatingSpawner : MonoBehaviour
     public float minWaitTime=5;
     public float maxWaitTime=12;
     public GameObject toSpawn;
+    public GameObject container;
 
     private void Awake()
     {
@@ -21,11 +22,19 @@ public class RepeatingSpawner : MonoBehaviour
         StartCoroutine(Spawn());
     }
 
+    public void StopSpawning()
+    {
+        StopAllCoroutines();
+    }
+
     public IEnumerator Spawn()
     {
         while (true)
         {
-            Instantiate(toSpawn, transform.position, Quaternion.identity, transform);
+            if(container == null)
+                Instantiate(toSpawn, transform.position, Quaternion.identity, transform);
+            else
+                Instantiate(toSpawn, transform.position, Quaternion.identity, container.transform);
             yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
         }
     }

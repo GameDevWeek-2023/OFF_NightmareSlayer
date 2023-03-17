@@ -7,6 +7,7 @@ public class FireballAttack : BossAttack
 {
     public GameObject fireball;
     public Transform fireballSpawn;
+    public GameObject container;
     // Start is called before the first frame update
 
     public override void Attack()
@@ -16,10 +17,10 @@ public class FireballAttack : BossAttack
     }
 
     private IEnumerator Spawn() {
-        for (int i = 0; i < (boss.currentPhase==0?3:5); i++)
+        for (int i = 0; i < (boss.currentPhase==0?2:4); i++)
         {
             yield return new WaitForSeconds(.4f);
-            Instantiate(fireball, fireballSpawn.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+            Instantiate(fireball, fireballSpawn.position, Quaternion.Euler(0, 0, Random.Range(0, 360)),container.transform);
         }
         CloseMouth();
     }
