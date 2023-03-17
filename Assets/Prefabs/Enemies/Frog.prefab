@@ -98,8 +98,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112537084954659857}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.6, y: 3.63, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.4, y: 2.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8360089528080239970}
@@ -262,6 +262,7 @@ MonoBehaviour:
       m_Calls: []
   health: 3
   startHealth: 0
+  blinkOnDamage: 1
   onDeath:
     m_PersistentCalls:
       m_Calls:

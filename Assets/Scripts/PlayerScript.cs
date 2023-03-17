@@ -229,7 +229,7 @@ public class PlayerScript : MonoBehaviour
         Gizmos.DrawLine(transform.position + Vector3.right * .2f, transform.position + Vector3.right * .2f + Vector3.down * .85f);
         
         Gizmos.color = Color.yellow;
-        //Gizmos.DrawWireSphere(transform.position + Vector3.down * .3f,.7f);
+        //Gizmos.DrawWireSphere(transform.position + Vector3.right * transform.localScale.x * .6f + Vector3.down * .25f,attackRange);
         
         Gizmos.color = Color.magenta;
         //Gizmos.DrawLine(transform.position + Vector3.up * .42f + Vector3.left * .34f, transform.position + Vector3.up * .42f + Vector3.right * .34f);
@@ -564,8 +564,8 @@ public class PlayerScript : MonoBehaviour
         //links rechts oben unten
         //0     1      2    3
         Vector3[] attackPoints = {
-            transform.position + Vector3.left * .4f + Vector3.down * .25f,
-            transform.position + Vector3.right * .4f + Vector3.down * .25f,
+            transform.position + Vector3.left * .6f + Vector3.down * .25f,
+            transform.position + Vector3.right * .6f + Vector3.down * .25f,
             transform.position + Vector3.up * .2f,
             transform.position + Vector3.down * .4f};
         Vector3 attackPoint = attackPoints[direction];
