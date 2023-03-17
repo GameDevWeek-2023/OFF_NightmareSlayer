@@ -33,12 +33,12 @@ public class Caterpillar : MonoBehaviour
         
         while (true)
         {
-            while (!Physics2D.Raycast(transform.position + Vector3.down * .4f, Vector2.down, .3f,ground)) yield return 0;
+            while (!Physics2D.Raycast(transform.position + Vector3.down * .4f, Vector2.down, .55f,ground)) yield return 0;
             yield return new WaitForSeconds(.5f);
             SwitchSprite();
 
-            if (!Physics2D.Raycast(transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .2f,Vector2.down,.5f,ground)
-                || Physics2D.Raycast(transform.position + Vector3.down * .4f,Vector2.left * transform.localScale.x, 1f,ground))
+            if (!Physics2D.Raycast(transform.position + Vector3.left * 1.3f * transform.localScale.x + Vector3.down * .4f,Vector2.down,.55f,ground)
+                || Physics2D.Raycast(transform.position + Vector3.down * .4f,Vector2.left * transform.localScale.x, 1.3f,ground))
             {
                 transform.localScale = new Vector3(-transform.localScale.x, 1f, 1f);
                 //Debug.Log("Flip");
@@ -63,12 +63,12 @@ public class Caterpillar : MonoBehaviour
         Gizmos.color = Color.red;
         if(!canFly)
         {
-            Gizmos.DrawLine(transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .2f,
-                transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .7f);
+            Gizmos.DrawLine(transform.position + Vector3.left * 1.3f * transform.localScale.x + Vector3.down * .4f,
+                transform.position + Vector3.left * 1.3f * transform.localScale.x + Vector3.down * .95f);
             Gizmos.DrawLine(transform.position + Vector3.down * .4f,
-                transform.position + Vector3.down * .4f + Vector3.left * transform.localScale.x * 1f);
+                transform.position + Vector3.down * .4f + Vector3.left * transform.localScale.x * 1.3f);
             Gizmos.DrawLine(transform.position + Vector3.down * .4f,
-                transform.position + Vector3.down * .7f);
+                transform.position + Vector3.down * .95f);
         }
         else
         {
