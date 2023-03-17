@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5544525647027183374}
   - component: {fileID: 3131323734815426141}
-  m_Layer: 2
+  m_Layer: 15
   m_Name: Contact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ Transform:
   m_Children:
   - {fileID: 5544525647027183374}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2623266029706998535
 SpriteRenderer:
@@ -270,6 +270,7 @@ MonoBehaviour:
         m_CallState: 2
   health: 7
   startHealth: 0
+  blinkOnDamage: 1
   onDeath:
     m_PersistentCalls:
       m_Calls:
