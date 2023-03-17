@@ -32,7 +32,8 @@ public class ReplaceEnemy : MonoBehaviour
         HealthSystem newHealthSystem = newEnemy.GetComponent<HealthSystem>();
         if (newHealthSystem != null && ownHealthSystem != null) newHealthSystem.health = Mathf.RoundToInt(newHealthSystem.startHealth * (1f * ownHealthSystem.health / ownHealthSystem.startHealth));
         
-        Destroy(gameObject);
+        if(Application.isPlaying) Destroy(gameObject);
+        else DestroyImmediate(gameObject);
     }
 
     private void OnDestroy()
