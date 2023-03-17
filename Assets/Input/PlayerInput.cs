@@ -98,6 +98,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Recall"",
+                    ""type"": ""Button"",
+                    ""id"": ""3bfba93c-92f2-4f4f-82b1-aab18f00989a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -364,6 +373,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f62d01c9-bdf9-49ed-bd22-e7837ebb0a79"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Recall"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b579c8f2-fbcc-4573-842b-dfb1b5680b4e"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Recall"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -380,6 +411,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Movement_Glide = m_Movement.FindAction("Glide", throwIfNotFound: true);
         m_Movement_Grappling = m_Movement.FindAction("Grappling", throwIfNotFound: true);
         m_Movement_Pause = m_Movement.FindAction("Pause", throwIfNotFound: true);
+        m_Movement_Recall = m_Movement.FindAction("Recall", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -449,6 +481,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Glide;
     private readonly InputAction m_Movement_Grappling;
     private readonly InputAction m_Movement_Pause;
+    private readonly InputAction m_Movement_Recall;
     public struct MovementActions
     {
         private @PlayerInput m_Wrapper;
@@ -461,6 +494,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Glide => m_Wrapper.m_Movement_Glide;
         public InputAction @Grappling => m_Wrapper.m_Movement_Grappling;
         public InputAction @Pause => m_Wrapper.m_Movement_Pause;
+        public InputAction @Recall => m_Wrapper.m_Movement_Recall;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -494,6 +528,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Recall.started += instance.OnRecall;
+            @Recall.performed += instance.OnRecall;
+            @Recall.canceled += instance.OnRecall;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -522,6 +559,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Recall.started -= instance.OnRecall;
+            @Recall.performed -= instance.OnRecall;
+            @Recall.canceled -= instance.OnRecall;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -549,5 +589,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnGlide(InputAction.CallbackContext context);
         void OnGrappling(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnRecall(InputAction.CallbackContext context);
     }
 }

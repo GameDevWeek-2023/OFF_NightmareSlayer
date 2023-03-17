@@ -207,6 +207,7 @@ MonoBehaviour:
   doubleJumpPS: {fileID: 3764968174383621156, guid: 34e0b594b95f7cc4ebe6b14ce722e4d9, type: 3}
   dashPSLeft: {fileID: 6074009276416733218}
   dashPSRight: {fileID: 3026929874102669904}
+  dreamShiftPS: {fileID: 3058402364952522953, guid: b98c208862a9f4c41a4e22991d862eb3, type: 3}
 --- !u!95 &1951016375659649493
 Animator:
   serializedVersion: 5

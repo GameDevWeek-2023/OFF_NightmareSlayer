@@ -50,6 +50,8 @@ public class PlayerScript : MonoBehaviour
     public PhysicsMaterial2D physicsMaterialGround;
     public PhysicsMaterial2D physicsMaterialWalk;
     private Coroutine jumpDelay;
+    private Coroutine recallCoroutine;
+    private float recallTime = 2f;
     
     //Input
     private PlayerInput playerInput;
@@ -75,7 +77,7 @@ public class PlayerScript : MonoBehaviour
     
     //DreamShift
     private bool canDreamShift = true;
-    private float dreamEssence = 2.4f;
+    private float dreamEssence;
     private float essenceCapacity = 3;
     private bool cancelShift;
     
@@ -93,6 +95,7 @@ public class PlayerScript : MonoBehaviour
     
     //Coins
     private int coins;
+    private float coinLossFactor = .5f;
     
     //Sounds
     public GameObject audioObject;
@@ -103,6 +106,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject doubleJumpPS;
     public GameObject dashPSLeft;
     public GameObject dashPSRight;
+    public GameObject dreamShiftPS;
 
     private void Awake()
     {
@@ -130,8 +134,15 @@ public class PlayerScript : MonoBehaviour
         playerInput.Movement.Glide.canceled += ctx => Glide(false);
         playerInput.Movement.Grappling.performed += ctx => Grappling();
         playerInput.Movement.Pause.performed += ctx => Pause();
+        playerInput.Movement.Recall.performed += ctx => RecallStart();
+        playerInput.Movement.Recall.canceled += ctx => CancelRecall();
 
         playerInput.Movement.Enable();
+    }
+
+    private void Start()
+    {
+        ToSpawnPoint();
     }
 
     private void InitializeStats()
@@ -153,9 +164,9 @@ public class PlayerScript : MonoBehaviour
         }
         
         grappableTargets = new List<Grappable>();
-        
+
         lifes = maxLifes;
-        dreamEssence = essenceCapacity;
+        dreamEssence = 1f;
         SetUILives();
         SetUIEssenzBar();
         SetUICoins();
@@ -432,6 +443,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (!canGetDamage) return;
         
+        CancelRecall();
         if(!godMode) lifes--;
         SetUILives();
 
@@ -452,9 +464,11 @@ public class PlayerScript : MonoBehaviour
 
     private IEnumerator Death(float time)
     {
+        coins = Mathf.RoundToInt(coins * (1 - coinLossFactor));
+        
+        canMove = false;
         yield return new WaitForSeconds(time);
         Time.timeScale = 0;
-        canMove = false;
         playerStats.SetActive(false);
         deathScreen.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
@@ -492,9 +506,15 @@ public class PlayerScript : MonoBehaviour
         GameManager.instance.SetNightmare(false);
         
         InitializeStats();
+        ToSpawnPoint();
         Time.timeScale = 1;
-        canMove = true;
         canDreamShift = true;
+    }
+
+    private void ToSpawnPoint()
+    {
+        transform.position = SpawnPoint.instance.transform.position;
+        rigidbody.velocity = Vector2.zero;
     }
 
     public void GetDamage(Vector2 knockback)
@@ -696,6 +716,7 @@ public class PlayerScript : MonoBehaviour
         if (godMode)
         {
             GameManager.instance.SwitchNightmare();
+            Instantiate(dreamShiftPS, transform);
         }
         else if (dreamEssence >= 1f)
         {
@@ -712,6 +733,7 @@ public class PlayerScript : MonoBehaviour
             }
             
             GameManager.instance.SwitchNightmare();
+            Instantiate(dreamShiftPS, transform);
         }
 
         //StartCoroutine(DreamShifting());
@@ -1064,6 +1086,37 @@ public class PlayerScript : MonoBehaviour
     private void PlayAudio(AudioClip clip)
     {
         Instantiate(audioObject,transform).GetComponent<AudioObject>().Initialize(clip);
+    }
+
+    private void RecallStart()
+    {
+        if (!canMove) return;
+        if (!isGrounded) return;
+
+        recallCoroutine = StartCoroutine(Recall());
+    }
+
+    private IEnumerator Recall()
+    {
+        canMove = false;
+        
+        //TODO some particle effect on recall
+        
+        yield return new WaitForSeconds(recallTime);
+        
+        canMove = true;
+        
+        recallCoroutine = null;
+        Respawn();
+    }
+
+    private void CancelRecall()
+    {
+        if(recallCoroutine != null)
+        {
+            StopCoroutine(recallCoroutine);
+            canMove = true;
+        }
     }
     
     //UI-Methods
