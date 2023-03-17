@@ -15,8 +15,10 @@ public class Boss : MonoBehaviour
     private List<BossAttack>[] bossAttacks;
     [HideInInspector]
     public Rigidbody2D rb2d;
+    [HideInInspector]
     public Animator animator;
-    private HealthSystem healthSystem;
+    [HideInInspector]
+    public HealthSystem healthSystem;
 
     private void Awake()
     {

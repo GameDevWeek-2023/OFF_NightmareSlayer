@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5824564260987254089}
   - component: {fileID: 8534969369403574390}
   - component: {fileID: 9067842503726703754}
+  - component: {fileID: 700346558419484747}
   m_Layer: 14
   m_Name: Frogboss
   m_TagString: Untagged
@@ -39,6 +40,7 @@ Transform:
   m_Children:
   - {fileID: 591182736524492067}
   - {fileID: 8160146672449907348}
+  - {fileID: 672777598945388112}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -186,6 +188,7 @@ MonoBehaviour:
   currentPhase: 0
   rb2d: {fileID: 0}
   animator: {fileID: 0}
+  healthSystem: {fileID: 0}
 --- !u!114 &4414771581383054333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +298,52 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &700346558419484747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628922370924248126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b194a108f3430d49b380b2bea1dfa27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phases: 0101
+  fireball: {fileID: 3517128698435818110, guid: 7605904963e63f441a7d63fe0c35daa3, type: 3}
+  fireballSpawn: {fileID: 672777598945388112}
+--- !u!1 &2731158039488720142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 672777598945388112}
+  m_Layer: 14
+  m_Name: FireballSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &672777598945388112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731158039488720142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.25, y: 1.17, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4161138349435776294}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5796986982665523803
 GameObject:
   m_ObjectHideFlags: 0
