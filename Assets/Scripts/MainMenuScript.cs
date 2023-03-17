@@ -14,6 +14,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void play()
     {
+        Debug.Log("play");
         SceneManager.LoadScene("Realm");
     }
     

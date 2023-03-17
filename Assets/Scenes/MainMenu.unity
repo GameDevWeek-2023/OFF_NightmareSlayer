@@ -445,14 +445,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2901961, g: 0.0627451, b: 0.6313726, a: 1}
+  m_Color: {r: 0.8792453, g: 0.7987421, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c0f89dc81bbb31f479a48a22cd7693c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 295e7a03f05d3d84681598a9f9208b14, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1188,7 +1188,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000019073486, y: -128}
+  m_AnchoredPosition: {x: -0.0000019073486, y: 10}
   m_SizeDelta: {x: 935.0927, y: 887.5277}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1150560340
@@ -1217,16 +1217,28 @@ MonoBehaviour:
 
     Animations/Graphics
 
+    Ismail Adiyaman
+
+    Lara
+    Szymborski
+
 
     UI
+
+    Elisabeth Meincke
 
 
     Programming
 
+    Alex Starzengruber
+
+    Raphael
+    Frank
+
 
     Music/SFX
 
-'
+    Werner Richter'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 729152186c5b6de458b63344104aa23c, type: 2}
   m_sharedMaterial: {fileID: -744397949861885503, guid: 729152186c5b6de458b63344104aa23c, type: 2}
@@ -1688,14 +1700,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2901961, g: 0.0627451, b: 0.6313726, a: 1}
+  m_Color: {r: 0.8792453, g: 0.7987421, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c0f89dc81bbb31f479a48a22cd7693c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 295e7a03f05d3d84681598a9f9208b14, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2050,14 +2062,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2901961, g: 0.0627451, b: 0.6313726, a: 1}
+  m_Color: {r: 0.8792453, g: 0.7987421, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c0f89dc81bbb31f479a48a22cd7693c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 295e7a03f05d3d84681598a9f9208b14, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2184,14 +2196,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2901961, g: 0.0627451, b: 0.6313726, a: 1}
+  m_Color: {r: 0.8792453, g: 0.7987421, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c0f89dc81bbb31f479a48a22cd7693c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 295e7a03f05d3d84681598a9f9208b14, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
