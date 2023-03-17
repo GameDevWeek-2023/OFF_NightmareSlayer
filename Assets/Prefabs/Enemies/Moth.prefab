@@ -105,7 +105,7 @@ Transform:
   m_Children:
   - {fileID: 8075046699680263188}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2679399832070390644
 SpriteRenderer:
@@ -148,7 +148,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 085da499f91520749a0cf32dff7e0270, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 828da49105bdd2f4c94e4b975e3f8117, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -191,9 +191,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.16799882, y: -0.118828386}
+  m_Offset: {x: -0.3, y: -0.24}
   serializedVersion: 2
-  m_Radius: 0.46790376
+  m_Radius: 0.67
 --- !u!50 &7206920146419359793
 Rigidbody2D:
   serializedVersion: 4
@@ -238,6 +238,8 @@ MonoBehaviour:
       m_Calls: []
   health: 8
   startHealth: 0
+  blinkOnDamage: 1
+  kill: 0
   onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -305,8 +307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9933e31e3c110564eab8bb132ddf4a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Idle: {fileID: 21300000, guid: 085da499f91520749a0cf32dff7e0270, type: 3}
-  Compressed: {fileID: 21300000, guid: 5d50c696bd48e5340b3d27a7a246d530, type: 3}
+  Idle: {fileID: 21300000, guid: 828da49105bdd2f4c94e4b975e3f8117, type: 3}
+  Compressed: {fileID: 21300000, guid: 19ecedcf18abaf544b10ccd776d87131, type: 3}
   canFly: 1
   ground:
     serializedVersion: 2
