@@ -80,5 +80,6 @@ public class Boss : MonoBehaviour
     public void Kill()
     {
         alive = false;
+        animator.Play("Idle");
     }
 }

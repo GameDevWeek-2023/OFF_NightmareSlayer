@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class BossroomManager : MonoBehaviour
 {
-    public bool fightActive = false;
+    public bool playerInRoom = false;
     public CinemachineVirtualCamera virtualCamera;
     public bool locked=false;
     public UnityEvent onEntry;
@@ -20,18 +20,22 @@ public class BossroomManager : MonoBehaviour
     }
     void Entry()
     {
-        fightActive = true;
-        onEntry.Invoke();
+        playerInRoom = true;
+        Debug.Log("Entry");
+        if (!GameManager.instance.frogSlain) { 
+            locked = true;
+            onEntry.Invoke();
+            Close();
+        }
         virtualCamera.Priority = 15;
-        locked = true;
         PlayerScript.instance.SetCanDreamShift(false);
-        Close();
     }
     void Exit()
     {
         if (!locked)
         {
-            fightActive = false;
+            Debug.Log("Exit");
+            playerInRoom = false;
             PlayerScript.instance.SetCanDreamShift(true);
             virtualCamera.Priority = 5;
         }
@@ -51,7 +55,8 @@ public class BossroomManager : MonoBehaviour
 
     public void SwitchFightActive()
     {
-        if (fightActive) Exit();
+
+        if (playerInRoom) Exit();
         else Entry();
     }
 
@@ -91,6 +96,7 @@ public class BossroomManager : MonoBehaviour
         foreach (Transform t in bossUtilityContainer.transform) {
             GameObject.Destroy(t.gameObject);
         }
+        GameManager.instance.frogSlain = true;
         locked = false;
     }
 }
