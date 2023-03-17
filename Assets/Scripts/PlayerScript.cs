@@ -108,6 +108,11 @@ public class PlayerScript : MonoBehaviour
     public GameObject dashPSRight;
     public GameObject dreamShiftPS;
 
+    private void OnDestroy()
+    {
+        playerInput.Movement.Disable();
+    }
+
     private void Awake()
     {
         instance = this;

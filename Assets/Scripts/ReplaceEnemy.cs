@@ -49,4 +49,10 @@ public class ReplaceEnemy : MonoBehaviour
             enemy.Replace(isNightmare);
         }
     }
+    
+    
+    public static void RemoveAll()
+    {
+        allEnemies = new List<ReplaceEnemy>();
+    }
 }

@@ -42,4 +42,9 @@ public class SwitchableObject : MonoBehaviour
             switchableObject.SwitchObject(isNightmare);
         }
     }
+
+    public static void RemoveAll()
+    {
+        allSwitchables = new List<SwitchableObject>();
+    }
 }

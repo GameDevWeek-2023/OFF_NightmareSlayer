@@ -93,4 +93,10 @@ public class Fruit : MonoBehaviour
         hasFruit = false;
         UpdateFruit();
     }
+    
+    
+    public static void RemoveAll()
+    {
+        allFruits = new List<Fruit>();
+    }
 }

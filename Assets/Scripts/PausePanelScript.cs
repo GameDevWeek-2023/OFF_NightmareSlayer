@@ -45,6 +45,10 @@ public class PausePanelScript : MonoBehaviour
 
     public void exit()
     {
+        SwitchableObject.RemoveAll();
+        Fruit.RemoveAll();
+        ReplaceEnemy.RemoveAll();
+        
         SceneManager.LoadScene("MainMenu");
     }
 }
