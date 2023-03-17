@@ -597,7 +597,7 @@ public class PlayerScript : MonoBehaviour
         
         //TODO do sfx stuff to indicate hit
 
-        rigidbody.velocity =  playerKnockback* attackHitKnockback * (direction < 2 ? .7f:1f);
+        rigidbody.velocity =  playerKnockback* attackHitKnockback * (direction < 2 ? .2f:1f);
 
         if (direction < 2) StartCoroutine(ResetKnockbackAfterTime(.3f));
     }
