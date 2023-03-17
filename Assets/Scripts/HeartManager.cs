@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HeartManager : MonoBehaviour
 {
+    public GameObject heartStart;
+    public GameObject heartEnd;
     public GameObject heartPrefab;
     public GameObject brokenPrefab;
 
@@ -20,6 +22,8 @@ public class HeartManager : MonoBehaviour
         {
             Destroy(child);
         }
+        
+        Instantiate(heartStart, transform);
 
         for (int i = 0; i < hearts; i++)
         {
@@ -30,5 +34,7 @@ public class HeartManager : MonoBehaviour
         {
             Instantiate(brokenPrefab, transform);
         }
+        
+        Instantiate(heartEnd, transform);
     }
 }
