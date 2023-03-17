@@ -280,6 +280,7 @@ Transform:
   - {fileID: 8960728992216979731}
   - {fileID: 3374398413790214408}
   - {fileID: 8364268312994448767}
+  - {fileID: 5060373900763194576}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -361,6 +362,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  bossUtilityContainer: {fileID: 4269955515907873216}
 --- !u!61 &9211814231728066971
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -957,6 +959,37 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 336069806355520479}
+--- !u!1 &4269955515907873216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5060373900763194576}
+  m_Layer: 0
+  m_Name: BossUtilityContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5060373900763194576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269955515907873216}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2617990319520806650}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4741491938691534053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,6 +1828,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7619365936909540711, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
+      propertyPath: container
+      value: 
+      objectReference: {fileID: 4269955515907873216}
     - target: {fileID: 7630647447364300364, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
       propertyPath: m_Name
       value: FrogSpawner (2)
@@ -1872,6 +1909,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7619365936909540711, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
+      propertyPath: container
+      value: 
+      objectReference: {fileID: 4269955515907873216}
     - target: {fileID: 7630647447364300364, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
       propertyPath: m_Name
       value: FrogSpawner (3)
@@ -1905,6 +1946,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2617990319520806650}
     m_Modifications:
+    - target: {fileID: 700346558419484747, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: container
+      value: 
+      objectReference: {fileID: 4269955515907873216}
     - target: {fileID: 1628922370924248126, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
       propertyPath: m_Name
       value: Frogboss
@@ -1957,6 +2002,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9067842503726703754, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8685763463761615002}
+    - target: {fileID: 9067842503726703754, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 6629693038994755151}
+    - target: {fileID: 9067842503726703754, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 759228955359250020}
+    - target: {fileID: 9067842503726703754, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 5460731162636256362}
+    - target: {fileID: 9067842503726703754, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 5562772785297634810}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2030,6 +2095,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7619365936909540711, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
+      propertyPath: container
+      value: 
+      objectReference: {fileID: 4269955515907873216}
     - target: {fileID: 7630647447364300364, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
       propertyPath: m_Name
       value: FrogSpawner
@@ -2107,6 +2176,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7619365936909540711, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
+      propertyPath: container
+      value: 
+      objectReference: {fileID: 4269955515907873216}
     - target: {fileID: 7630647447364300364, guid: a33ba85a79e34074585ab055187d57b1, type: 3}
       propertyPath: m_Name
       value: FrogSpawner (1)

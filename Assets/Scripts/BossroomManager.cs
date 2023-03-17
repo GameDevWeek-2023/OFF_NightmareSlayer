@@ -12,6 +12,7 @@ public class BossroomManager : MonoBehaviour
     public UnityEvent onEntry;
     private Animator animator;
     private bool hidden = true;
+    public GameObject bossUtilityContainer;
 
     private void Awake()
     {
@@ -36,11 +37,6 @@ public class BossroomManager : MonoBehaviour
         }
     }
 
-    public void Defeated()
-    {
-        locked = false;
-        Open();
-    }
 
     public void CameraShake(float duration)
     {
@@ -87,6 +83,14 @@ public class BossroomManager : MonoBehaviour
     public void Close()
     {
         animator.Play("Close");
+    }
 
+    public void BossRIP()
+    {
+        Open();
+        foreach (Transform t in bossUtilityContainer.transform) {
+            GameObject.Destroy(t.gameObject);
+        }
+        locked = false;
     }
 }
