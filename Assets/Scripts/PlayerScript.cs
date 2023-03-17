@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -59,6 +60,8 @@ public class PlayerScript : MonoBehaviour
     private int attackDamage = 3;
     private float attackRange = .7f;
     private bool canGetDamage = true;
+    private bool canAttack = true;
+    private float attackCooldown = .16f;
     public LayerMask hittableLayers;
     private float attackHitKnockback = 10f;
     private float attackHitEnemyKnockback = 5f;
@@ -92,8 +95,9 @@ public class PlayerScript : MonoBehaviour
     private int coins;
     
     //Sounds
+    public GameObject audioObject;
     public List<AudioClip> attackSounds;
-    public AudioClip doubleJumpSound;
+    public AudioClip jumpSound;
 
     //Special Effects
     public GameObject doubleJumpPS;
@@ -159,6 +163,8 @@ public class PlayerScript : MonoBehaviour
 
         canDash = true;
         canMove = true;
+        canAttack = true;
+        canGetDamage = true;
     }
 
     private void Update()
@@ -387,9 +393,10 @@ public class PlayerScript : MonoBehaviour
         movedAfterGrappling = true;
         movedAfterHit = true;
 
-        if (isGrounded)
+        if (isGrounded) //Jump
         {
             rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
+            //PlayAudio(jumpSound);
         }
         else
         {
@@ -399,6 +406,7 @@ public class PlayerScript : MonoBehaviour
                 rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
                 usedDoubleJump = true;
                 Instantiate(doubleJumpPS,transform.position, Quaternion.Euler(0,0,-115));
+                PlayAudio(jumpSound);
             }
         }
     }
@@ -503,6 +511,10 @@ public class PlayerScript : MonoBehaviour
     private void Attack()
     {
         if(!canMove) return;
+        if(!canAttack) return;
+        
+        canAttack = false;
+        StartCoroutine(AttackCooldown());
 
         Vector2 look = playerInput.Movement.Move.ReadValue<Vector2>();
         if (look.x < 0)
@@ -547,6 +559,8 @@ public class PlayerScript : MonoBehaviour
 
     private void DoAttack(int direction, float radius)
     {
+        PlayAudio(attackSounds[Random.Range(0,attackSounds.Count)]);
+        
         //links rechts oben unten
         //0     1      2    3
         Vector3[] attackPoints = {
@@ -586,6 +600,12 @@ public class PlayerScript : MonoBehaviour
         rigidbody.velocity =  playerKnockback* attackHitKnockback * (direction < 2 ? .7f:1f);
 
         if (direction < 2) StartCoroutine(ResetKnockbackAfterTime(.3f));
+    }
+
+    private IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
 
     private IEnumerator ResetKnockbackAfterTime(float time)
@@ -1039,6 +1059,11 @@ public class PlayerScript : MonoBehaviour
         Grappling,
         DoubleJump,
         Gliding
+    }
+
+    private void PlayAudio(AudioClip clip)
+    {
+        Instantiate(audioObject,transform).GetComponent<AudioObject>().Initialize(clip);
     }
     
     //UI-Methods

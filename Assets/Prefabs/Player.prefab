@@ -198,11 +198,12 @@ MonoBehaviour:
   obstaclesTowardsTarget:
     serializedVersion: 2
     m_Bits: 183
+  audioObject: {fileID: 849247051985798302, guid: b6333c1b6ac9345fbbd9e52bbe394e0d, type: 3}
   attackSounds:
   - {fileID: 8300000, guid: ebbe44c9bc6551a46acad3165b906171, type: 3}
   - {fileID: 8300000, guid: a958abe1006e0ec49a6ec804e3a7db6c, type: 3}
   - {fileID: 8300000, guid: 32aa3e679e5dcc64a9259459216cafc1, type: 3}
-  doubleJumpSound: {fileID: 8300000, guid: 4e0d7623d6b5fb147982cc54efa611b6, type: 3}
+  jumpSound: {fileID: 8300000, guid: 4e0d7623d6b5fb147982cc54efa611b6, type: 3}
   doubleJumpPS: {fileID: 3764968174383621156, guid: 34e0b594b95f7cc4ebe6b14ce722e4d9, type: 3}
   dashPSLeft: {fileID: 6074009276416733218}
   dashPSRight: {fileID: 3026929874102669904}
