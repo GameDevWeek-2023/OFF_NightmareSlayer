@@ -554,7 +554,7 @@ public class PlayerScript : MonoBehaviour
                 continue;
             }
             
-            HealthSystem enemyHealth = enemy.GetComponent<HealthSystem>();
+            Hittable enemyHealth = enemy.GetComponent<Hittable>();
             if (enemyHealth != null)
             {
                 enemyHealth.Damage(attackDamage);

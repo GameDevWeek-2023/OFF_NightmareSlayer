@@ -22,6 +22,12 @@ public class FrogTongueAttack : BossAttack
     private void StartRotation()
     {
         spriteSkin.enabled = true;
+        if (Random.Range(0, 2) == 0)
+        {
+            JointMotor2D motor = bone1Joint.motor;
+            motor.motorSpeed = -bone1Joint.motor.motorSpeed;
+            bone1Joint.motor=motor;
+        }
         bone1Joint.useMotor = true;
         Invoke("StopMotion", 5);
         bonePositions = new Vector3[spriteSkin.boneTransforms.Length];
