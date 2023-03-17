@@ -18,7 +18,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector2 lastNormal;
     private Rigidbody2D rb2d;
     public SpriteRenderer spriteRenderer;
-    // Start is called before the first frame update
+    
     void Start()
     {
         rb2d=GetComponent<Rigidbody2D>();

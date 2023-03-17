@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerScript : MonoBehaviour
     public EssenzManager essenzManager;
     public TextMeshProUGUI coinsText;
     public GameObject deathScreen;
+    public GameObject afterDeathButton;
 
     //Movement
     private new Rigidbody2D rigidbody;
@@ -440,6 +442,8 @@ public class PlayerScript : MonoBehaviour
         canMove = false;
         playerStats.SetActive(false);
         deathScreen.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(afterDeathButton);
     }
 
     private IEnumerator Invinsibility(float time)
@@ -554,7 +558,7 @@ public class PlayerScript : MonoBehaviour
                 continue;
             }
             
-            HealthSystem enemyHealth = enemy.GetComponent<HealthSystem>();
+            Hittable enemyHealth = enemy.GetComponent<Hittable>();
             if (enemyHealth != null)
             {
                 enemyHealth.Damage(attackDamage);

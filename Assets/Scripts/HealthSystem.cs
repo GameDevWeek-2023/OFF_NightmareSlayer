@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HealthSystem : MonoBehaviour
+public class HealthSystem : Hittable
 {
     public int health;
-    public UnityEvent onGetDamage;
-    public UnityEvent onDeath;
+    [HideInInspector]
+    public int startHealth;
     private Rigidbody2D rb;
+    public UnityEvent onDeath;
     private void Awake()
     {
+        startHealth=health;
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Damage(int amount)
+    public override void Damage(int amount)
     {
         health -= amount;
         onGetDamage.Invoke();
@@ -22,7 +24,7 @@ public class HealthSystem : MonoBehaviour
             onDeath.Invoke();
     }
 
-    public void Damage(int amount, Vector2 direction)
+    public override void Damage(int amount, Vector2 direction)
     {
         health -= amount;
         onGetDamage.Invoke();
@@ -30,11 +32,5 @@ public class HealthSystem : MonoBehaviour
             rb.velocity = direction;
         if (health <= 0)
             onDeath.Invoke();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

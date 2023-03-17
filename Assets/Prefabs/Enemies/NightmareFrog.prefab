@@ -175,9 +175,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.007848263, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.17363484
 --- !u!1 &2112537084954659857
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc37e0516cfc51459d9d0f83f6b1fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affectsEnemies: 0
 --- !u!114 &2378338965818604174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,10 +383,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fedff2055f4edc44bfcde4155b5ee38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
   onGetDamage:
     m_PersistentCalls:
       m_Calls: []
+  health: 4
+  startHealth: 0
   onDeath:
     m_PersistentCalls:
       m_Calls:
