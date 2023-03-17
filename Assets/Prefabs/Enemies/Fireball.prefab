@@ -50,6 +50,9 @@ MonoBehaviour:
   speed: 6
   bounce: 1
   timeToDestroy: 10
+  collidingLayers:
+    serializedVersion: 2
+    m_Bits: 129
 --- !u!58 &6186167223216162036
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -163,6 +166,10 @@ PrefabInstance:
     - target: {fileID: 1563071305825221038, guid: 6b9ce05315b419d4ea93d1c7dd900724, type: 3}
       propertyPath: m_Name
       value: SimpleFireBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1563071305825221038, guid: 6b9ce05315b419d4ea93d1c7dd900724, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
