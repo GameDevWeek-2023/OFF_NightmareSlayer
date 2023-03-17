@@ -444,6 +444,12 @@ public class PlayerScript : MonoBehaviour
         SetUILives();
     }
 
+    public void FullHeal()
+    {
+        lifes = maxLifes;
+        SetUILives();
+    }
+
     public void GetDamage()
     {
         if (!canGetDamage) return;

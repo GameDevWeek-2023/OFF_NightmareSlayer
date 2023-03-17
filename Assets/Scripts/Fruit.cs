@@ -75,7 +75,7 @@ public class Fruit : MonoBehaviour
                 break;
             case FruitType.Heartberry:
                 //TODO do effect stuff on heartberry
-                PlayerScript.instance.Heal();
+                PlayerScript.instance.FullHeal();
                 break;
         }
 
