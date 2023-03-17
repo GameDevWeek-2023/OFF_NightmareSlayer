@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5544525647027183374}
   - component: {fileID: 3131323734815426141}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Contact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,10 +253,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fedff2055f4edc44bfcde4155b5ee38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 6
   onGetDamage:
     m_PersistentCalls:
       m_Calls: []
+  health: 7
+  startHealth: 0
   onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -329,7 +330,7 @@ MonoBehaviour:
   canFly: 0
   ground:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 129
 --- !u!114 &7072734052903907375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,3 +343,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc37e0516cfc51459d9d0f83f6b1fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affectsEnemies: 0

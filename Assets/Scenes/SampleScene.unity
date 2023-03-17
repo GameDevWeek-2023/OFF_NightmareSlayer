@@ -1630,10 +1630,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fedff2055f4edc44bfcde4155b5ee38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
   onGetDamage:
     m_PersistentCalls:
       m_Calls: []
+  health: 5
+  startHealth: 0
   onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -2137,6 +2138,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
+      propertyPath: godMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
       propertyPath: coinsText
       value: 
       objectReference: {fileID: 1795269643}
@@ -2172,6 +2177,10 @@ PrefabInstance:
       propertyPath: dialogueObject
       value: 
       objectReference: {fileID: 969027397}
+    - target: {fileID: 2282735715191120549, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
+      propertyPath: afterDeathButton
+      value: 
+      objectReference: {fileID: 1416734624}
     - target: {fileID: 6050384550476718392, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2221,6 +2230,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e008058e3eb057e4fafe188d74320a09, type: 3}
+--- !u!1 &1416734624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1632224775086427057, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
+  m_PrefabInstance: {fileID: 2327315542955310073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1543137926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3051,10 +3065,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 338985909421008999, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 03473fd59479aaa4c82890e4e6c0692b, type: 3}
     - target: {fileID: 4355446694207076839, guid: 4573b82d4080a4932a032aed2361628a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

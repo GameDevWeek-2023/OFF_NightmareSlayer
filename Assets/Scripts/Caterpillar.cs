@@ -28,18 +28,26 @@ public class Caterpillar : MonoBehaviour
 
     private IEnumerator MovementGround()
     {
+        float movementSpeed = 5f;
+        float movementDuration = .1f;
+        
         while (true)
         {
+            while (!Physics2D.Raycast(transform.position + Vector3.down * .4f, Vector2.down, .3f,ground)) yield return 0;
             yield return new WaitForSeconds(.5f);
             SwitchSprite();
 
-            if (!Physics2D.Raycast(transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .2f,Vector2.down,.5f,ground))
-                transform.localScale = new Vector3(-transform.localScale.x,1f,1f);
+            if (!Physics2D.Raycast(transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .2f,Vector2.down,.5f,ground)
+                || Physics2D.Raycast(transform.position + Vector3.down * .4f,Vector2.left * transform.localScale.x, 1f,ground))
+            {
+                transform.localScale = new Vector3(-transform.localScale.x, 1f, 1f);
+                //Debug.Log("Flip");
+            }
 
-            float xVel = -1 * transform.localScale.x * 2f;
+            float xVel = -1 * transform.localScale.x * movementSpeed;
             
             float time = 0f;
-            while(time < .25f)
+            while(time < movementDuration)
             {
                 time += Time.deltaTime;
                 rigidbody.velocity = new Vector2(xVel, rigidbody.velocity.y);
@@ -53,29 +61,40 @@ public class Caterpillar : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .2f, transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .7f);
+        if(!canFly)
+        {
+            Gizmos.DrawLine(transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .2f,
+                transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .7f);
+            Gizmos.DrawLine(transform.position + Vector3.down * .4f,
+                transform.position + Vector3.down * .4f + Vector3.left * transform.localScale.x * 1f);
+            Gizmos.DrawLine(transform.position + Vector3.down * .4f,
+                transform.position + Vector3.down * .7f);
+        }
+        else
+        {
+            
+        }
     }
 
     private IEnumerator MovementFly()
     {
+        float movementSpeed = 4f;
+        float movementDuration = .08f;
+        
         while (true)
         {
-            yield return new WaitForSeconds(.125f);
-            SwitchSprite();
-            
-            yield return new WaitForSeconds(.125f);
+            yield return new WaitForSeconds(.08f);
             SwitchSprite();
             
             float time = 0f;
-            Vector2 randomVector = new Vector2(Random.Range(-1f,1f), Random.Range(-1f,1f)).normalized * 5f;
-            while(time < .2f)
+            Vector2 randomVector = new Vector2(Random.Range(-1f,1f), Random.Range(-1f,1f)).normalized * movementSpeed;
+            
+            while(time < movementDuration / 2)
             {
                 time += Time.deltaTime;
                 rigidbody.velocity = randomVector;
                 yield return 0;
             }
-            
-            rigidbody.velocity = new Vector2(0f,0f);
         }
     }
 

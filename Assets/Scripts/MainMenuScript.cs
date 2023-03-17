@@ -14,7 +14,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void play()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Realm");
     }
     
     public void exit()
