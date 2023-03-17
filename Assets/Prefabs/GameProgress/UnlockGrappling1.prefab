@@ -313,7 +313,7 @@ MonoBehaviour:
     this object is an item of those nightmares of the forest and therefore cannot
     be used in reality. Press the left trigger (E) when you are in range of a grape
     to use it.
-  abilityType: 0
+  abilityType: 2
 --- !u!1 &5665988525015083641
 GameObject:
   m_ObjectHideFlags: 0

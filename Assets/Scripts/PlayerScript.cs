@@ -61,6 +61,7 @@ public class PlayerScript : MonoBehaviour
     private bool canGetDamage = true;
     public LayerMask hittableLayers;
     private float attackHitKnockback = 10f;
+    private float attackHitEnemyKnockback = 5f;
     private bool movedAfterHit = true;
 
     //Hitpoints
@@ -451,16 +452,20 @@ public class PlayerScript : MonoBehaviour
         canGetDamage = false;
         float timeOver = 0f;
 
-        while (timeOver < time)
+        spriteRenderer.color = new Color(1f, 0f, 0f, 1f);
+
+        yield return new WaitForSeconds(.2f);
+
+        while (timeOver < time-.2f)
         {
             timeOver += Time.deltaTime;
 
-            spriteRenderer.enabled = Mathf.RoundToInt(timeOver * 4) % 2 == 0;
+            spriteRenderer.color = Mathf.RoundToInt(timeOver * 6) % 2 == 0? new Color(1f,1f,1f,1f):new Color(1f,1f,1f,.4f);
             
             yield return 0;
         }
 
-        spriteRenderer.enabled = true;
+        spriteRenderer.color = new Color(1f,1f,1f,1f);
         canGetDamage = true;
     }
 
@@ -548,6 +553,11 @@ public class PlayerScript : MonoBehaviour
         
         if (enemiesHit.Length == 0) return; //No Hit
         
+        Vector2[] knockbackVectors = { Vector2.right, Vector2.left, Vector2.down, Vector2.up };
+        Vector2 playerKnockback = knockbackVectors[direction];
+        Vector2[] enemyKnockbackVectors = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
+        Vector2 enemyKnockback = enemyKnockbackVectors[direction];
+        
         movedAfterHit = false;
         foreach (var enemy in enemiesHit)
         {
@@ -561,14 +571,13 @@ public class PlayerScript : MonoBehaviour
             Hittable enemyHealth = enemy.GetComponent<Hittable>();
             if (enemyHealth != null)
             {
-                enemyHealth.Damage(attackDamage);
+                enemyHealth.Damage(attackDamage, enemyKnockback * attackHitEnemyKnockback);
             }
         }
         
         //TODO do sfx stuff to indicate hit
 
-        Vector2[] knockbackVectors = { Vector2.right, Vector2.left, Vector2.down, Vector2.up };
-        rigidbody.velocity =  knockbackVectors[direction] * attackHitKnockback * (direction < 2 ? .7f:1f);
+        rigidbody.velocity =  playerKnockback* attackHitKnockback * (direction < 2 ? .7f:1f);
 
         if (direction < 2) StartCoroutine(ResetKnockbackAfterTime(.3f));
     }
@@ -992,6 +1001,14 @@ public class PlayerScript : MonoBehaviour
 
         switch (abilityType)
         {
+            case AbilityType.Health:
+                maxLifes++;
+                lifes = maxLifes;
+                SetUILives();
+                break;
+            case AbilityType.Damage:
+                attackDamage++;
+                break;
             case AbilityType.Grappling:
                 hasGrappling++;
                 break;
@@ -1006,6 +1023,8 @@ public class PlayerScript : MonoBehaviour
 
     public enum AbilityType
     {
+        Health,
+        Damage,
         Grappling,
         DoubleJump,
         Gliding
