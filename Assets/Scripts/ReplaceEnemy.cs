@@ -30,7 +30,7 @@ public class ReplaceEnemy : MonoBehaviour
         if (newRigidbody != null && ownRigidbody != null) newRigidbody.velocity = ownRigidbody.velocity;
 
         HealthSystem newHealthSystem = newEnemy.GetComponent<HealthSystem>();
-        if (newHealthSystem != null && ownHealthSystem != null) newHealthSystem.health = ownHealthSystem.health;
+        if (newHealthSystem != null && ownHealthSystem != null) newHealthSystem.health = Mathf.RoundToInt(newHealthSystem.startHealth * (1f * ownHealthSystem.health / ownHealthSystem.startHealth));
         
         Destroy(gameObject);
     }

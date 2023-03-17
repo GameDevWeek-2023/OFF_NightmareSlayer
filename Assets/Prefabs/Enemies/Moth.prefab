@@ -105,7 +105,7 @@ Transform:
   m_Children:
   - {fileID: 8075046699680263188}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2679399832070390644
 SpriteRenderer:
@@ -233,10 +233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fedff2055f4edc44bfcde4155b5ee38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 6
   onGetDamage:
     m_PersistentCalls:
       m_Calls: []
+  health: 8
+  startHealth: 0
   onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -309,7 +310,7 @@ MonoBehaviour:
   canFly: 1
   ground:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 129
 --- !u!114 &7653200549500983271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,3 +323,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc37e0516cfc51459d9d0f83f6b1fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affectsEnemies: 0
