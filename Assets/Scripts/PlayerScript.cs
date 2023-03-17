@@ -93,9 +93,12 @@ public class PlayerScript : MonoBehaviour
     
     //Sounds
     public List<AudioClip> attackSounds;
+    public AudioClip doubleJumpSound;
 
     //Special Effects
     public GameObject doubleJumpPS;
+    public GameObject dashPSLeft;
+    public GameObject dashPSRight;
 
     private void Awake()
     {
@@ -131,6 +134,9 @@ public class PlayerScript : MonoBehaviour
     {
         deathScreen.SetActive(false);
         
+        dashPSLeft.SetActive(false);
+        dashPSRight.SetActive(false);
+
         dialogueText.text = "";
         dialogueObject.SetActive(false);
         
@@ -387,7 +393,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if (CanUseAbility(AbilityType.DoubleJump) && !usedDoubleJump)
+            if (CanUseAbility(AbilityType.DoubleJump) && !usedDoubleJump) //Double Jump
             {
                 if(isGliding) CancelGliding();
                 rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
@@ -802,6 +808,8 @@ public class PlayerScript : MonoBehaviour
         canDash = false;
         canGetDamage = false;
         rigidbody.gravityScale = 0;
+
+        (transform.localScale.x > 0 ? dashPSRight : dashPSLeft).SetActive(true);
         
         movementLocked = true;
         float time = 0f;
@@ -819,6 +827,9 @@ public class PlayerScript : MonoBehaviour
         canGetDamage = true;
         rigidbody.gravityScale = 1;
         rigidbody.velocity = Vector2.zero;
+        
+        dashPSLeft.SetActive(false);
+        dashPSRight.SetActive(false);
         
         CheckForMove();
 
