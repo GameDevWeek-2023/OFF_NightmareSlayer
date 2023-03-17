@@ -14,6 +14,7 @@ public class StompAttack : BossAttack
     {
         Instantiate(shockWave, transform.position + Vector3.up * -3f, Quaternion.identity);
         Instantiate(shockWave, transform.position + Vector3.up * -3f, Quaternion.Euler(0, 180, 0));
+        Invoke("Shake", .17f);
         if (boss.currentPhase == 0)
         {
             weakPoint.SetActive(true);
@@ -23,6 +24,12 @@ public class StompAttack : BossAttack
         {
             Invoke("End", .2f);
         }
+    }
+
+    public void Shake()
+    {
+        boss.bossroomManager.CameraShake(.5f);
+
     }
 
     public void End()
