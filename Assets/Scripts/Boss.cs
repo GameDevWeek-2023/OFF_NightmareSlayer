@@ -38,6 +38,7 @@ public class Boss : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         healthSystem = GetComponent<HealthSystem>();
+        animator.SetInteger("Phase", currentPhase);
     }
 
     public void StartAttackLoop()
@@ -61,6 +62,7 @@ public class Boss : MonoBehaviour
         if (healthSystem.startHealth-healthSystem.health - currentPhase * phaseHealth>=50&&currentPhase<phaseCount-1)
         {
             currentPhase++;
+            animator.SetInteger("Phase",currentPhase);
         }
     }
 
