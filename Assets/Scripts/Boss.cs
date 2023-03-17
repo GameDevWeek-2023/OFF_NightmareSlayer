@@ -50,15 +50,18 @@ public class Boss : MonoBehaviour
 
     private void Attack()
     {
-        currentAttack = bossAttacks[currentPhase][Random.Range(0, bossAttacks[currentPhase].Count)];
-        currentAttack.Attack();
+
+        if (alive)
+        {
+            currentAttack = bossAttacks[currentPhase][Random.Range(0, bossAttacks[currentPhase].Count)];
+            currentAttack.Attack();
+        }
     }
 
     public void AttackFinished()
     {
         currentAttack = null;
-        if(alive)
-            Invoke("Attack",Random.Range(minBreak,maxBreak));
+        Invoke("Attack",Random.Range(minBreak,maxBreak));
     }
     public void OnDamage()
     {
