@@ -602,7 +602,13 @@ public class PlayerScript : MonoBehaviour
                 dialogueState = 2;
                 return;
             }
-            if(dialogueState == 2)
+
+            if (dialogueState == 2)
+            {
+                dialogueState = 1;
+                return;
+            }
+            if(dialogueState == 3)
             {
                 canMove = true;
                 dialogueObject.SetActive(false);
@@ -924,30 +930,47 @@ public class PlayerScript : MonoBehaviour
         dialogueSpeed = speed;
     }
 
-    public void StartDialogue(string sentence)
+    public void StartDialogue(List<string> sentences)
     {
-        dialogueCoroutine = StartCoroutine(Writer(sentence));
+        dialogueCoroutine = StartCoroutine(Writer(sentences));
     }
     
-    private IEnumerator Writer(string sentence)
+    private IEnumerator Writer(List<string> sentences)
     {
         dialogueText.text = "";
         dialogueObject.SetActive(true);
         canMove = false;
-        dialogueState = 1;
         playerStats.SetActive(false);
 
-        foreach (char c in sentence) 
+        for (var i = 0; i < sentences.Count; i++)
         {
-            if (dialogueState == 2)
+            var sentence = sentences[i];
+            dialogueText.text = "";
+            dialogueState = 1;
+
+            foreach (char c in sentence)
             {
-                dialogueText.text = sentence;
-                break;
+                if (dialogueState == 2)
+                {
+                    dialogueText.text = sentence;
+                    break;
+                }
+
+                dialogueText.text += c;
+                yield return new WaitForSeconds(dialogueSpeed);
             }
-            dialogueText.text += c;
-            yield return new WaitForSeconds(dialogueSpeed);
+
+            dialogueState = 2;
+
+            if (i >= sentences.Count -1) break;
+
+            while (dialogueState == 2)
+            {
+                yield return 0;
+            }
         }
-        dialogueState = 2;
+
+        dialogueState = 3;
     }
 
     public void UnlockAbility(Sprite icon, string title, string description, AbilityType abilityType)
