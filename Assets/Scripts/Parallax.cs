@@ -8,6 +8,15 @@ public class Parallax : MonoBehaviour
     public Camera cam;
     private Vector3 previousCamPos;
     private float speed = .3f;
+    public Color normalColor;
+    public Color nightmareColor;
+    public SpriteRenderer[] spriteRenderers;
+
+    private void Awake()
+    {
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +33,13 @@ public class Parallax : MonoBehaviour
         }
         previousCamPos = cam.transform.position;
         
+    }
+    public void SwitchColor()
+    {
+        foreach(SpriteRenderer renderer in spriteRenderers)
+        {
+            renderer.color = GameManager.instance.nightmareMode ? nightmareColor : normalColor;
+        }
+
     }
 }
