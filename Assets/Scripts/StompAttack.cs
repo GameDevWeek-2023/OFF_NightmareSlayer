@@ -12,8 +12,8 @@ public class StompAttack : BossAttack
     //Called by animation
     public void Shockwave()
     {
-        Instantiate(shockWave, transform.position + Vector3.up * -3f, Quaternion.identity);
-        Instantiate(shockWave, transform.position + Vector3.up * -3f, Quaternion.Euler(0, 180, 0));
+        Instantiate(shockWave, transform.position + Vector3.up * -3.8f, Quaternion.identity);
+        Instantiate(shockWave, transform.position + Vector3.up * -3.8f, Quaternion.Euler(0, 180, 0));
         Invoke("Shake", .17f);
         if (boss.currentPhase == 0)
         {

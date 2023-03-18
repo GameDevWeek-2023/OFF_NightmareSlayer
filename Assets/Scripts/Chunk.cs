@@ -34,7 +34,7 @@ public class Chunk : MonoBehaviour
     {
         foreach (var child in GetAllChildren())
         {
-            child.SetActive(false);
+            if(child.GetComponent<EnemySpawner>() == null) child.SetActive(false);
         }
         EnemySpawner.DespawnChunk(gameObject);
     }

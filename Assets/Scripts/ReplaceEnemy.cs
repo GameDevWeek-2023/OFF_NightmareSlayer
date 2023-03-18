@@ -24,7 +24,7 @@ public class ReplaceEnemy : MonoBehaviour
     public void Replace(bool isNightmare)
     {
         GameObject newEnemy = Instantiate(isNightmare ? nightmareVersion : normalVersion, transform.position,
-            transform.rotation);
+            transform.rotation, transform.parent);
         
         Rigidbody2D newRigidbody = newEnemy.GetComponent<Rigidbody2D>();
         if (newRigidbody != null && ownRigidbody != null) newRigidbody.velocity = ownRigidbody.velocity;

@@ -4,14 +4,29 @@ using UnityEngine;
 
 public class WiggleAttack : BossAttack
 {
-    // Start is called before the first frame update
-    void Start()
+    public RepeatingSpawner[] spawners;
+    public override void Attack()
     {
-        
+        boss.animator.Play("Sway");
+        foreach(RepeatingSpawner spawner in spawners)
+        {
+            spawner.StartSpawning();
+        }
+        Invoke("End", 5);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void End()
+    {
+        Finished();
+
+        foreach (RepeatingSpawner spawner in spawners)
+        {
+            spawner.StopSpawning();
+        }
+    }
+
+        // Update is called once per frame
+        void Update()
     {
         
     }

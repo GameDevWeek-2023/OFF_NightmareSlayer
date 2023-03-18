@@ -20,7 +20,10 @@ public class Boss : MonoBehaviour
     [HideInInspector]
     public Animator animator;
     [HideInInspector]
+    public Animator containerAnimator;
+    [HideInInspector]
     public HealthSystem healthSystem;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
@@ -39,13 +42,25 @@ public class Boss : MonoBehaviour
         }
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        containerAnimator = transform.parent.GetComponent<Animator>();
         healthSystem = GetComponent<HealthSystem>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         animator.SetInteger("Phase", currentPhase);
+        spriteRenderer.enabled = false;
     }
 
     public void StartAttackLoop()
     {
-        Invoke("Attack",3);
+        Debug.Log("StartAttackLoogp");
+        Invoke("Intro",3);
+    }
+
+    private void Intro()
+    {
+        bossroomManager.CameraShake(3);
+        containerAnimator.Play("Intro");
+        spriteRenderer.enabled = true;
+        Invoke("Attack", 5);
     }
 
     private void Attack()
