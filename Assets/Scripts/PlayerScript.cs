@@ -740,7 +740,22 @@ public class PlayerScript : MonoBehaviour
         if(!canMove) return;
         //if(!isGrounded) return;
 
-        if (godMode)
+        if (GameManager.instance.nightmareMode)
+        {
+            GameManager.instance.SwitchNightmare();
+            Instantiate(dreamShiftPS, transform);
+            PlayAudio(dreamShiftSound);
+
+            if (hasGrappling == 1)
+            {
+                if (currentTarget != null)
+                {
+                    currentTarget.Untarget();
+                    currentTarget = null;
+                }
+            }
+        } 
+        else if (godMode)
         {
             GameManager.instance.SwitchNightmare();
             Instantiate(dreamShiftPS, transform);
@@ -750,15 +765,6 @@ public class PlayerScript : MonoBehaviour
         {
             dreamEssence -= 1f;
             SetUIEssenzBar();
-
-            if (GameManager.instance.nightmareMode && hasGrappling == 1)
-            {
-                if (currentTarget != null)
-                {
-                    currentTarget.Untarget();
-                    currentTarget = null;
-                }
-            }
             
             GameManager.instance.SwitchNightmare();
             Instantiate(dreamShiftPS, transform);

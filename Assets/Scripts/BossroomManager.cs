@@ -62,7 +62,7 @@ public class BossroomManager : MonoBehaviour
 
     public void SwitchNightmareMode()
     {
-        if (hidden)
+        if (GameManager.instance.nightmareMode)
             Show();
         else
             Hide();
