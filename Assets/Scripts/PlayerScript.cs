@@ -60,7 +60,7 @@ public class PlayerScript : MonoBehaviour
     
     //Attack
     private int attackDamage = 3;
-    private float attackRange = .7f;
+    private float attackRange = .8f;
     private bool canGetDamage = true;
     private bool canAttack = true;
     private float attackCooldown = .16f;
@@ -595,8 +595,8 @@ public class PlayerScript : MonoBehaviour
         //links rechts oben unten
         //0     1      2    3
         Vector3[] attackPoints = {
-            transform.position + Vector3.left * .6f + Vector3.down * .25f,
-            transform.position + Vector3.right * .6f + Vector3.down * .25f,
+            transform.position + Vector3.left * .7f + Vector3.down * .25f,
+            transform.position + Vector3.right * .7f + Vector3.down * .25f,
             transform.position + Vector3.up * .2f,
             transform.position + Vector3.down * .4f};
         Vector3 attackPoint = attackPoints[direction];
