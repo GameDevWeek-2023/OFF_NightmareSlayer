@@ -9,6 +9,7 @@ public class ChangeSide : BossAttack
     {
         isLeft = !isLeft;
         boss.containerAnimator.SetBool("isLeft",isLeft);
+        boss.animator.Play("Hop");
         Invoke("Finished", 5);
     }
 }
