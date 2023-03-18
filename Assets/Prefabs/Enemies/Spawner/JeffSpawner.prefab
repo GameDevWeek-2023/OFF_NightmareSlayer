@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1500677925723704049}
+  - component: {fileID: -7559025898579963524}
   m_Layer: 0
   m_Name: JeffSpawner
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7559025898579963524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6505123681599034869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa2c9cb804294406995834572b60d000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyContaining: {fileID: 2112537084954659857, guid: f91fea7dac791164294556a72902bc18, type: 3}
 --- !u!1001 &949097268181878330
 PrefabInstance:
   m_ObjectHideFlags: 0

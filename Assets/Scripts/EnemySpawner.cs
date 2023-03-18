@@ -6,7 +6,6 @@ public class EnemySpawner : MonoBehaviour
     private static List<EnemySpawner> allSpawner;
     public GameObject enemyContaining;
 
-    private GameObject currentEnemy;
     private GameObject chunk;
     
     private void Awake()
@@ -19,15 +18,17 @@ public class EnemySpawner : MonoBehaviour
 
     private void Despawn()
     {
-        if(currentEnemy != null) Destroy(currentEnemy);
+        if (transform.childCount == 0) return;
+        Transform child = transform.GetChild(0);
+        Destroy(child.gameObject);
     }
 
     private void Respawn()
     {
         Despawn();
-        currentEnemy = Instantiate(enemyContaining, transform);
+        GameObject newChild = Instantiate(enemyContaining, transform);
 
-        ReplaceEnemy replaceEnemy = currentEnemy.GetComponent<ReplaceEnemy>();
+        ReplaceEnemy replaceEnemy = newChild.GetComponent<ReplaceEnemy>();
         if (replaceEnemy != null)
         {
             replaceEnemy.Replace(GameManager.instance.nightmareMode);
@@ -62,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
         if (allSpawner == null) return;
         foreach (var spawner in allSpawner)
         {
-            if(spawner.chunk.Equals(selectedChunk)) spawner.Despawn();
+            if(spawner.chunk == selectedChunk) spawner.Despawn();
         }
     }
 
@@ -71,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
         if (allSpawner == null) return;
         foreach (var spawner in allSpawner)
         {
-            if(spawner.chunk.Equals(selectedChunk)) spawner.Respawn();
+            if(spawner.chunk == selectedChunk) spawner.Respawn();
         }
     }
 }
