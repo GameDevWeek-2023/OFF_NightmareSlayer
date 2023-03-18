@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 1805475545197417391}
   - component: {fileID: 4414771581383054333}
   - component: {fileID: 7175865248396656796}
-  - component: {fileID: 5824564260987254089}
   - component: {fileID: 8534969369403574390}
   - component: {fileID: 9067842503726703754}
   - component: {fileID: 700346558419484747}
+  - component: {fileID: 6816443537067595941}
   m_Layer: 14
   m_Name: Frogboss
   m_TagString: Untagged
@@ -81,7 +81,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8, y: 8}
+    oldSize: {x: 8.0013275, y: 9.765625}
     newSize: {x: 8, y: 8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -131,7 +131,7 @@ SpriteRenderer:
   m_SortingLayerID: -1709322225
   m_SortingLayer: -3
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 374f14eb0549d46e293b5d2fb106f38b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fead4ff82cc7435eafada6f7cc20b4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -150,7 +150,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1628922370924248126}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   alive: 1
   rb2d: {fileID: 0}
   animator: {fileID: 0}
+  containerAnimator: {fileID: 0}
   healthSystem: {fileID: 0}
 --- !u!114 &4414771581383054333
 MonoBehaviour:
@@ -225,28 +226,6 @@ MonoBehaviour:
   phases: 0101
   shockWave: {fileID: 6463795431977537483, guid: 7681e0f96e6dcd141a0aff1389db6d31, type: 3}
   weakPoint: {fileID: 7982177611367318121}
---- !u!114 &5824564260987254089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628922370924248126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02b4850bc5e9f114daae3720dafbe0c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  phases: 0000
-  ground:
-    serializedVersion: 2
-    m_Bits: 55
-  player:
-    serializedVersion: 2
-    m_Bits: 8
-  jumpStrength: 6
-  jumpStrengthSide: 6
-  jumpDelta: 3
 --- !u!95 &8534969369403574390
 Animator:
   serializedVersion: 5
@@ -390,6 +369,19 @@ MonoBehaviour:
   fireball: {fileID: 3517128698435818110, guid: 7605904963e63f441a7d63fe0c35daa3, type: 3}
   fireballSpawn: {fileID: 672777598945388112}
   container: {fileID: 0}
+--- !u!114 &6816443537067595941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628922370924248126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8ad244755888342baed3027b351b70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phases: 0101
 --- !u!1 &2731158039488720142
 GameObject:
   m_ObjectHideFlags: 0
