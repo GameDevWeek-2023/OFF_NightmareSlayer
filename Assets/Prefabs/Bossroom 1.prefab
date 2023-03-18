@@ -2295,6 +2295,10 @@ PrefabInstance:
       propertyPath: container
       value: 
       objectReference: {fileID: 4269955515907873216}
+    - target: {fileID: 1130757908539354321, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 374f14eb0549d46e293b5d2fb106f38b, type: 3}
     - target: {fileID: 1628922370924248126, guid: 961d174edee8273448ec34857bf2a80e, type: 3}
       propertyPath: m_Name
       value: Frogboss
