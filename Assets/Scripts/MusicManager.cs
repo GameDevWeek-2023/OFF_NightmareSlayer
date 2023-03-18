@@ -48,12 +48,12 @@ public class MusicManager : MonoBehaviour
 
     public void Pause()
     {
-        (source1Active ? source1 : source2).volume = 0f;
+        (!source1Active ? source1 : source2).volume = 0f;
     }
 
     public void Resume()
     {
-        (source1Active ? source1 : source2).volume = 1f;
+        (!source1Active ? source1 : source2).volume = 1f;
     }
 
 }
