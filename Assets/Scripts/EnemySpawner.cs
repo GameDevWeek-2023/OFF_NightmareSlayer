@@ -26,6 +26,12 @@ public class EnemySpawner : MonoBehaviour
     {
         Despawn();
         currentEnemy = Instantiate(enemyContaining, transform);
+
+        ReplaceEnemy replaceEnemy = currentEnemy.GetComponent<ReplaceEnemy>();
+        if (replaceEnemy != null)
+        {
+            replaceEnemy.
+        }
     }
 
     private void OnDestroy()

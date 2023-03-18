@@ -79,11 +79,13 @@ public class Caterpillar : MonoBehaviour
         
         while (true)
         {
-            yield return new WaitForSeconds(.08f);
+            yield return new WaitForSeconds(.1f);
             SwitchSprite();
             
             float time = 0f;
             Vector2 randomVector = new Vector2(Random.Range(-1f,1f), Random.Range(-1f,1f)).normalized * movementSpeed;
+
+            spriteRenderer.flipX = randomVector.x < 0;
             
             while(time < movementDuration / 2)
             {
