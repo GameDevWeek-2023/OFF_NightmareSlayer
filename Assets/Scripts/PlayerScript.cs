@@ -71,7 +71,7 @@ public class PlayerScript : MonoBehaviour
 
     //Hitpoints
     private int lifes;
-    private int maxLifes = 4;
+    private int maxLifes = 5;
 
     private SpriteRenderer spriteRenderer;
     
@@ -101,12 +101,16 @@ public class PlayerScript : MonoBehaviour
     public GameObject audioObject;
     public List<AudioClip> attackSounds;
     public AudioClip jumpSound;
+    public AudioClip dreamShiftSound;
+    public AudioClip recallSound;
 
     //Special Effects
     public GameObject doubleJumpPS;
     public GameObject dashPSLeft;
     public GameObject dashPSRight;
     public GameObject dreamShiftPS;
+    private LineRenderer grapplingLineRenderer;
+    private GameObject currentRecallSound;
 
     private void OnDestroy()
     {
@@ -122,6 +126,7 @@ public class PlayerScript : MonoBehaviour
         collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        grapplingLineRenderer = GetComponent<LineRenderer>();
 
         InitializeStats();
         
@@ -169,6 +174,7 @@ public class PlayerScript : MonoBehaviour
         }
         
         grappableTargets = new List<Grappable>();
+        grapplingLineRenderer.enabled = false;
 
         lifes = maxLifes;
         dreamEssence = 1f;
@@ -321,14 +327,16 @@ public class PlayerScript : MonoBehaviour
         //currentTarget = null;
 
         Grappable newTarget = null;
+        grapplingLineRenderer.enabled = false;
         
         if (movementLocked) return;
         foreach (var target in grappableTargets)
         {
             Vector2 targetPos = target.transform.position;
             if(targetPos.y < ownPos.y) continue;
-            if (transform.localScale.x > 0 ? (targetPos.x < ownPos.x) : (targetPos.x > ownPos.x)) continue;
-
+            //if (transform.localScale.x > 0 ? (targetPos.x < ownPos.x) : (targetPos.x > ownPos.x)) continue;
+            if(Vector2.Angle(Vector2.right * transform.localScale.x,targetPos - ownPos) > 105f) continue;
+            
             float currentDistance = Vector2.Distance(ownPos,targetPos);
             RaycastHit2D hit = Physics2D.Raycast(ownPos, targetPos-ownPos, currentDistance, obstaclesTowardsTarget);
             if(hit)
@@ -354,6 +362,12 @@ public class PlayerScript : MonoBehaviour
         }
 
         currentTarget = newTarget;
+
+        if (currentTarget != null)
+        {
+            grapplingLineRenderer.SetPositions(new []{transform.position,currentTarget.transform.position});
+            grapplingLineRenderer.enabled = true;
+        }
     }
 
     private void Move(Vector2 value)
@@ -728,6 +742,7 @@ public class PlayerScript : MonoBehaviour
         {
             GameManager.instance.SwitchNightmare();
             Instantiate(dreamShiftPS, transform);
+            PlayAudio(dreamShiftSound);
         }
         else if (dreamEssence >= 1f)
         {
@@ -745,6 +760,7 @@ public class PlayerScript : MonoBehaviour
             
             GameManager.instance.SwitchNightmare();
             Instantiate(dreamShiftPS, transform);
+            PlayAudio(dreamShiftSound);
         }
 
         //StartCoroutine(DreamShifting());
@@ -877,7 +893,7 @@ public class PlayerScript : MonoBehaviour
         movementLocked = false;
         
         canMove = true;
-        canGetDamage = true;
+        StartCoroutine(IFramesAfterDash());
         rigidbody.gravityScale = 1;
         rigidbody.velocity = Vector2.zero;
         
@@ -889,6 +905,12 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
 
         canDash = true;
+    }
+
+    private IEnumerator IFramesAfterDash()
+    {
+        yield return new WaitForSeconds(.3f);
+        canGetDamage = true;
     }
 
     private void Grappling()
@@ -1110,7 +1132,11 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator Recall()
     {
         canMove = false;
+        walkingVelocity = 0f;
         
+        currentRecallSound = Instantiate(audioObject, transform);
+        currentRecallSound.GetComponent<AudioObject>().Initialize(recallSound);
+
         //TODO some particle effect on recall
         
         yield return new WaitForSeconds(recallTime);
@@ -1119,14 +1145,18 @@ public class PlayerScript : MonoBehaviour
         
         recallCoroutine = null;
         Respawn();
+        CheckForMove();
     }
 
     private void CancelRecall()
     {
         if(recallCoroutine != null)
         {
+            if(currentRecallSound != null) Destroy(currentRecallSound);
+            currentRecallSound = null;
             StopCoroutine(recallCoroutine);
             canMove = true;
+            CheckForMove();
         }
     }
     
