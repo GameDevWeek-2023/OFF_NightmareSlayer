@@ -537,7 +537,7 @@ public class PlayerScript : MonoBehaviour
         rigidbody.velocity = Vector2.zero;
         
         GameManager.instance.SetNightmare(false);
-        MusicManager.instance.StartFade();
+        MusicManager.instance.Restart();
         
         InitializeStats();
         ToSpawnPoint();
