@@ -30,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
         ReplaceEnemy replaceEnemy = currentEnemy.GetComponent<ReplaceEnemy>();
         if (replaceEnemy != null)
         {
-            replaceEnemy.
+            //replaceEnemy.
         }
     }
 
