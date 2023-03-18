@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GigaJoff : MonoBehaviour
 {
+    public List<AudioClip> dialogueAudio;
+
     private DialogueStarter dialogueStarter;
     
     private List<string> dialogue1;
@@ -12,25 +14,33 @@ public class GigaJoff : MonoBehaviour
     {
         dialogueStarter = GetComponent<DialogueStarter>();
 
-        dialogue1 = new List<string> { "*Quark*",
-            "Any chance you\'re here to slain nightmares?",
-            "*Quark*",
+        dialogue1 = new List<string>
+        {
+            "*Ribbit*",
+            "Gigajoff\'s the name.",
+            "*Ribbit*",
+            "Any chance you\'re here to slay nightmares?",
+            "*Ribbit*",
             "My left hand...",
             "THE NIGHTMARE!!!",
-            "*Quark*",
+            "*Ribbit*",
             "Please avenge me...",
-            "...deep in the woods.",
-            "*Quark*" };
+            "...far in the woods.",
+            "*Ribbit*"
+        };
 
-        dialogue2 = new List<string> { "*Quark*",
+        dialogue2 = new List<string>
+        {
+            "*Ribbit*",
             "Thanks for everything...",
-            "*Quark*",
+            "*Ribbit*",
             "You have annihilated my nightmare.",
-            "*Quark*",
+            "*Ribbit*",
             "Now I can search for my missing brother Jeff in peace...",
             "...The last time I saw him, he was hopping towards the big slope in the mushroom cliffs.",
-            "*Quark*",
-            "Hopefully he won't be stupid enough to try and climb it on his own..." };
+            "*Ribbit*",
+            "Hopefully he won't be stupid enough to try and climb it on his own..."
+        };
     }
 
     public void Talk()
