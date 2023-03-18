@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChangeSide : BossAttack
 {
-    private bool isLeft;
+    private bool isLeft=true;
     public override void Attack()
     {
         isLeft = !isLeft;
