@@ -39,7 +39,7 @@ public class Fruit : MonoBehaviour
     
     public void SwitchFruit(bool isNightmare)
     {
-        if (isNightmare)
+        /*if (isNightmare)
         {
             hasFruit = false;
             UpdateFruit();
@@ -48,6 +48,10 @@ public class Fruit : MonoBehaviour
         {
             hasFruit = true;
             UpdateFruit();
+        }*/
+        if (!isNightmare)
+        {
+            AddFruit();
         }
     }
 

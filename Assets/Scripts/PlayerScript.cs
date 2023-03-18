@@ -127,8 +127,6 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         grapplingLineRenderer = GetComponent<LineRenderer>();
-
-        InitializeStats();
         
         playerInput = new PlayerInput();
 
@@ -152,6 +150,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Start()
     {
+        InitializeStats();
         ToSpawnPoint();
     }
 
@@ -187,6 +186,8 @@ public class PlayerScript : MonoBehaviour
         canMove = true;
         canAttack = true;
         canGetDamage = true;
+        
+        EnemySpawner.DespawnAll();
     }
 
     private void Update()
