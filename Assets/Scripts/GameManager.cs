@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     
     public void SwitchNightmare()
     {
+        
         nightmareMode = !nightmareMode;
         SwitchableObject.SwitchAll(nightmareMode);
         ReplaceEnemy.ReplaceAll(nightmareMode);
