@@ -578,11 +578,13 @@ public class PlayerScript : MonoBehaviour
         {
             //Debug.Log("Attacke Oben");
             DoAttack(2,attackRange);
+            animator.SetTrigger("hitUp");
         }
         else if (look.y < 0)
         {
             //Debug.Log("Attacke Unten");
             DoAttack(3,attackRange);
+            animator.SetTrigger("hitDown");
         }
         else
         {
@@ -611,10 +613,10 @@ public class PlayerScript : MonoBehaviour
         Vector3[] attackPoints = {
             transform.position + Vector3.left * .7f + Vector3.down * .25f,
             transform.position + Vector3.right * .7f + Vector3.down * .25f,
-            transform.position + Vector3.up * .2f,
-            transform.position + Vector3.down * .4f};
+            transform.position + Vector3.up * .42f,
+            transform.position + Vector3.down * .55f};
         Vector3 attackPoint = attackPoints[direction];
-        Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint, radius, hittableLayers);
+        Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint, direction !=3?radius:1.5f*radius, hittableLayers);
         
         if (enemiesHit.Length == 0) return; //No Hit
         
@@ -861,14 +863,14 @@ public class PlayerScript : MonoBehaviour
         isGliding = true;
         rigidbody.velocity = Vector2.zero;
         rigidbody.gravityScale = 0f;
-        //TODO Gliding Animation
+        animator.SetBool("isGliding",true);
     }
 
     private void CancelGliding()
     {
         isGliding = false;
         rigidbody.gravityScale = 1f;
-        //TODO Stop Gliding Animation
+        animator.SetBool("isGliding",false);
     }
 
     private IEnumerator Dash()
@@ -929,6 +931,7 @@ public class PlayerScript : MonoBehaviour
         
         CancelGliding();
         movementLocked = true;
+        animator.SetBool("isGrappling",true);
         canMove = false;
         movedAfterGrappling = false;
 
@@ -943,6 +946,7 @@ public class PlayerScript : MonoBehaviour
         
         rigidbody.gravityScale = 1;
         movementLocked = false;
+        animator.SetBool("isGrappling",false);
         canMove = true;
         
         if (playerInput.Movement.Move.IsPressed())
