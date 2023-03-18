@@ -192,8 +192,8 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit2D leftSideRay = Physics2D.Raycast(transform.position + Vector3.left * .15f, Vector2.down, .85f, groundLayerMask);
-        RaycastHit2D rightSideRay = Physics2D.Raycast(transform.position + Vector3.right * .15f, Vector2.down, .85f, groundLayerMask);
+        RaycastHit2D leftSideRay = Physics2D.Raycast(transform.position + Vector3.left * .15f + Vector3.down * .65f, Vector2.down, .2f, groundLayerMask);
+        RaycastHit2D rightSideRay = Physics2D.Raycast(transform.position + Vector3.right * .15f + Vector3.down * .65f, Vector2.down, .2f, groundLayerMask);
         
         if (leftSideRay || rightSideRay)
         {
@@ -244,12 +244,12 @@ public class PlayerScript : MonoBehaviour
     {
         if (isGrounded) Gizmos.color = Color.green;
         else Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.left * .15f, transform.position + Vector3.left * .15f + Vector3.down * .85f);
-        Gizmos.DrawLine(transform.position + Vector3.right * .15f, transform.position + Vector3.right * .15f + Vector3.down * .85f);
+        Gizmos.DrawLine(transform.position + Vector3.left * .15f + Vector3.down * .65f, transform.position + Vector3.left * .15f + Vector3.down * .85f);
+        Gizmos.DrawLine(transform.position + Vector3.right * .15f + Vector3.down * .65f, transform.position + Vector3.right * .15f + Vector3.down * .85f);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position + Vector3.left * .2f, transform.position + Vector3.left * .2f + Vector3.down * .85f);
-        Gizmos.DrawLine(transform.position + Vector3.right * .2f, transform.position + Vector3.right * .2f + Vector3.down * .85f);
+        Gizmos.DrawLine(transform.position + Vector3.left * .2f + Vector3.down * .65f, transform.position + Vector3.left * .2f + Vector3.down * .85f);
+        Gizmos.DrawLine(transform.position + Vector3.right * .2f + Vector3.down * .65f, transform.position + Vector3.right * .2f + Vector3.down * .85f);
         
         Gizmos.color = Color.yellow;
         //Gizmos.DrawWireSphere(transform.position + Vector3.right * transform.localScale.x * .6f + Vector3.down * .25f,attackRange);
@@ -268,8 +268,8 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit2D leftSideRay = Physics2D.Raycast(transform.position + Vector3.left * .2f, Vector2.down, .85f, nonGroundLayerMask);
-        RaycastHit2D rightSideRay = Physics2D.Raycast(transform.position + Vector3.right * .2f, Vector2.down, .85f, nonGroundLayerMask);
+        RaycastHit2D leftSideRay = Physics2D.Raycast(transform.position + Vector3.left * .2f + Vector3.down * .65f, Vector2.down, .2f, nonGroundLayerMask);
+        RaycastHit2D rightSideRay = Physics2D.Raycast(transform.position + Vector3.right * .2f + Vector3.down * .65f, Vector2.down, .2f, nonGroundLayerMask);
 
         if (movementLocked) return;
         if (isGliding && !isGrounded)

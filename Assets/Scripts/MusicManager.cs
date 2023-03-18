@@ -38,7 +38,7 @@ public class MusicManager : MonoBehaviour
     public void StartFade()
     {
         currentFade = fadeDuration;
-        source1Active = !source1Active;
+        source1Active = !GameManager.instance.nightmareMode;
     }
 
     public void StartFade(float fadeDuration)
