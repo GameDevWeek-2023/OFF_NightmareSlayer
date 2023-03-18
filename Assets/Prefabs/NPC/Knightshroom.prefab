@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2757432856190228507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.11, y: 1.11, z: 0}
+  m_LocalPosition: {x: 0.11, y: 0.98, z: 0}
   m_LocalScale: {x: 0.7, y: -0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -208,7 +208,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 23d1b729d98043e40a6325be1bdb6afe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -233,9 +233,9 @@ GameObject:
   - component: {fileID: 6480384433396414046}
   - component: {fileID: 6800377708976356637}
   - component: {fileID: 7714630219739585824}
-  - component: {fileID: 2792428620646446055}
+  - component: {fileID: 5754977048839259469}
   m_Layer: 8
-  m_Name: GigaJoff
+  m_Name: Knightshroom
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,7 +298,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 403efa8e11e2a4b62bc9e382a1d446c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63c1cef60a16043628e8782e600611ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -341,18 +341,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.037733316, y: -0.14464378}
+  m_Offset: {x: 0.07277, y: -0.53140575}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.8828125, y: 2.5976562}
+    oldSize: {x: 3.125, y: 3.125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5860372, y: 2.3458166}
+  m_Size: {x: 2.6357076, y: 2.0143065}
   m_EdgeRadius: 0
 --- !u!114 &6800377708976356637
 MonoBehaviour:
@@ -369,8 +369,8 @@ MonoBehaviour:
   interactionEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2792428620646446055}
-        m_TargetAssemblyTypeName: GigaJoff, Assembly-CSharp
+      - m_Target: {fileID: 5754977048839259469}
+        m_TargetAssemblyTypeName: Knightshroom, Assembly-CSharp
         m_MethodName: Talk
         m_Mode: 1
         m_Arguments:
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueText: []
---- !u!114 &2792428620646446055
+--- !u!114 &5754977048839259469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8343437414244068196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22724452d5aae4a99980dc1d1a356766, type: 3}
+  m_Script: {fileID: 11500000, guid: cabb1f91647df4f639ab8351f92c40c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8749290290789144690

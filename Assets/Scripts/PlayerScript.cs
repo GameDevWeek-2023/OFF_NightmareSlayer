@@ -108,6 +108,7 @@ public class PlayerScript : MonoBehaviour
     public AudioClip dreamShiftSound;
     public AudioClip recallSound;
     public AudioClip itemUnlockSound;
+    public AudioClip grapplingSound;
 
     //Special Effects
     public GameObject doubleJumpPS;
@@ -116,6 +117,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject dreamShiftPS;
     private LineRenderer grapplingLineRenderer;
     private GameObject currentRecallSound;
+    private GameObject currentDialogueSound;
 
     private void OnDestroy()
     {
@@ -535,6 +537,7 @@ public class PlayerScript : MonoBehaviour
         rigidbody.velocity = Vector2.zero;
         
         GameManager.instance.SetNightmare(false);
+        MusicManager.instance.StartFade();
         
         InitializeStats();
         ToSpawnPoint();
@@ -1045,10 +1048,15 @@ public class PlayerScript : MonoBehaviour
 
     public void StartDialogue(List<string> sentences)
     {
-        dialogueCoroutine = StartCoroutine(Writer(sentences));
+        dialogueCoroutine = StartCoroutine(Writer(sentences,null));
     }
     
-    private IEnumerator Writer(List<string> sentences)
+    public void StartDialogue(List<string> sentences, List<AudioClip> dialogueAudio)
+    {
+        dialogueCoroutine = StartCoroutine(Writer(sentences,dialogueAudio));
+    }
+    
+    private IEnumerator Writer(List<string> sentences, List<AudioClip> dialogueAudio)
     {
         dialogueText.text = "";
         dialogueObject.SetActive(true);
@@ -1060,6 +1068,13 @@ public class PlayerScript : MonoBehaviour
             var sentence = sentences[i];
             dialogueText.text = "";
             dialogueState = 1;
+
+            if (dialogueAudio != null && i < dialogueAudio.Count)
+            {
+                if(currentDialogueSound != null) Destroy(currentDialogueSound);
+                currentDialogueSound = Instantiate(audioObject, transform);
+                currentRecallSound.GetComponent<AudioObject>().Initialize(dialogueAudio[i]);
+            }
 
             foreach (char c in sentence)
             {
