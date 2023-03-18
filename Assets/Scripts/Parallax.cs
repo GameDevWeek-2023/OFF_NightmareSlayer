@@ -40,6 +40,5 @@ public class Parallax : MonoBehaviour
         {
             renderer.color = GameManager.instance.nightmareMode ? nightmareColor : normalColor;
         }
-
     }
 }

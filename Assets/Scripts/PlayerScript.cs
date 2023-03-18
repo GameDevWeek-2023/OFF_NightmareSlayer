@@ -538,6 +538,7 @@ public class PlayerScript : MonoBehaviour
         
         InitializeStats();
         ToSpawnPoint();
+        BossroomGenerator.instance.Reload();
         Time.timeScale = 1;
         canDreamShift = true;
     }
