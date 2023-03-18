@@ -10,9 +10,12 @@ public class MusicManager : MonoBehaviour
     public float musicVolume;
     public AudioSource source1;
     public AudioSource source2;
+    public AudioClip bossfightStart;
+    public AudioClip bossfightLoop;
     private float currentFade;
     private bool source1Active=false;
     private int currentTrack;
+    private bool bossfightIntro;
     private void Awake()
     {
         instance = this;
@@ -48,12 +51,32 @@ public class MusicManager : MonoBehaviour
 
     public void Pause()
     {
-        (!source1Active ? source1 : source2).volume = 0f;
+        (!source1Active ? source1 : source2).volume = 0;
     }
 
     public void Resume()
     {
-        (!source1Active ? source1 : source2).volume = 1f;
+        (!source1Active ? source1 : source2).volume = musicVolume;
+    }
+
+    public void StartBossFight()
+    {
+        source1.clip = bossfightStart;
+        source1.volume=musicVolume;
+        source1.Play();
+        source2.volume = 0;
+        bossfightIntro = true;
+        Invoke("BossFightLoop", bossfightStart.length);
+    }
+    public void BossFightLoop()
+    {
+        source1.clip = bossfightLoop;
+        source1.Play();
+    }
+
+    public void Restart()
+    {
+        Awake();
     }
 
 }
