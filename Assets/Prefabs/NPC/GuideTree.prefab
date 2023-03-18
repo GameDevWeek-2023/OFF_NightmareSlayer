@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 6480384433396414046}
   - component: {fileID: 6800377708976356637}
   - component: {fileID: 7714630219739585824}
+  - component: {fileID: 4572345758116214404}
   m_Layer: 8
   m_Name: GuideTree
   m_TagString: Interactable
@@ -368,9 +369,9 @@ MonoBehaviour:
   interactionEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7714630219739585824}
-        m_TargetAssemblyTypeName: DialogueStarter, Assembly-CSharp
-        m_MethodName: StartDialogueWithAttribute
+      - m_Target: {fileID: 4572345758116214404}
+        m_TargetAssemblyTypeName: GuideTree, Assembly-CSharp
+        m_MethodName: Talk
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -392,19 +393,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3630bf0e5c614dcfab578a86154412e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueText:
-  - Greetings Nightmare Slayer!
-  - I am the oldest being in this village. An ancient being from the old times.
-  - Let me explain you how you can navigate your Way in the forests.
-  - You can move with WASD or the left analog stick.
-  - You can attack with left mouse click or the X button.
-  - When you have enough dream essence, you can press Q or the Y Button to switch
-    to nightmare mode.
-  - 'It will give you new abilities after you unlock them. But be careful: everything
-    is more dangerous in nightmares.'
-  - You can jump with space or the A button and dash with shift or the left trigger.
-  - Now try climbing on the roof of the water mill there.
-  - Good luck slayer!
+  dialogueText: []
+--- !u!114 &4572345758116214404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8343437414244068196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab32e9b98a2940c4a3996cafee42a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueAudio: []
 --- !u!1 &8749290290789144690
 GameObject:
   m_ObjectHideFlags: 0
