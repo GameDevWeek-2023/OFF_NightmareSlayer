@@ -31,11 +31,11 @@ public class RepeatingSpawner : MonoBehaviour
     {
         while (true)
         {
-            if(container == null)
+            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
+            if (container == null)
                 Instantiate(toSpawn, transform.position, Quaternion.identity, transform);
             else
                 Instantiate(toSpawn, transform.position, Quaternion.identity, container.transform);
-            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
         }
     }
 }

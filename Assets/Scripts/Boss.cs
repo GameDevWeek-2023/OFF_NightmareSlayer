@@ -45,7 +45,7 @@ public class Boss : MonoBehaviour
 
     public void StartAttackLoop()
     {
-        Attack();
+        Invoke("Attack",3);
     }
 
     private void Attack()
