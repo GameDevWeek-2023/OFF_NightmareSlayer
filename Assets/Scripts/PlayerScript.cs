@@ -214,7 +214,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if (jumpDelay == null) jumpDelay = StartCoroutine(JumpDelay());
+            if (jumpDelay == null && !playerInput.Movement.Jump.WasPerformedThisFrame()) jumpDelay = StartCoroutine(JumpDelay());
         }
 
 
@@ -432,7 +432,7 @@ public class PlayerScript : MonoBehaviour
         if (isGrounded) //Jump
         {
             rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
-            PlayAudio(jumpSound,.4f);
+            PlayAudio(jumpSound,.2f);
         }
         else
         {
@@ -442,7 +442,7 @@ public class PlayerScript : MonoBehaviour
                 rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
                 usedDoubleJump = true;
                 Instantiate(doubleJumpPS,transform.position, Quaternion.Euler(0,0,-115));
-                PlayAudio(jumpSound);
+                PlayAudio(jumpSound,.8f);
             }
         }
     }

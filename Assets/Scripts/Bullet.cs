@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1f, collidingLayers);
             if (hit)
             {
-                Debug.Log("Bounce");
+                //Debug.Log("Bounce");
                 Vector2.Reflect(transform.right, hit.normal);
                 
                 transform.rotation =Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right,Vector2.Reflect(transform.right, hit.normal)));

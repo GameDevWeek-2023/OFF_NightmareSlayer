@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 9067842503726703754}
   - component: {fileID: 700346558419484747}
   - component: {fileID: 6816443537067595941}
+  - component: {fileID: 6805648390343638817}
   m_Layer: 14
   m_Name: Frogboss
   m_TagString: Untagged
@@ -131,7 +132,7 @@ SpriteRenderer:
   m_SortingLayerID: -1709322225
   m_SortingLayer: -3
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 0fead4ff82cc7435eafada6f7cc20b4a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 374f14eb0549d46e293b5d2fb106f38b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -183,8 +184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phaseCount: 2
   phaseHealth: 50
-  minBreak: 3
-  maxBreak: 5
+  minBreak: 1
+  maxBreak: 3
   bossroomManager: {fileID: 0}
   currentPhase: 0
   alive: 1
@@ -382,6 +383,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   phases: 0101
+--- !u!114 &6805648390343638817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628922370924248126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c35ec38022dcf4888ab28698b13d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phases: 0001
+  spawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &2731158039488720142
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,7 +425,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2731158039488720142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 1.17, z: 0}
+  m_LocalPosition: {x: 0.25, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -584,6 +603,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrogTongue
       objectReference: {fileID: 0}
+    - target: {fileID: 4383966781010272245, guid: e649733260823c144a807e4d8bb89bf4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6148452532634969610, guid: e649733260823c144a807e4d8bb89bf4, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -594,7 +617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6148452532634969610, guid: e649733260823c144a807e4d8bb89bf4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.37
+      value: -1.28
       objectReference: {fileID: 0}
     - target: {fileID: 6148452532634969610, guid: e649733260823c144a807e4d8bb89bf4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -627,6 +650,14 @@ PrefabInstance:
     - target: {fileID: 6148452532634969610, guid: e649733260823c144a807e4d8bb89bf4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001583957789723048, guid: e649733260823c144a807e4d8bb89bf4, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.2158165
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001583957789723048, guid: e649733260823c144a807e4d8bb89bf4, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.26741028
       objectReference: {fileID: 0}
     - target: {fileID: 7001583957789723048, guid: e649733260823c144a807e4d8bb89bf4, type: 3}
       propertyPath: m_ConnectedRigidBody
