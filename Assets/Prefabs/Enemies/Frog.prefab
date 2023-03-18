@@ -168,7 +168,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 2112537084954659857}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ec9596c9a503a4d3483ebef85dc30e14, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -210,7 +210,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ec9596c9a503a4d3483ebef85dc30e14, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -267,14 +267,26 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6496272292293294472}
-        m_TargetAssemblyTypeName: Frog, Assembly-CSharp
-        m_MethodName: Die
-        m_Mode: 1
+      - m_Target: {fileID: -4303009123567484689}
+        m_TargetAssemblyTypeName: CollectibleSpawner, Assembly-CSharp
+        m_MethodName: SpawnCoins
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -4303009123567484689}
+        m_TargetAssemblyTypeName: CollectibleSpawner, Assembly-CSharp
+        m_MethodName: SpawnEssenceAndDie
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

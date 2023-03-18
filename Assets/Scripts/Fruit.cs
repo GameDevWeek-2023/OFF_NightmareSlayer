@@ -74,7 +74,6 @@ public class Fruit : MonoBehaviour
         switch (fruitType)
         {
             case FruitType.Dream:
-                //TODO do effect stuff on dream fruit
                 GetComponent<CollectibleSpawner>().SpawnEssence(15);
                 break;
             case FruitType.Heartberry:
@@ -82,6 +81,9 @@ public class Fruit : MonoBehaviour
                 PlayerScript.instance.FullHeal();
                 break;
         }
+
+        var audioClips = PlayerScript.instance.fruitSounds;
+        PlayerScript.instance.PlayAudio(audioClips[Random.Range(0,audioClips.Count)]);
 
         RemoveFruit();
     }

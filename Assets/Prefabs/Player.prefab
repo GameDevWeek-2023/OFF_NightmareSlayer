@@ -178,7 +178,7 @@ MonoBehaviour:
   afterDeathButton: {fileID: 0}
   movementSpeed: 8
   jumpSpeed: 14
-  ledgeForgivenessTime: 0.1
+  ledgeForgivenessTime: 0.15
   dashTime: 0.17
   dashSpeed: 20
   dashCooldown: 0.7
@@ -204,9 +204,27 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ebbe44c9bc6551a46acad3165b906171, type: 3}
   - {fileID: 8300000, guid: a958abe1006e0ec49a6ec804e3a7db6c, type: 3}
   - {fileID: 8300000, guid: 32aa3e679e5dcc64a9259459216cafc1, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: af12ae48a506b4b47995b97d88c136ff, type: 3}
+  - {fileID: 8300000, guid: 727d939a5524c02498c3272b632e8ed3, type: 3}
+  - {fileID: 8300000, guid: b005fe927aaad144890a82386311be4b, type: 3}
+  - {fileID: 8300000, guid: 114b7226b52a20c499c8f53403d3db76, type: 3}
+  coinSounds:
+  - {fileID: 8300000, guid: 820179b35d3703a4f8833f2cf6fc77d4, type: 3}
+  - {fileID: 8300000, guid: b2e72404b72bbb04798c4a162411e417, type: 3}
+  - {fileID: 8300000, guid: cdac6605d29155145af911ff67669750, type: 3}
+  essenceSounds:
+  - {fileID: 8300000, guid: 3b2f3b765452ae744a4dcb9be2982d8f, type: 3}
+  - {fileID: 8300000, guid: c31a3e4c3739bb8458dcabff507bdf27, type: 3}
+  - {fileID: 8300000, guid: 8ee6939ed7843534a84ca2bf771848fe, type: 3}
+  fruitSounds:
+  - {fileID: 8300000, guid: 00b0c6d44d10bee4abb0dcfd39006f54, type: 3}
+  - {fileID: 8300000, guid: b19bb5f08a2852648b0c771221878535, type: 3}
+  - {fileID: 8300000, guid: 1e5fbc6f6bb03464db766b32d4a37e5a, type: 3}
   jumpSound: {fileID: 8300000, guid: 014a42dee92593e49923302e4d121b3b, type: 3}
   dreamShiftSound: {fileID: 8300000, guid: bb2d992ad2ef4da4eb54fa2e87cfe60c, type: 3}
   recallSound: {fileID: 8300000, guid: a0b2f92c5e28a6544864a6c94af3bb7f, type: 3}
+  itemUnlockSound: {fileID: 8300000, guid: 0695db6103c3219468feaa3e65925633, type: 3}
   doubleJumpPS: {fileID: 3764968174383621156, guid: 34e0b594b95f7cc4ebe6b14ce722e4d9, type: 3}
   dashPSLeft: {fileID: 6074009276416733218}
   dashPSRight: {fileID: 3026929874102669904}

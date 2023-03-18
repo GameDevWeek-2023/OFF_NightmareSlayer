@@ -31,7 +31,7 @@ public class MusicManager : MonoBehaviour
             currentFade -= Time.deltaTime;
             float fade = fadeDuration * currentFade;
             (source1Active ? source1 : source2).volume = musicVolume * fade;
-            (!source1Active ? source1 : source2).volume = musicVolume * (1 - fade);
+            (!source1Active ? source1 : source2).volume = musicVolume * (1f - fade);
         }
     }
 
@@ -44,6 +44,16 @@ public class MusicManager : MonoBehaviour
     public void StartFade(float fadeDuration)
     {
         currentFade = fadeDuration;
+    }
+
+    public void Pause()
+    {
+        (source1Active ? source1 : source2).volume = 0f;
+    }
+
+    public void Resume()
+    {
+        (source1Active ? source1 : source2).volume = 1f;
     }
 
 }

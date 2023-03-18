@@ -36,7 +36,10 @@ public class HealthSystem : Hittable
         health -= amount;
         onGetDamage.Invoke();
         if(health <= 0)
+        {
             onDeath.Invoke();
+            PlayHitAudio();
+        }
     }
 
     public override void Damage(int amount, Vector2 direction)
@@ -47,7 +50,16 @@ public class HealthSystem : Hittable
         if(rb!=null)
             rb.velocity = direction;
         if (health <= 0)
+        {
             onDeath.Invoke();
+            PlayHitAudio();
+        }
+    }
+
+    private void PlayHitAudio()
+    {
+        var audioClips = PlayerScript.instance.hitSounds;
+        PlayerScript.instance.PlayAudio(audioClips[Random.Range(0,audioClips.Count)]);
     }
 
     public void Blink()

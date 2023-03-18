@@ -15,6 +15,13 @@ public class AudioObject : MonoBehaviour
         audioSource.clip = audioClip;
         StartCoroutine(IInitialize(audioClip.length));
     }
+    
+    public void Initialize(AudioClip audioClip, float volume)
+    {
+        audioSource.clip = audioClip;
+        audioSource.volume = volume;
+        StartCoroutine(IInitialize(audioClip.length));
+    }
 
     private IEnumerator IInitialize(float time)
     {

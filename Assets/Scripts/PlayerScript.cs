@@ -66,7 +66,7 @@ public class PlayerScript : MonoBehaviour
     private float attackCooldown = .16f;
     public LayerMask hittableLayers;
     private float attackHitKnockback = 10f;
-    private float attackHitEnemyKnockback = 5f;
+    private float attackHitEnemyKnockback = 9f;
     private bool movedAfterHit = true;
 
     //Hitpoints
@@ -100,9 +100,14 @@ public class PlayerScript : MonoBehaviour
     //Sounds
     public GameObject audioObject;
     public List<AudioClip> attackSounds;
+    public List<AudioClip> hitSounds;
+    public List<AudioClip> coinSounds;
+    public List<AudioClip> essenceSounds;
+    public List<AudioClip> fruitSounds;
     public AudioClip jumpSound;
     public AudioClip dreamShiftSound;
     public AudioClip recallSound;
+    public AudioClip itemUnlockSound;
 
     //Special Effects
     public GameObject doubleJumpPS;
@@ -313,10 +318,10 @@ public class PlayerScript : MonoBehaviour
     private void LateUpdate()
     {
         //soll transformation von horizontaler in vertikaler velocity an Schrägen verhindern
-        if (isGrounded && playerInput.Movement.Move.WasReleasedThisFrame() && !playerInput.Movement.Jump.WasPerformedThisFrame())
+        /*if (isGrounded && playerInput.Movement.Move.WasReleasedThisFrame() && !playerInput.Movement.Jump.IsPressed())
         {
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
-        }
+        }*/
 
         
         //Target finden für Grappling
@@ -427,7 +432,7 @@ public class PlayerScript : MonoBehaviour
         if (isGrounded) //Jump
         {
             rigidbody.velocity = new Vector2(rigidbody.velocity.x,jumpSpeed);
-            //PlayAudio(jumpSound);
+            PlayAudio(jumpSound,.4f);
         }
         else
         {
@@ -448,7 +453,9 @@ public class PlayerScript : MonoBehaviour
 
         float yVel = rigidbody.velocity.y;
         if (yVel > 0)
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0.4f*yVel);
+        {
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0.4f * yVel);
+        }
     }
 
     public void Heal()
@@ -525,8 +532,6 @@ public class PlayerScript : MonoBehaviour
 
     public void Respawn()
     {
-        //TODO Respawn alles nötige
-        //TODO Teleportiere zum Dorf
         rigidbody.velocity = Vector2.zero;
         
         GameManager.instance.SetNightmare(false);
@@ -642,8 +647,6 @@ public class PlayerScript : MonoBehaviour
                 enemyHealth.Damage(attackDamage, enemyKnockback * attackHitEnemyKnockback);
             }
         }
-        
-        //TODO do sfx stuff to indicate hit
 
         rigidbody.velocity =  playerKnockback* attackHitKnockback * (direction < 2 ? .2f:1f);
 
@@ -679,6 +682,7 @@ public class PlayerScript : MonoBehaviour
             Time.timeScale = 1;
             canMove = true;
             playerStats.SetActive(true);
+            MusicManager.instance.Resume();
             return;
         }
         
@@ -717,14 +721,14 @@ public class PlayerScript : MonoBehaviour
 
     public void ObtainCoins(int amount)
     {
-        //TODO effect stuff on obtaining coins
+        PlayAudio(coinSounds[Random.Range(0,coinSounds.Count)],.65f);
         coins += amount;
         SetUICoins();
     }
 
     public void ObtainEssence(float amount)
     {
-        //TODO effect stuff on obtaining essence
+        PlayAudio(essenceSounds[Random.Range(0,essenceSounds.Count)],.85f);
         dreamEssence += amount;
         if (dreamEssence > essenceCapacity) dreamEssence = essenceCapacity;
         SetUIEssenzBar();
@@ -811,8 +815,6 @@ public class PlayerScript : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-        //TODO Camera zurücksetzen
-        //TODO Particle stoppen
 
         canMove = true;
         Move(playerInput.Movement.Move.ReadValue<Vector2>());
@@ -1085,7 +1087,8 @@ public class PlayerScript : MonoBehaviour
 
     public void UnlockAbility(Sprite icon, string title, string description, AbilityType abilityType)
     {
-        //TODO SFX Stuff and sounds
+        MusicManager.instance.Pause();
+        PlayAudio(itemUnlockSound);
 
         Time.timeScale = 0;
         
@@ -1127,9 +1130,14 @@ public class PlayerScript : MonoBehaviour
         Gliding
     }
 
-    private void PlayAudio(AudioClip clip)
+    public void PlayAudio(AudioClip clip)
     {
         Instantiate(audioObject,transform).GetComponent<AudioObject>().Initialize(clip);
+    }
+    
+    public void PlayAudio(AudioClip clip, float volume)
+    {
+        Instantiate(audioObject,transform).GetComponent<AudioObject>().Initialize(clip,volume);
     }
 
     private void RecallStart()
