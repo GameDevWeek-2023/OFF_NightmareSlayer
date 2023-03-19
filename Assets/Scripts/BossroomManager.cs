@@ -97,6 +97,7 @@ public class BossroomManager : MonoBehaviour
             GameObject.Destroy(t.gameObject);
         }
         GameManager.instance.frogSlain = true;
+        MusicManager.instance.Restart();
         locked = false;
     }
 }
