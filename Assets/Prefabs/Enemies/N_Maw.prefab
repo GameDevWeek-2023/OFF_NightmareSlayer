@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNightmare: 1
-  attackDelay: 3.5
+  attackDelay: 1
   projectile: {fileID: 2372180177745886251, guid: 575acdd6fb9b649a49d67eafd35d8840, type: 3}
 --- !u!114 &6057841908778975257
 MonoBehaviour:

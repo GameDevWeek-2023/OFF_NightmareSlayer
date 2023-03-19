@@ -154,9 +154,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.5300667, y: -0.57985127}
-      - {x: 0.9267154, y: -0.91975707}
-      - {x: -1.337388, y: -0.014015824}
+    - - {x: 1.6043171, y: -0.53860104}
+      - {x: 1.5207179, y: -1.0187576}
+      - {x: -1.8186842, y: -0.7620074}
+      - {x: -1.4033883, y: 0.5717367}
       - {x: -0.77333266, y: 0.97656757}
       - {x: 1.358401, y: 0.053743437}
   m_UseDelaunayMesh: 0
@@ -173,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNightmare: 0
-  attackDelay: 3
+  attackDelay: 1
   projectile: {fileID: 0}
 --- !u!114 &793542379886031090
 MonoBehaviour:
