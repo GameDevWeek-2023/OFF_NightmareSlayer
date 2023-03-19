@@ -15,7 +15,6 @@ public class MusicManager : MonoBehaviour
     private float currentFade;
     private bool source1Active=false;
     private int currentTrack;
-    private bool bossfightIntro;
     private void Awake()
     {
         source1Active = GameManager.instance.nightmareMode;
@@ -66,7 +65,7 @@ public class MusicManager : MonoBehaviour
         source1.volume=musicVolume;
         source1.Play();
         source2.volume = 0;
-        bossfightIntro = true;
+        currentFade = 0;
         Invoke("BossFightLoop", bossfightStart.length);
     }
     public void BossFightLoop()
