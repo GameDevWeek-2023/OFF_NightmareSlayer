@@ -76,6 +76,7 @@ public class MusicManager : MonoBehaviour
 
     public void Restart()
     {
+        CancelInvoke();
         Awake();
     }
 
