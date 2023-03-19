@@ -10,7 +10,10 @@ public class VillageZone : MonoBehaviour
         if (CompareTag("Player"))
         {
             PlayerScript.instance.SetCanDreamShift(false);
-            GameManager.instance.SetNightmare(false);
+            if (GameManager.instance.nightmareMode)
+            {
+                GameManager.instance.SwitchNightmare();
+            }
         }
     }
     
