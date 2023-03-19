@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
     public TextMeshProUGUI coinsText;
     public GameObject deathScreen;
     public GameObject afterDeathButton;
-    public GameObject chainsOfNightmare;
+    //public GameObject chainsOfNightmare;
 
     //Movement
     private new Rigidbody2D rigidbody;
@@ -196,6 +196,7 @@ public class PlayerScript : MonoBehaviour
         SetUILives();
         SetUIEssenzBar();
         SetUICoins();
+        SetCanDreamShift(false);
         playerStats.SetActive(true);
 
         canDash = true;
@@ -802,7 +803,7 @@ public class PlayerScript : MonoBehaviour
     public void SetCanDreamShift(bool canShift)
     {
         canDreamShift = canShift; 
-        chainsOfNightmare.SetActive(!canShift);
+        //chainsOfNightmare.SetActive(!canShift);
     }
     
     private void DreamShift()
