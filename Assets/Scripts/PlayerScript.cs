@@ -196,7 +196,7 @@ public class PlayerScript : MonoBehaviour
         SetUILives();
         SetUIEssenzBar();
         SetUICoins();
-        SetCanDreamShift(false);
+        //SetCanDreamShift(false);
         playerStats.SetActive(true);
 
         canDash = true;
