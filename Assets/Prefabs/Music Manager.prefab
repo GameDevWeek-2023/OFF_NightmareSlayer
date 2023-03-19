@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1809982994024190589
 MonoBehaviour:
@@ -53,6 +53,8 @@ MonoBehaviour:
   musicVolume: 1
   source1: {fileID: 8172906543757495476}
   source2: {fileID: 3916731583566002670}
+  bossfightStart: {fileID: 0}
+  bossfightLoop: {fileID: 0}
 --- !u!82 &8172906543757495476
 AudioSource:
   m_ObjectHideFlags: 0
@@ -62,7 +64,7 @@ AudioSource:
   m_GameObject: {fileID: 5691929323061929626}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4319627577664456142, guid: 659b787728cdf834db8cf668a2878672, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -158,7 +160,7 @@ AudioSource:
   m_GameObject: {fileID: 5691929323061929626}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4319627577664456142, guid: 659b787728cdf834db8cf668a2878672, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
