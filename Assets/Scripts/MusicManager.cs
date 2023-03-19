@@ -18,9 +18,10 @@ public class MusicManager : MonoBehaviour
     private bool bossfightIntro;
     private void Awake()
     {
+        source1Active = GameManager.instance.nightmareMode;
         instance = this;
-        source1.volume = musicVolume;
-        source2.volume = 0;
+        (source1Active ? source1 : source2).volume = 0;
+        (!source1Active ? source1 : source2).volume = musicVolume;
         source1.clip = tracks[currentTrack].normal;
         source2.clip = tracks[currentTrack].nightmareMode;
         source1.Play();
@@ -76,6 +77,7 @@ public class MusicManager : MonoBehaviour
 
     public void Restart()
     {
+        CancelInvoke();
         Awake();
     }
 
