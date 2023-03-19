@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour
     
     //Input
     private PlayerInput playerInput;
-    private bool canMove = true;
+    public bool canMove = true;
     private Interactable currentInteractable;
     private bool canInteract = true;
     
