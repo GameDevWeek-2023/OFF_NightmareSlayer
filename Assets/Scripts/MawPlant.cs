@@ -50,8 +50,8 @@ public class MawPlant : MonoBehaviour
             animator.SetTrigger("Attack");
             
             yield return new WaitForSeconds(.35f);
-            Instantiate(projectile, transform.position + new Vector3(-0.663f,0.24f,0f),
-                quaternion.identity,transform);
+            Instantiate(projectile, transform.position + transform.rotation*new Vector3(-0.663f,0.24f,0f),
+                transform.rotation,transform);
             yield return new WaitForSeconds(.75f);
         }
     }

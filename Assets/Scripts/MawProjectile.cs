@@ -16,7 +16,7 @@ public class MawProjectile : MonoBehaviour
     private void Start()
     {
         transform.localScale = new Vector3(transform.parent.localScale.x,1,1);
-        rigidbody.velocity = Vector2.right * transform.parent.localScale.x * speed;
+        rigidbody.velocity = transform.right * transform.parent.localScale.x * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
