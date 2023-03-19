@@ -54,7 +54,7 @@ public class Frog : MonoBehaviour
             jumpCoolDown -= Time.deltaTime;
         }
 
-        if (Physics2D.Raycast(transform.position, flipped ? Vector3.left : Vector3.right, 1f, ground))
+        if (Random.Range(0f,1f) <= .3f)
         {
             flipped = !flipped;
             spriteRenderer.flipX = !flipped;

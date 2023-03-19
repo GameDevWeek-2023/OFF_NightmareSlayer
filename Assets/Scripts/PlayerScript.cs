@@ -28,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     public TextMeshProUGUI coinsText;
     public GameObject deathScreen;
     public GameObject afterDeathButton;
+    public GameObject chainsOfNightmare;
 
     //Movement
     private new Rigidbody2D rigidbody;
@@ -602,7 +603,7 @@ public class PlayerScript : MonoBehaviour
         ToSpawnPoint();
         BossroomGenerator.instance.Reload();
         Time.timeScale = 1;
-        canDreamShift = true;
+        //canDreamShift = true;
     }
 
     private void ToSpawnPoint()
@@ -800,7 +801,8 @@ public class PlayerScript : MonoBehaviour
 
     public void SetCanDreamShift(bool canShift)
     {
-        this.canDreamShift = canShift;
+        canDreamShift = canShift; 
+        chainsOfNightmare.SetActive(!canShift);
     }
     
     private void DreamShift()
