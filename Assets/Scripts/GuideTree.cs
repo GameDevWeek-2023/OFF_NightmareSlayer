@@ -26,6 +26,7 @@ public class GuideTree : MonoBehaviour
             "When you have enough dream essence (top left corner), you can press Q or the Y Button to switch to nightmare mode.",
             "It will give you new abilities after you unlock them. But be careful: everything is more dangerous in nightmares.",
             "You can jump with space or the A button and dash with shift or the left trigger.",
+            "You can hold V or Up on the D-Pad to return to this Village quickly. It will restore your health without the loss of your coins.",
             "Now try climbing on the roof of the water mill there to your right.",
             "Good luck slayer!"
         };
