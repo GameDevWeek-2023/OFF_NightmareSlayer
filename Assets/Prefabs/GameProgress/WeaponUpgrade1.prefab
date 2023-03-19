@@ -285,7 +285,7 @@ MonoBehaviour:
   interactionEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2800000, guid: ef3d9a347ae794f7fb3bf8ca0f223dc1, type: 3}
+      - m_Target: {fileID: 6710949073194517742}
         m_TargetAssemblyTypeName: AbilityUnlocker, Assembly-CSharp
         m_MethodName: Unlock
         m_Mode: 6
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e11280b07e25438481876b0592951a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: c29579ea32fef45639184235c97d9d93, type: 3}
+  icon: {fileID: 21300000, guid: ef3d9a347ae794f7fb3bf8ca0f223dc1, type: 3}
   title: Thorns of the Sword
   description: Thorns carved from hardened dream shards, which attach themselves
     to the sword and steel it. Your attacks now do more damage.
