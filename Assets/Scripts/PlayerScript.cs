@@ -109,15 +109,19 @@ public class PlayerScript : MonoBehaviour
     public AudioClip recallSound;
     public AudioClip itemUnlockSound;
     public AudioClip grapplingSound;
+    public AudioClip glidingSound;
 
     //Special Effects
     public GameObject doubleJumpPS;
     public GameObject dashPSLeft;
     public GameObject dashPSRight;
     public GameObject dreamShiftPS;
+    public GameObject recallPS; //TODO
     private LineRenderer grapplingLineRenderer;
     private GameObject currentRecallSound;
     private GameObject currentDialogueSound;
+    private GameObject currentGlidingSound;
+    private GameObject currentGrapplingSound;
 
     private void OnDestroy()
     {
@@ -142,7 +146,7 @@ public class PlayerScript : MonoBehaviour
         playerInput.Movement.Jump.performed += ctx => Jump();
         playerInput.Movement.Jump.canceled += ctx => CancelJump();
         playerInput.Movement.Attack.performed += ctx => Attack();
-        playerInput.Movement.Interact.performed += ctx => Interact();
+        //playerInput.Movement.Interact.performed += ctx => Interact();
         playerInput.Movement.DreamShift.performed += ctx => DreamShift();
         playerInput.Movement.DreamShift.canceled += ctx => CancelDreamShift();
         playerInput.Movement.Glide.performed += ctx => Glide(true);
@@ -426,6 +430,51 @@ public class PlayerScript : MonoBehaviour
 
     private void Jump()
     {
+        if (abilityGranted)
+        {
+            abilityGranted = false;
+            abilityScreen.gameObject.SetActive(false);
+            Time.timeScale = 1;
+            canMove = true;
+            playerStats.SetActive(true);
+            MusicManager.instance.Resume();
+            return;
+        }
+        
+        if (dialogueCoroutine != null)
+        {
+            if(dialogueState == 1)
+            {
+                dialogueState = 2;
+                return;
+            }
+
+            if (dialogueState == 2)
+            {
+                dialogueState = 1;
+                return;
+            }
+            if(dialogueState == 3)
+            {
+                if(currentDialogueSound != null) Destroy(currentDialogueSound);
+                canMove = true;
+                dialogueObject.SetActive(false);
+                dialogueText.text = "";
+                dialogueCoroutine = null;
+                playerStats.SetActive(true);
+                return;
+            }
+        }
+        
+        if(!canMove) return;
+        
+        if (currentInteractable != null)
+        {
+            currentInteractable.Interact();
+            walkingVelocity = 0;
+            return;
+        }
+        
         if(!canMove) return;
 
         movedAfterGrappling = true;
@@ -537,7 +586,7 @@ public class PlayerScript : MonoBehaviour
         rigidbody.velocity = Vector2.zero;
         
         GameManager.instance.SetNightmare(false);
-        MusicManager.instance.StartFade();
+        MusicManager.instance.Restart();
         
         InitializeStats();
         ToSpawnPoint();
@@ -705,6 +754,7 @@ public class PlayerScript : MonoBehaviour
             }
             if(dialogueState == 3)
             {
+                if(currentDialogueSound != null) Destroy(currentDialogueSound);
                 canMove = true;
                 dialogueObject.SetActive(false);
                 dialogueText.text = "";
@@ -853,13 +903,13 @@ public class PlayerScript : MonoBehaviour
 
     private void Glide(bool pressed)
     {
+        if(!canMove) return;
         if (isGrounded && pressed && canDash)
         {
             StartCoroutine(Dash());
         }
         
         if(!CanUseAbility(AbilityType.Gliding)) return;
-        if(!canMove) return;
 
         if (isGliding && !pressed)
         {
@@ -877,6 +927,10 @@ public class PlayerScript : MonoBehaviour
         rigidbody.velocity = Vector2.zero;
         rigidbody.gravityScale = 0f;
         animator.SetBool("isGliding",true);
+        
+        if(currentGlidingSound != null) Destroy(currentGlidingSound);
+        currentGlidingSound = Instantiate(audioObject, transform);
+        currentGlidingSound.GetComponent<AudioObject>().Initialize(glidingSound);
     }
 
     private void CancelGliding()
@@ -884,6 +938,8 @@ public class PlayerScript : MonoBehaviour
         isGliding = false;
         rigidbody.gravityScale = 1f;
         animator.SetBool("isGliding",false);
+        
+        if(currentGlidingSound != null) Destroy(currentGlidingSound);
     }
 
     private IEnumerator Dash()
@@ -896,6 +952,7 @@ public class PlayerScript : MonoBehaviour
         (transform.localScale.x > 0 ? dashPSRight : dashPSLeft).SetActive(true);
         
         movementLocked = true;
+        PlayAudio(jumpSound,.5f);
         float time = 0f;
 
         while (time < dashTime)
@@ -945,6 +1002,11 @@ public class PlayerScript : MonoBehaviour
         CancelGliding();
         movementLocked = true;
         animator.SetBool("isGrappling",true);
+        
+        if(currentGrapplingSound != null) Destroy(currentGlidingSound);
+        currentGrapplingSound = Instantiate(audioObject, transform);
+        currentGrapplingSound.GetComponent<AudioObject>().Initialize(grapplingSound);
+        
         canMove = false;
         movedAfterGrappling = false;
 
@@ -1073,7 +1135,7 @@ public class PlayerScript : MonoBehaviour
             {
                 if(currentDialogueSound != null) Destroy(currentDialogueSound);
                 currentDialogueSound = Instantiate(audioObject, transform);
-                currentRecallSound.GetComponent<AudioObject>().Initialize(dialogueAudio[i]);
+                currentDialogueSound.GetComponent<AudioObject>().Initialize(dialogueAudio[i]);
             }
 
             foreach (char c in sentence)

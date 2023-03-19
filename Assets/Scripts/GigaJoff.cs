@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class GigaJoff : MonoBehaviour
 {
-    public List<AudioClip> dialogueAudio;
+    public List<AudioClip> dialogueAudio1;
+    public List<AudioClip> dialogueAudio2;
 
     private DialogueStarter dialogueStarter;
     
@@ -47,6 +48,6 @@ public class GigaJoff : MonoBehaviour
     {
         List<string> text = GameManager.instance.frogSlain ? dialogue2 : dialogue1;
         
-        dialogueStarter.StartDialogue(text);
+        dialogueStarter.StartDialogue(text, !GameManager.instance.frogSlain ? dialogueAudio1:dialogueAudio2);
     }
 }

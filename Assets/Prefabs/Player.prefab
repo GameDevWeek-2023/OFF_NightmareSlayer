@@ -225,6 +225,8 @@ MonoBehaviour:
   dreamShiftSound: {fileID: 8300000, guid: bb2d992ad2ef4da4eb54fa2e87cfe60c, type: 3}
   recallSound: {fileID: 8300000, guid: a0b2f92c5e28a6544864a6c94af3bb7f, type: 3}
   itemUnlockSound: {fileID: 8300000, guid: 0695db6103c3219468feaa3e65925633, type: 3}
+  grapplingSound: {fileID: 8300000, guid: 8f7c6c0d36b0c654bb71f83353963ddb, type: 3}
+  glidingSound: {fileID: 8300000, guid: eb1abed9e8c9b744498ea157e30422a0, type: 3}
   doubleJumpPS: {fileID: 3764968174383621156, guid: 34e0b594b95f7cc4ebe6b14ce722e4d9, type: 3}
   dashPSLeft: {fileID: 6074009276416733218}
   dashPSRight: {fileID: 3026929874102669904}

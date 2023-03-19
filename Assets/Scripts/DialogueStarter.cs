@@ -8,7 +8,7 @@ public class DialogueStarter : MonoBehaviour
     public void StartDialogue(List<string> dialogueText, List<AudioClip> dialogueAudio)
     {
         PlayerScript.instance.SetDialogueSpeed(0.05f);
-        PlayerScript.instance.StartDialogue(dialogueText);
+        PlayerScript.instance.StartDialogue(dialogueText,dialogueAudio);
     }
     
     public void StartDialogue(List<string> dialogueText)

@@ -21,10 +21,10 @@ public class BossroomManager : MonoBehaviour
     void Entry()
     {
         playerInRoom = true;
-        Debug.Log("Entry");
         if (!GameManager.instance.frogSlain) { 
             locked = true;
             onEntry.Invoke();
+            MusicManager.instance.StartBossFight();
             Close();
         }
         virtualCamera.Priority = 15;

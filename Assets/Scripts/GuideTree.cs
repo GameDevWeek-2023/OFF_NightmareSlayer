@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GuideTree : MonoBehaviour
 {
-    public List<AudioClip> dialogueAudio;
+    public List<AudioClip> dialogueAudio1;
+    public List<AudioClip> dialogueAudio2;
 
     private DialogueStarter dialogueStarter;
     
@@ -18,8 +19,8 @@ public class GuideTree : MonoBehaviour
         dialogue1 = new List<string>
         {
             "Greetings Nightmare Slayer!",
-            "I am the oldest being in this village. An ancient being from the old times.",
-            "Let me explain you how you can navigate your Way in the forests...",
+            "I am the oldest being in this village. An ancient Ent from the old times.",
+            "Let me explain to you how you can navigate your way in the forests...",
             "You can move with WASD or the left analog stick.",
             "You can attack with left mouse click or the X button.",
             "When you have enough dream essence (top left corner), you can press Q or the Y Button to switch to nightmare mode.",
@@ -43,6 +44,6 @@ public class GuideTree : MonoBehaviour
     {
         List<string> text = GameManager.instance.frogSlain ? dialogue2 : dialogue1;
         
-        dialogueStarter.StartDialogue(text);
+        dialogueStarter.StartDialogue(text, !GameManager.instance.frogSlain ? dialogueAudio1:dialogueAudio2);
     }
 }
