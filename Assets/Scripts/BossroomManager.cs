@@ -101,5 +101,6 @@ public class BossroomManager : MonoBehaviour
         locked = false;
         
         Finisher.instance.Finish();
+        PlayerScript.instance.SetCanDreamShift(true);
     }
 }
