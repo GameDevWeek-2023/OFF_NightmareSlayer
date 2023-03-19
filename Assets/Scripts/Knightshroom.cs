@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Knightshroom : MonoBehaviour
 {
-    public List<AudioClip> dialogueAudio;
+    public List<AudioClip> dialogueAudio1;
+    public List<AudioClip> dialogueAudio2;
     
     private DialogueStarter dialogueStarter;
     
@@ -27,7 +28,7 @@ public class Knightshroom : MonoBehaviour
 
         dialogue2 = new List<string>
         {
-            "*My deepest gratefulness, noble knight.",
+            "My deepest gratefulness, noble knight.",
             "Now my children can play safely in the woods again without fear of nightmares.",
             "However, I still cannot take up my service to the king as long as the shroomcliffs are still plagued by nightmares.",
             "I know it is not proper for such a noble and code-bound knight as myself, but I hereby ask you, oh great nightmare slayer...",
@@ -41,6 +42,6 @@ public class Knightshroom : MonoBehaviour
     {
         List<string> text = GameManager.instance.frogSlain ? dialogue2 : dialogue1;
         
-        dialogueStarter.StartDialogue(text);
+        dialogueStarter.StartDialogue(text, !GameManager.instance.frogSlain ? dialogueAudio1:dialogueAudio2);
     }
 }

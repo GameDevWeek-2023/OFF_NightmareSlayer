@@ -406,6 +406,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabb1f91647df4f639ab8351f92c40c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueAudio1:
+  - {fileID: 8300000, guid: 0d200b340c7c6e94193733fecef5acb5, type: 3}
+  - {fileID: 8300000, guid: 54ebbf9bac1e6114dbe647e2af74e4a8, type: 3}
+  - {fileID: 8300000, guid: f0a705e81ace4cf4e9ba8c751109246e, type: 3}
+  - {fileID: 8300000, guid: 3ee1c1dbbb12bf241969275d80f6d4b8, type: 3}
+  - {fileID: 8300000, guid: 50ceaab75037fee4c9c7b2883c768541, type: 3}
+  - {fileID: 8300000, guid: 57dc9e1352bce4940bb66f00ea55c53b, type: 3}
+  dialogueAudio2:
+  - {fileID: 8300000, guid: e568fc1796260f64fb5c9914c989e154, type: 3}
+  - {fileID: 8300000, guid: deb2b32328f8e464281253d606a7277a, type: 3}
+  - {fileID: 8300000, guid: 004972c6756e9e240ad3878ac8d78e09, type: 3}
+  - {fileID: 8300000, guid: 430b3a01c0ebc6a4a891be6bd48795b1, type: 3}
+  - {fileID: 8300000, guid: 1559feafa7e275a44a8dc4e05ab88ebe, type: 3}
+  - {fileID: 8300000, guid: 8b437497fe3e478448c73781c382a4db, type: 3}
+  - {fileID: 8300000, guid: a225df850515c1c4998a8cba629780b2, type: 3}
 --- !u!1 &8749290290789144690
 GameObject:
   m_ObjectHideFlags: 0
