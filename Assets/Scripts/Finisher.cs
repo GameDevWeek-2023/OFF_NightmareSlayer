@@ -38,7 +38,7 @@ public class Finisher : MonoBehaviour
         
         finisherTexture.SetActive(false);
         PlayerScript.instance.Respawn();
-        PlayerScript.instance.canMove = false;
+        PlayerScript.instance.canMove = true;
         MusicManager.instance.Resume();
         doubleJump.SetActive(true);
     }
