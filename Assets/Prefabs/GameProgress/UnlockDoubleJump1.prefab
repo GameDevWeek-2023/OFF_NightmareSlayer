@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1128195166613955283}
   - component: {fileID: 6710949073194517742}
   m_Layer: 8
-  m_Name: UnlockGrappling1
+  m_Name: UnlockDoubleJump1
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,13 +309,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e11280b07e25438481876b0592951a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 2f3c9f895813b1e49b4b03a10bcb6675, type: 3}
-  title: Grappling Hook
-  description: With it you can swing along grapes to reach new heights! Apparently,
-    this object is an item of those nightmares of the forest and therefore cannot
-    be used in reality. Press the left trigger (E) when you are in range of a grape
-    to use it.
-  abilityType: 2
+  icon: {fileID: 21300000, guid: 33ccd2defeeb0564280ab45f0eac8a57, type: 3}
+  title: Double Jump
+  description: This leg of an old companion gives you the ability to jump a second
+    time in the air!
+  abilityType: 3
 --- !u!1 &4289396329371057218
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +387,7 @@ SpriteRenderer:
   m_SortingLayerID: -1219689619
   m_SortingLayer: -2
   m_SortingOrder: -10
-  m_Sprite: {fileID: 21300000, guid: 2f3c9f895813b1e49b4b03a10bcb6675, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33ccd2defeeb0564280ab45f0eac8a57, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -527,7 +525,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7315079417415624310}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.072, y: 1.427, z: 0}
+  m_LocalPosition: {x: -0.072, y: 1.55, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -45,13 +45,14 @@ public class Frog : MonoBehaviour
         {
             if (Physics2D.Raycast(transform.position, Vector3.down, 1f, ground))
             {
-                Jump();
-
                 if (Random.Range(0f,1f) <= .3f)
                 {
                     flipped = !flipped;
                     spriteRenderer.flipX = !flipped;
                 }
+                
+                Jump();
+
                 jumpCoolDown = -1;
             }
         }
