@@ -57,6 +57,7 @@ public class PlayerScript : MonoBehaviour
     private PlayerInput playerInput;
     private bool canMove = true;
     private Interactable currentInteractable;
+    private bool canInteract = true;
     
     //Attack
     private int attackDamage = 3;
@@ -110,18 +111,21 @@ public class PlayerScript : MonoBehaviour
     public AudioClip itemUnlockSound;
     public AudioClip grapplingSound;
     public AudioClip glidingSound;
+    public AudioClip getDamageSound;
 
     //Special Effects
     public GameObject doubleJumpPS;
     public GameObject dashPSLeft;
     public GameObject dashPSRight;
     public GameObject dreamShiftPS;
-    public GameObject recallPS; //TODO
+    public GameObject recallPS;
+    public GameObject healPS;
     private LineRenderer grapplingLineRenderer;
     private GameObject currentRecallSound;
     private GameObject currentDialogueSound;
     private GameObject currentGlidingSound;
     private GameObject currentGrapplingSound;
+    private GameObject currentRecallPS;
 
     private void OnDestroy()
     {
@@ -430,52 +434,57 @@ public class PlayerScript : MonoBehaviour
 
     private void Jump()
     {
-        if (abilityGranted)
+        if(canInteract)
         {
-            abilityGranted = false;
-            abilityScreen.gameObject.SetActive(false);
-            Time.timeScale = 1;
-            canMove = true;
-            playerStats.SetActive(true);
-            MusicManager.instance.Resume();
-            return;
-        }
-        
-        if (dialogueCoroutine != null)
-        {
-            if(dialogueState == 1)
+            if (abilityGranted)
             {
-                dialogueState = 2;
+                abilityGranted = false;
+                abilityScreen.gameObject.SetActive(false);
+                Time.timeScale = 1;
+                canMove = true;
+                playerStats.SetActive(true);
+                MusicManager.instance.Resume();
                 return;
             }
 
-            if (dialogueState == 2)
+            if (dialogueCoroutine != null)
             {
-                dialogueState = 1;
-                return;
+                if (dialogueState == 1)
+                {
+                    dialogueState = 2;
+                    return;
+                }
+
+                if (dialogueState == 2)
+                {
+                    dialogueState = 1;
+                    return;
+                }
+
+                if (dialogueState == 3)
+                {
+                    if (currentDialogueSound != null) Destroy(currentDialogueSound);
+                    canMove = true;
+                    dialogueObject.SetActive(false);
+                    dialogueText.text = "";
+                    dialogueCoroutine = null;
+                    playerStats.SetActive(true);
+                    StartCoroutine(InteractCooldown());
+                    return;
+                }
             }
-            if(dialogueState == 3)
+
+            if (!canMove) return;
+
+            if (currentInteractable != null)
             {
-                if(currentDialogueSound != null) Destroy(currentDialogueSound);
-                canMove = true;
-                dialogueObject.SetActive(false);
-                dialogueText.text = "";
-                dialogueCoroutine = null;
-                playerStats.SetActive(true);
+                currentInteractable.Interact();
+                walkingVelocity = 0;
                 return;
             }
         }
-        
-        if(!canMove) return;
-        
-        if (currentInteractable != null)
-        {
-            currentInteractable.Interact();
-            walkingVelocity = 0;
-            return;
-        }
-        
-        if(!canMove) return;
+
+        if (!canMove) return;
 
         movedAfterGrappling = true;
         movedAfterHit = true;
@@ -511,7 +520,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Heal()
     {
-        //TODO effect stuff when healing
+        Instantiate(healPS,transform);
         lifes++;
         if (lifes > maxLifes) lifes = maxLifes;
         SetUILives();
@@ -519,6 +528,7 @@ public class PlayerScript : MonoBehaviour
 
     public void FullHeal()
     {
+        Instantiate(healPS,transform);
         lifes = maxLifes;
         SetUILives();
     }
@@ -531,7 +541,7 @@ public class PlayerScript : MonoBehaviour
         if(!godMode) lifes--;
         SetUILives();
 
-        //TODO hit effects
+        PlayAudio(getDamageSound,.6f);
 
         rigidbody.velocity = Vector2.zero;
 
@@ -930,7 +940,7 @@ public class PlayerScript : MonoBehaviour
         
         if(currentGlidingSound != null) Destroy(currentGlidingSound);
         currentGlidingSound = Instantiate(audioObject, transform);
-        currentGlidingSound.GetComponent<AudioObject>().Initialize(glidingSound);
+        currentGlidingSound.GetComponent<AudioObject>().Initialize(glidingSound,.7f);
     }
 
     private void CancelGliding()
@@ -1163,6 +1173,13 @@ public class PlayerScript : MonoBehaviour
         dialogueState = 3;
     }
 
+    private IEnumerator InteractCooldown()
+    {
+        canInteract = false;
+        yield return new WaitForSeconds(.6f);
+        canInteract = true;
+    }
+
     public void UnlockAbility(Sprite icon, string title, string description, AbilityType abilityType)
     {
         MusicManager.instance.Pause();
@@ -1234,7 +1251,7 @@ public class PlayerScript : MonoBehaviour
         currentRecallSound = Instantiate(audioObject, transform);
         currentRecallSound.GetComponent<AudioObject>().Initialize(recallSound);
 
-        //TODO some particle effect on recall
+        currentRecallPS = Instantiate(recallPS,transform.position,Quaternion.identity);
         
         yield return new WaitForSeconds(recallTime);
         
@@ -1242,6 +1259,7 @@ public class PlayerScript : MonoBehaviour
         
         recallCoroutine = null;
         Respawn();
+        if(currentRecallPS != null) Destroy(currentRecallPS);
         CheckForMove();
     }
 
@@ -1250,6 +1268,7 @@ public class PlayerScript : MonoBehaviour
         if(recallCoroutine != null)
         {
             if(currentRecallSound != null) Destroy(currentRecallSound);
+            if(currentRecallPS != null) Destroy(currentRecallPS);
             currentRecallSound = null;
             StopCoroutine(recallCoroutine);
             canMove = true;

@@ -227,10 +227,13 @@ MonoBehaviour:
   itemUnlockSound: {fileID: 8300000, guid: 0695db6103c3219468feaa3e65925633, type: 3}
   grapplingSound: {fileID: 8300000, guid: 8f7c6c0d36b0c654bb71f83353963ddb, type: 3}
   glidingSound: {fileID: 8300000, guid: eb1abed9e8c9b744498ea157e30422a0, type: 3}
+  getDamageSound: {fileID: 8300000, guid: de816419b585c480bb6e814ff2809fa9, type: 3}
   doubleJumpPS: {fileID: 3764968174383621156, guid: 34e0b594b95f7cc4ebe6b14ce722e4d9, type: 3}
   dashPSLeft: {fileID: 6074009276416733218}
   dashPSRight: {fileID: 3026929874102669904}
   dreamShiftPS: {fileID: 3058402364952522953, guid: b98c208862a9f4c41a4e22991d862eb3, type: 3}
+  recallPS: {fileID: 3440734555177012335, guid: f8c8dc2c25c06a6418de01a912fdffda, type: 3}
+  healPS: {fileID: 8549727655108999807, guid: e666b31d6555b494b92cb5ac1298c358, type: 3}
 --- !u!95 &1951016375659649493
 Animator:
   serializedVersion: 5
