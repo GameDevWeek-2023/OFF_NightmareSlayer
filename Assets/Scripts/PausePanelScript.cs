@@ -21,6 +21,7 @@ public class PausePanelScript : MonoBehaviour
     {
         Time.timeScale = 1;
         gameObject.SetActive(false);
+        PlayerScript.instance.canMove = true;
     }
 
     public void restart()
@@ -50,5 +51,16 @@ public class PausePanelScript : MonoBehaviour
         ReplaceEnemy.RemoveAll();
         
         SceneManager.LoadScene("MainMenu");
+    }
+
+    private void OnDisable()
+    {
+        settingspanel.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstChosenButton);
     }
 }

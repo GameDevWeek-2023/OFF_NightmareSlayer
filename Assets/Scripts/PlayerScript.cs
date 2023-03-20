@@ -1048,8 +1048,18 @@ public class PlayerScript : MonoBehaviour
 
     private void Pause()
     {
-        pausePanel.SetActive(true);
-        Time.timeScale = 0;
+        if (pausePanel.activeSelf)
+        {
+            pausePanel.SetActive(false);
+            Time.timeScale = 1;
+            canMove = true;
+        }
+        else
+        {
+            pausePanel.SetActive(true);
+            Time.timeScale = 0;
+            canMove = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
