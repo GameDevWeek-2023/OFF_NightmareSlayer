@@ -29,6 +29,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject deathScreen;
     public GameObject afterDeathButton;
     //public GameObject chainsOfNightmare;
+    public bool canPause = true;
 
     //Movement
     private new Rigidbody2D rigidbody;
@@ -166,11 +167,11 @@ public class PlayerScript : MonoBehaviour
 
     private void Start()
     {
-        InitializeStats();
+        InitializeStats(true);
         ToSpawnPoint();
     }
 
-    private void InitializeStats()
+    private void InitializeStats(bool resetEssence)
     {
         deathScreen.SetActive(false);
         
@@ -192,7 +193,7 @@ public class PlayerScript : MonoBehaviour
         grapplingLineRenderer.enabled = false;
 
         lifes = maxLifes;
-        dreamEssence = 1f;
+        if(resetEssence) dreamEssence = 1f;
         SetUILives();
         SetUIEssenzBar();
         SetUICoins();
@@ -591,14 +592,14 @@ public class PlayerScript : MonoBehaviour
         canGetDamage = true;
     }
 
-    public void Respawn()
+    public void Respawn(bool resetEssence)
     {
         rigidbody.velocity = Vector2.zero;
         
         GameManager.instance.SetNightmare(false);
         MusicManager.instance.Restart();
         
-        InitializeStats();
+        InitializeStats(resetEssence);
         ToSpawnPoint();
         BossroomGenerator.instance.Reload();
         Time.timeScale = 1;
@@ -792,9 +793,16 @@ public class PlayerScript : MonoBehaviour
 
     public void ObtainEssence(float amount)
     {
-        PlayAudio(essenceSounds[Random.Range(0,essenceSounds.Count)],.85f);
         dreamEssence += amount;
-        if (dreamEssence > essenceCapacity) dreamEssence = essenceCapacity;
+        if (dreamEssence > essenceCapacity)
+        {
+            dreamEssence = essenceCapacity;
+            PlayAudio(essenceSounds[Random.Range(0,essenceSounds.Count)],.45f);
+        }
+        else
+        {
+            PlayAudio(essenceSounds[Random.Range(0,essenceSounds.Count)],.85f);
+        }
         SetUIEssenzBar();
     }
 
@@ -1048,6 +1056,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Pause()
     {
+        if (!canPause) return;
         if (pausePanel.activeSelf)
         {
             pausePanel.SetActive(false);
@@ -1269,7 +1278,7 @@ public class PlayerScript : MonoBehaviour
         canMove = true;
         
         recallCoroutine = null;
-        Respawn();
+        Respawn(true);
         if(currentRecallPS != null) Destroy(currentRecallPS);
         CheckForMove();
     }
