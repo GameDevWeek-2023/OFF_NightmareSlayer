@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour
 
     public void StartAttackLoop()
     {
-        Debug.Log("StartAttackLoogp");
+        //Debug.Log("StartAttackLoogp");
         Invoke("Intro",3);
     }
 

@@ -65,7 +65,7 @@ public class PlayerScript : MonoBehaviour
     private float attackRange = .8f;
     private bool canGetDamage = true;
     private bool canAttack = true;
-    private float attackCooldown = .16f;
+    private float attackCooldown = .21f;
     public LayerMask hittableLayers;
     private float attackHitKnockback = 10f;
     private float attackHitEnemyKnockback = 9f;
@@ -196,7 +196,7 @@ public class PlayerScript : MonoBehaviour
         SetUILives();
         SetUIEssenzBar();
         SetUICoins();
-        //SetCanDreamShift(false);
+        SetCanDreamShift(true);
         playerStats.SetActive(true);
 
         canDash = true;
@@ -337,15 +337,13 @@ public class PlayerScript : MonoBehaviour
 
         
         //Target finden für Grappling
+        grapplingLineRenderer.enabled = false;
         if(!CanUseAbility(AbilityType.Grappling)) return;
         
         Vector2 ownPos = transform.position;
         float distanceToTarget = float.MaxValue;
-        //if(currentTarget != null) currentTarget.Untarget();
-        //currentTarget = null;
 
         Grappable newTarget = null;
-        grapplingLineRenderer.enabled = false;
         
         if (movementLocked) return;
         foreach (var target in grappableTargets)

@@ -20,6 +20,7 @@ public class Finisher : MonoBehaviour
     private void Start()
     {
         finisherTexture.SetActive(false);
+        doubleJump.SetActive(false);
     }
 
     public void Finish()

@@ -37,7 +37,7 @@ public class Caterpillar : MonoBehaviour
             yield return new WaitForSeconds(.5f);
             SwitchSprite();
 
-            if (!Physics2D.Raycast(transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .1f,Vector2.down,.3f,ground)
+            if (!Physics2D.Raycast(transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .1f,Vector2.down,.5f,ground)
                 || Physics2D.Raycast(transform.position + Vector3.down * .1f,Vector2.left * transform.localScale.x, .7f,ground))
             {
                 transform.localScale = new Vector3(-transform.localScale.x, 1f, 1f);
@@ -63,12 +63,12 @@ public class Caterpillar : MonoBehaviour
         Gizmos.color = Color.red;
         if(!canFly)
         {
+            Gizmos.DrawLine(transform.position + Vector3.down * .1f,
+                transform.position + Vector3.down * .1f + Vector3.left * transform.localScale.x * .4f);
             Gizmos.DrawLine(transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .1f,
-                transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .4f);
+                transform.position + Vector3.left * .7f * transform.localScale.x + Vector3.down * .7f);
             Gizmos.DrawLine(transform.position + Vector3.down * .1f,
-                transform.position + Vector3.down * .1f + Vector3.left * transform.localScale.x * .7f);
-            Gizmos.DrawLine(transform.position + Vector3.down * .1f,
-                transform.position + Vector3.down * .4f);
+                transform.position + Vector3.down * .6f);
         }
     }
 
