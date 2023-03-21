@@ -55,15 +55,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""a1ae8769-618f-4ee5-978e-48cf23b3d811"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Dream Shift"",
                     ""type"": ""Button"",
                     ""id"": ""365e97f9-16c5-44d5-b78e-307c87bd0562"",
@@ -145,8 +136,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0f601c89-f853-4983-83ec-5379652c2e05"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""id"": ""945562f2-9892-4c1c-ae25-9daa8486f327"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -156,23 +147,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8f390567-07ba-4100-964e-812539d8e4a1"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""id"": ""0f601c89-f853-4983-83ec-5379652c2e05"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d97b22b0-a065-4ea7-8b41-b88178548172"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -406,7 +386,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
         m_Movement_Attack = m_Movement.FindAction("Attack", throwIfNotFound: true);
-        m_Movement_Interact = m_Movement.FindAction("Interact", throwIfNotFound: true);
         m_Movement_DreamShift = m_Movement.FindAction("Dream Shift", throwIfNotFound: true);
         m_Movement_Glide = m_Movement.FindAction("Glide", throwIfNotFound: true);
         m_Movement_Grappling = m_Movement.FindAction("Grappling", throwIfNotFound: true);
@@ -476,7 +455,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Move;
     private readonly InputAction m_Movement_Jump;
     private readonly InputAction m_Movement_Attack;
-    private readonly InputAction m_Movement_Interact;
     private readonly InputAction m_Movement_DreamShift;
     private readonly InputAction m_Movement_Glide;
     private readonly InputAction m_Movement_Grappling;
@@ -489,7 +467,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Movement_Move;
         public InputAction @Jump => m_Wrapper.m_Movement_Jump;
         public InputAction @Attack => m_Wrapper.m_Movement_Attack;
-        public InputAction @Interact => m_Wrapper.m_Movement_Interact;
         public InputAction @DreamShift => m_Wrapper.m_Movement_DreamShift;
         public InputAction @Glide => m_Wrapper.m_Movement_Glide;
         public InputAction @Grappling => m_Wrapper.m_Movement_Grappling;
@@ -513,9 +490,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
             @DreamShift.started += instance.OnDreamShift;
             @DreamShift.performed += instance.OnDreamShift;
             @DreamShift.canceled += instance.OnDreamShift;
@@ -544,9 +518,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
             @DreamShift.started -= instance.OnDreamShift;
             @DreamShift.performed -= instance.OnDreamShift;
             @DreamShift.canceled -= instance.OnDreamShift;
@@ -584,7 +555,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
         void OnDreamShift(InputAction.CallbackContext context);
         void OnGlide(InputAction.CallbackContext context);
         void OnGrappling(InputAction.CallbackContext context);

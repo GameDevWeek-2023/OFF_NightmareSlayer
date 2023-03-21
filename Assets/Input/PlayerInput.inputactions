@@ -33,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "a1ae8769-618f-4ee5-978e-48cf23b3d811",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Dream Shift",
                     "type": "Button",
                     "id": "365e97f9-16c5-44d5-b78e-307c87bd0562",
@@ -123,8 +114,8 @@
                 },
                 {
                     "name": "",
-                    "id": "0f601c89-f853-4983-83ec-5379652c2e05",
-                    "path": "<Gamepad>/buttonWest",
+                    "id": "945562f2-9892-4c1c-ae25-9daa8486f327",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -134,23 +125,12 @@
                 },
                 {
                     "name": "",
-                    "id": "8f390567-07ba-4100-964e-812539d8e4a1",
-                    "path": "<Keyboard>/f",
+                    "id": "0f601c89-f853-4983-83ec-5379652c2e05",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d97b22b0-a065-4ea7-8b41-b88178548172",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
